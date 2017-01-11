@@ -1,0 +1,16 @@
+* Dev data server
+** TODO Figure out format of existing data
+** TODO Create dev server with dummy data
+* UI
+** TODO Sort out a basic view of the data
+   A table seems like it would work for a first pass.
+** TODO Allow users to select sessions to create a personal schedule
+** TODO Create "personal schedule" view
+* Local storage
+** TODO Create a local storage port
+   This seems like the most straightforward solution until such time as there's
+   a more "official" solution from the elm world.
+* Things to think about
+** How to respond when the schedule changes
+** How often to refresh the view
+** Some sort of alert system when selected sessions are about to start?
