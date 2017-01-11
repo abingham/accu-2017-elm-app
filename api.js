@@ -1,3 +1,5 @@
+// A simple node app for serving up some dummy test data.
+
 var jsonServer = require('json-server')
 
 // Returns an Express server
