@@ -1,7 +1,7 @@
 {
-  "name": "elm-tutorial-tryout",
+  "name": "accu-2017-elm-app",
   "version": "1.0.0",
-  "description": "Trying out the elm tutorial",
+  "description": "An Elm-based web app for the ACCU 2017 schedule",
   "main": "index.js",
   "scripts": {
     "api": "node api.js",
@@ -9,8 +9,8 @@
     "watch": "webpack --watch",
     "dev": "webpack-dev-server --port 3000"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Sixty North AS",
+  "license": "MIT",
   "dependencies": {
     "ace-css": "^1.1.0",
     "css-loader": "^0.26.1",
