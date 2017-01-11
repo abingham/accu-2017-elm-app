@@ -1,6 +1,10 @@
 # ACCU 2017 Elm-based schedule app
 
-This is an Elm-based web application for browsing the ACCU 2017 conference schedule.
+This is an Elm-based web application for browsing the ACCU 2017 conference
+schedule.
+
+The structure of this project is largely derived from the
+excellent [Elm Tutorial](https://www.elm-tutorial.org/).
 
 ## Building
 
