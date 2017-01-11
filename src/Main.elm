@@ -1,48 +1,19 @@
-module Main exposing (..)
+module ACCUSchedule exposing (..)
 
-import Html exposing (Html, div, text, program)
-import Model exposing (..)
-import Msg exposing (..)
-
-
--- VIEW
-
-
-view : Model -> Html Msg
-view model =
-    div []
-        [ text model ]
+import ACCUSchedule.Model as Model
+import ACCUSchedule.Msg as Msg
+import ACCUSchedule.Msg as Msg
+import ACCUSchedule.Update exposing (update)
+import ACCUSchedule.View exposing (view)
+import Html
+import Material
 
 
-
--- UPDATE
-
-
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
-    case msg of
-        NoOp ->
-            ( model, Cmd.none )
-
-
-
--- SUBSCRIPTIONS
-
-
-subscriptions : Model -> Sub Msg
-subscriptions model =
-    Sub.none
-
-
-
--- MAIN
-
-
-main : Program Never Model Msg
+main : Program Never Model.Model Msg.Msg
 main =
-    program
-        { init = init
+    Html.program
+        { init = (Model.initialTestModel, Material.init Msg.Mdl)
         , view = view
         , update = update
-        , subscriptions = subscriptions
+        , subscriptions = Material.subscriptions Msg.Mdl
         }
