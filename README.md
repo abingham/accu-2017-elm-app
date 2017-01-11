@@ -1,8 +1,8 @@
-# ACCU 2017 Elm-based schedule appEventNode
+# ACCU 2017 Elm-based schedule app
 
 This is an Elm-based web application for browsing the ACCU 2017 conference schedule.
 
-# Building
+## Building
 
 First install the necessary npm dependencies:
 ```
@@ -17,7 +17,7 @@ npm run build
 If this succeeds, the compiled and web-packed code will be in the `dist`
 directory.
 
-# Running the development server
+## Running the development server
 
 You can use node-foreman to run the API server and the client:
 ```
