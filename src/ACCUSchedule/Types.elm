@@ -22,16 +22,11 @@ type Session
     | Session3
 
 
-type Quickie
-    = Slot1
-    | Slot2
-    | Slot3
-    | Slot4
-
-
-type Slot
-    = Quickie Quickie
-    | Session Session
+type QuickieSlot
+    = QuickieSlot1
+    | QuickieSlot2
+    | QuickieSlot3
+    | QuickieSlot4
 
 
 type Room
@@ -43,8 +38,8 @@ type Room
     | GreatBritain
 
 type Track
-    = Cpp
-    | Other
+    = CppTrack
+    | OtherTrack
 
 type alias Presenter =
     { id : Int
@@ -59,7 +54,8 @@ type alias Proposal =
     , text : String
     , presenters : List Presenter
     , day : Day
-    , slot : Slot
+    , session : Session
+    , quickieSlot : Maybe QuickieSlot
     , room: Room
     , track: Track
     }
