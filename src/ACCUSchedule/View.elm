@@ -3,11 +3,17 @@ module ACCUSchedule.View exposing (view)
 import ACCUSchedule.Model as Model
 import ACCUSchedule.Msg as Msg
 import ACCUSchedule.Types as Types
-import Date
-import Date.Format
+
+
+-- import Date
+-- import Date.Format
+
 import Html exposing (a, div, h1, Html, p, text)
 import Html.Attributes exposing (style)
-import List
+
+
+-- import List
+
 import Material.Color as Color
 import Material.Layout as Layout
 
@@ -145,53 +151,52 @@ import Material.Layout as Layout
 --                 ]
 --             ]
 --         ]
+-- dayView : Types.Day -> Html Msg.Msg
+-- dayView day =
+--     let
+--         texts =
+--             [ text (Date.Format.format "%A" day.date)
+--             ]
+--                 ++ (List.map (.name >> text) day.rooms)
+--     in
+--         div []
+--             texts
+-- sortedDays : Types.Schedule -> List Types.Day
+-- sortedDays schedule =
+--     schedule.days
+--         |> List.sortBy (.date >> Date.toTime)
+-- scheduleView : Model.Model -> Html Msg.Msg
+-- scheduleView model =
+--     let
+--         getDay =
+--             sortedDays
+--                 >> List.drop model.selectedTab
+--                 >> List.head
+--         day =
+--             getDay model.schedule
+--     in
+--         case day of
+--             Just d ->
+--                 dayView d
+--             Nothing ->
+--                 text "oops! No such day!"
 
 
-dayView : Types.Day -> Html Msg.Msg
-dayView day =
-    let
-        texts =
-            [ text (Date.Format.format "%A" day.date)
-            ]
-                ++ (List.map (.name >> text) day.rooms)
-    in
-        div []
-            texts
-
-
-sortedDays : Types.Schedule -> List Types.Day
-sortedDays schedule =
-    schedule.days
-        |> List.sortBy (.date >> Date.toTime)
-
-
-scheduleView : Model.Model -> Html Msg.Msg
-scheduleView model =
-    let
-        getDay =
-            sortedDays
-                >> List.drop model.selectedTab
-                >> List.head
-
-        day =
-            getDay model.schedule
-    in
-        case day of
-            Just d ->
-                dayView d
-
-            Nothing ->
-                text "oops! No such day!"
+proposalsView : List Types.Proposal -> Html Msg.Msg
+proposalsView proposals =
+    text "coming soon"
 
 
 view : Model.Model -> Html Msg.Msg
 view model =
     let
         tabs =
-            model.schedule.days
-                |> List.map .date
-                |> List.sortBy Date.toTime
-                |> List.map (Date.Format.format "%A" >> text)
+            [ text "Workshops"
+            , text "Day 1"
+            , text "Day 2"
+            , text "Day 3"
+            , text "Day 4"
+            ]
     in
         div
             [ style [ ( "padding", "2rem" ) ] ]
@@ -207,7 +212,7 @@ view model =
                     []
                     -- , tabs = ( [ text "Milk", text "Oranges" ], [ Color.background (Color.color Color.Teal Color.S400) ] )
                 , tabs = ( tabs, [ Color.background (Color.color Color.Teal Color.S400) ] )
-                , main = [ scheduleView model ]
+                , main = [ proposalsView model.proposals ]
                 }
             ]
 

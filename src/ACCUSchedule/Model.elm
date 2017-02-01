@@ -10,14 +10,14 @@ import Material
 
 
 type alias Model =
-    { schedule : Types.Schedule
+    { proposals : List Types.Proposal
     , selectedTab : Int
     , mdl : Material.Model
     }
 
 initialModel : Model
 initialModel =
-    { schedule = Types.emptySchedule
+    { proposals = []
     , selectedTab = 0
     , mdl = Material.model
     }
@@ -25,18 +25,8 @@ initialModel =
 initialTestModel : Model
 initialTestModel =
     let
-        dates =
-            [ Date.fromParts 1999 Dec 24 23 59 0 0
-            , Date.fromParts 1999 Dec 23 23 59 0 0
-            , Date.fromParts 1999 Dec 22 23 59 0 0
-            ]
-
-        days =
-            List.map Types.emptyDay dates
-
+        presenter = Types.Presenter 0 "Joe" "Blow"
+        proposal = Types.Proposal 0 "Title" "Some text" [presenter] Types.Day1 (Types.Session Types.Session1) Types.Empire Types.Cpp
         model = initialModel
-
-        schedule =
-            List.foldl Types.addDay model.schedule days
     in
-        {model | schedule = schedule}
+        {model | proposals = [proposal]}
