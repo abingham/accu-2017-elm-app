@@ -1,10 +1,7 @@
 module ACCUSchedule.Json exposing (..)
 
 import ACCUSchedule.Types as Types
-
-
--- import Http
-
+import Http
 import Json.Decode exposing (andThen, Decoder, fail, int, list, maybe, string, succeed)
 import Json.Decode.Pipeline exposing (decode, optional, required)
 
@@ -147,19 +144,17 @@ proposalDecoder =
 
 
 
--- {-| Convert an HTTP error to human-readable string.
--- -}
+-- -- {-| Convert an HTTP error to human-readable string.
+-- -- -}
 -- errorToString : Http.Error -> String
 -- errorToString err =
 --     case err of
---         Http.UnexpectedPayload msg ->
---             msg
---         Http.NetworkError ->
---             "Network error"
---         Http.Timeout ->
---             "Timeout"
---         Http.BadResponse i r ->
---             r
+--         Http.BadUrl msg -> msg
+--         Http.Timeout -> "Timeout"
+--         Http.NetworkError -> "Network error"
+--         Http.BadStatus response -> "Bad status"
+--         Http.BadPayload msg response -> "Bad payload: " ++ msg
+
 -- suggestionDecoder : Decoder Types.Suggestion
 -- suggestionDecoder =
 --     decode Types.Suggestion

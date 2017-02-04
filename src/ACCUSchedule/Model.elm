@@ -4,8 +4,8 @@ module ACCUSchedule.Model exposing (initialModel, initialTestModel, Model)
 -}
 
 import ACCUSchedule.Types as Types
-import Date exposing (Month(..))
-import Date.Extra as Date
+-- import Date exposing (Month(..))
+-- import Date.Extra as Date
 import Material
 
 
@@ -26,7 +26,7 @@ initialTestModel : Model
 initialTestModel =
     let
         presenter = Types.Presenter 0 "Joe" "Blow"
-        proposal = Types.Proposal 0 "Title" "Some text" [presenter] Types.Day1 (Types.Session Types.Session1) Types.Empire Types.Cpp
+        proposal = Types.Proposal 0 "Title" "Some text" [presenter] Types.Day1 Types.Session1 Nothing Types.Empire Types.CppTrack
         model = initialModel
     in
         {model | proposals = [proposal]}

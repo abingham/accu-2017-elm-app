@@ -6,17 +6,28 @@ module ACCUSchedule.Comms exposing (..)
 @docs TODO
 -}
 
--- import ACCUSchedule.Json as Json
--- import ACCUSchedule.Msg as Msg
+import ACCUSchedule.Json as Json
+import ACCUSchedule.Msg as Msg
 -- import ACCUSchedule.Types as Types
--- import Json.Decode exposing (list)
+import Json.Decode exposing (list)
 -- import Json.Encode
--- import Http
+import Http
 -- import Platform.Cmd exposing (Cmd)
 -- import Task
 
-foo : Int
-foo = 42
+fetchProposals : Cmd Msg.Msg
+fetchProposals =
+    let
+        -- TODO: We need to get this URL through configuration or something, I guess.
+        url =
+            "http://localhost:8000/proposals/api/scheduled_proposals/"
+
+        request = Http.get url (list Json.proposalDecoder)
+
+    in
+        Http.send Msg.ProposalsResult request
+
+
 
 
 -- Process the result of submitting a Types.URL for conversion.
