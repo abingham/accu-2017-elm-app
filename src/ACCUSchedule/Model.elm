@@ -1,4 +1,4 @@
-module ACCUSchedule.Model exposing (initialModel, initialTestModel, Model)
+module ACCUSchedule.Model exposing (initialModel, Model)
 
 {-| The overal application model.
 -}
@@ -21,12 +21,3 @@ initialModel =
     , selectedTab = 0
     , mdl = Material.model
     }
-
-initialTestModel : Model
-initialTestModel =
-    let
-        presenter = Types.Presenter 0 "Joe" "Blow"
-        proposal = Types.Proposal 0 "Title" "Some text" [presenter] Types.Day1 Types.Session1 Nothing Types.Empire Types.CppTrack
-        model = initialModel
-    in
-        {model | proposals = [proposal]}

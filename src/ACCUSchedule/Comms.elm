@@ -20,7 +20,7 @@ fetchProposals =
     let
         -- TODO: We need to get this URL through configuration or something, I guess.
         url =
-            "http://localhost:8000/proposals/api/scheduled_proposals/"
+            "http://localhost:4000/proposals/api/scheduled_proposals"
 
         request = Http.get url (list Json.proposalDecoder)
 

@@ -181,10 +181,15 @@ import Material.Layout as Layout
 --             Nothing ->
 --                 text "oops! No such day!"
 
+proposalView : Types.Proposal -> Html Msg.Msg
+proposalView proposal =
+    div []
+        [text proposal.title]
+
 
 proposalsView : List Types.Proposal -> Html Msg.Msg
-proposalsView proposals =
-    text "coming soon"
+proposalsView =
+    List.map proposalView >> div []
 
 
 view : Model.Model -> Html Msg.Msg

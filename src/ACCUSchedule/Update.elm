@@ -5,6 +5,7 @@ import ACCUSchedule.Model exposing (Model)
 import Material
 import Return exposing (command, map, Return, return, singleton, zero)
 
+import Debug
 
 -- handleSubmissionSuccess : Types.StatusLocator -> Model -> Types.URL -> ( Model, Cmd Msg.Msg )
 -- handleSubmissionSuccess locator model source_url =
@@ -111,9 +112,12 @@ update msg model =
             { model | proposals = proposals } ! []
 
         Msg.ProposalsResult (Err msg) ->
-            -- TODO: display error message or something...maybe a button for
-            -- re-fetching the proposals.
-            model ! []
+            let
+                x = Debug.log "err" msg
+            in
+                -- TODO: display error message or something...maybe a button for
+                -- re-fetching the proposals.
+                model ! []
 
         Msg.SelectTab idx ->
             { model | selectedTab = idx } ! []

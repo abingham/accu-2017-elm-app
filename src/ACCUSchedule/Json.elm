@@ -139,8 +139,8 @@ proposalDecoder =
         |> required "day" day
         |> required "session" session
         |> optional "quickie_slot" (maybe quickieSlot) Nothing
-        |> required "room" room
-        |> required "track" track
+        -- |> required "room" room
+        -- |> required "track" track
 
 
 

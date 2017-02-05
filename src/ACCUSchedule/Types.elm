@@ -56,8 +56,8 @@ type alias Proposal =
     , day : Day
     , session : Session
     , quickieSlot : Maybe QuickieSlot
-    , room: Room
-    , track: Track
+    -- , room: Room
+    -- , track: Track
     }
 
 -- type ConversionDetails
