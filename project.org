@@ -10,6 +10,9 @@
 ** TODO Allow users to select sessions to create a personal schedule
 ** TODO Create "personal schedule" view
 ** TODO Button to reload schedule
+** TODO Remove "workshops" from tabs
+** TODO Use days of week rather than day numbers for tabs
+** TODO Footer with basic nav and SN details.
 * Local storage
 ** TODO Create a local storage port
    This seems like the most straightforward solution until such time as there's
