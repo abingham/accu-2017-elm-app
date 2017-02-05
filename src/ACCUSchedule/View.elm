@@ -13,6 +13,13 @@ import Material.Options as Options
 import Material.Typography as Typo
 
 
+titleBackgroundColor : Color.Color
+titleBackgroundColor =
+    Color.color Color.LightBlue Color.S100
+
+infoBackgroundColor =
+    Color.color Color.Grey Color.S100
+
 dayString : Types.Day -> String
 dayString day =
     case day of
@@ -113,11 +120,11 @@ proposalCard proposal =
     in
         Card.view
             [ Options.onClick (Msg.VisitProposal proposal) ]
-            [ Card.title [ Color.background (Color.color Color.LightBlue Color.S100) ]
+            [ Card.title [ Color.background titleBackgroundColor ]
                 ([ Card.head [] [ text proposal.title ]
                  ]
                 )
-            , Card.title [ Color.background (Color.color Color.Grey Color.S100) ]
+            , Card.title [ Color.background infoBackgroundColor ]
                 ([ Card.subhead [] [ text (presenters proposal) ]
                  , Card.subhead [] [ text location ]
                  ]
@@ -204,14 +211,18 @@ proposalView proposal =
         Grid.grid []
             [ Grid.cell [ Grid.size Grid.All 8 ]
                 [ Options.styled p
-                    [ Typo.title ]
+                    [ Typo.title
+                    , Color.background titleBackgroundColor
+                    , Options.css "padding" "25px"
+                    ]
                     [ text proposal.title ]
                 , Options.styled p
-                    [ Typo.subhead ]
-                    [ text (presenters proposal) ]
-                , Options.styled p
-                    [ Typo.subhead ]
-                    [ text location ]
+                    [ Typo.subhead
+                    , Options.css "padding" "10px"
+                    , Color.background infoBackgroundColor]
+                    [ text (presenters proposal)
+                    , br [] []
+                    , text location]
                 , Options.styled p
                     [ Typo.body1 ]
                     [ text proposal.text ]
