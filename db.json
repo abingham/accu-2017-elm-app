@@ -10,6 +10,7 @@
                     "last_name": "Douglas"
                 }
             ],
+            "room": "empire",
             "session": "session_1",
             "text": "Are you using enums to return error states from functions (or even an int or bool!)? Do you find writing exception safe C++ a poor return on coding investment, and end up avoiding using most of the STL entirely because it could throw exceptions in all sorts of unhelpful places? Have you ever wondered what on earth the C++ 11\u2019s <system_error> header is actually useful for?\n\nOne might think that after thirty years C++ would have decided upon a canonical way of handling errors, but it is very clear the jury remains out with heavy fragmentation in the C++ user base as to how best to handle errors. The new systems programming languages Rust and Swift have chosen a canonical error handling system based on immediate stack unwinding returns of integer error codes in a monadic wrapper e.g. Rust\u2019s Result<T> and Option<T>. Efforts are underway to standardise something similar for C++ with optional<T> and soon WG21 LEWG\u2019s expected<T, E> which recently lost its monadic operations as it gets pared ever further down to its essentials for standardisation.\n\nThis talk reviews these four standardised error handling techniques in C++, and how well the three major compilers and library implementations implement these techniques into overhead. I will also be introducing for the first time my own solution to this problem called _outcomes_ (implemented by a proposed Boost.Outcome library) which implement a very impure and dirty - but very lightweight on compile and runtime overhead - simple \u201cmongrel monad\u201d outcome<T>, result<T> and option<T> transport factory specifically targeted at extending C++ 11\u2019s std::exception_ptr and std::error_code in a more convenient to use form, thus providing a unified lossless error handling system for C++. I am hoping these will eventually form part of SG14 (games/low latency)\u2019s recommendations for maximum performance C++ as a lighter weight and more convenient to use for error handling alternative to the LEWG expected<T, E>.\n\n\nTimeplan\n20 mins: Explanation of these C++ 11 methods of error handling: C error code, exception throws, std::error_code &ec.\n20 mins: Explanation of optional<T> and expected<T, E> as a means of error handling.\n20 mins: Explanation of outcome::basic_monad<T, EC, E> and how it differs from expected<T, E>\n20 mins: Many pretty graphs comparing time and space overheads.\n10 mins: Questions.\n",
             "title": "Mongrel Monads, Dirty, Dirty, Dirty"
@@ -24,6 +25,7 @@
                     "last_name": "Dionne"
                 }
             ],
+            "room": "bristol_2",
             "session": "session_3",
             "text": "In most languages, metaprogramming is a powerful tool that allows writing more expressive and more maintainable code. It is usually relatively straightforward, and even average Joe programmers can use it to increase their productivity. In C++, metaprogramming is an obscure art that very few understand and that is never taught as part of the normal curriculum. Even worse is the fact that almost every presentation about metaprogramming is overly complicated, using tricky corners of the language and an unintuitive approach to achieve even simple goals. This presentation will try to break the mold and present metaprogramming in a way that's easy to grasp. Using C++14 and the Boost.Hana library, we will show how metaprogramming can be done with a reasonably high level of expressiveness, leaving dirty template tricks far behind. We will see how metaprogramming can be used as a tool for making day-to-day programming easier, more enjoyable and more efficient, even for people that are not C++ gurus.",
             "title": "Metaprogramming in C++14"
@@ -38,6 +40,7 @@
                     "last_name": "Rose"
                 }
             ],
+            "room": "great_britain",
             "session": "session_1",
             "text": "Behaviour Driven Development is an agile development technique that improves collaboration between technical and non\u00adtechnial embers of the team, by exploring the problem using examples. These examples then get turned into exectuable specifications, often called \u2018scenarios\u2019. The scenarios should be easy to read by all team members, but writing them expressively is harder than it looks!\n\nIn this 90 minute workshop you will learn how to write expressive BDD scenarios. We\u2019ll start by giving you a *very* brief introduction to BDD. You\u2019ll then be introduced to different writing styles by reviewing pre\u00adprepared scenarios. If there's still time, you\u2019ll get a chance to write your own scenarios based on examples that we\u2019ll bring along.\n\nWe\u2019ll be using Gherkin, the syntax used by Cucumber and SpecFlow \u00ad but you won\u2019t need a computer.\n",
             "title": "Writing good BDD scenarios"
@@ -52,6 +55,7 @@
                     "last_name": "Rose"
                 }
             ],
+            "room": "bristol_3",
             "session": "session_1",
             "text": "Test Driven Development (TDD) and Behaviour Driven Development (BDD) are very similar.\n\nI'll explain why the most important part of both acronyms is the first 'D' for Driven and why it would be better if the second 'D' stood for Design.\n\nWe'll explore what challenges you might face when trying to adopt this way of working and what benefits you will reap when you succeed.",
             "title": "Intro to TDD and BDD"
@@ -66,6 +70,7 @@
                     "last_name": "Fahller"
                 }
             ],
+            "room": "bristol_2",
             "session": "session_2",
             "text": "A popular technique in unit testing is to break dependencies by\nreplacing collaborators of the unit under test with mock\nobjects. Mocking frameworks makes it easier to create mock objects.\n\nTrompeloeil is a new, open source, mocking framework written in C++14. It is easy to use while also allowing great expressive power.\n\nThis presentation will show how to use Trompeloeil by following the step-by-step development of an example program using TDD (test driven development.) The example will begin with the most basic usage and go on to cover increasingly more advanced topics, including:\n\n* testing patterns\n* techniques for controlling sequential ordering relations\n* how to represent data in violation messages\n* managing the life time of mock objects\n* writing matchers\n* disambiguating overloads\n\nThe presentation will also include call outs for participation to help further the development.\n\nLevel: intermediate->advanced",
             "title": "Using Trompeloeil, a mocking framework for modern C++"
@@ -80,6 +85,7 @@
                     "last_name": "Griffiths"
                 }
             ],
+            "room": "great_britain",
             "session": "session_2",
             "text": "I'm a developer and I get frustrated when things are harder than they should be. Our product (Mir) was harder to release and to use than it should be but no-one cared enough to do anything about it.\n\nMy employer allows time for (approved) \"side projects\". Exploiting this, I started writing an \"Abstraction Layer\" (MirAL) as a proof-of-concept that these problem could be solved.\n\nOver time it became apparent that this approach solved other problems and management interest grew. Until MirAL became my \"day job\" and adopted as part of the product.\n\nThis talk covers the both the technical and organisational aspects of the problem and the solution. Hopefully, comparisons can be made with the experience of attendees.",
             "title": "The MirAL Story"
@@ -94,6 +100,7 @@
                     "last_name": "Cunnell"
                 }
             ],
+            "room": "great_britain",
             "session": "session_2",
             "text": "Since the introduction of the Bitcoin crypto currency by Satoshi Nakamoto in 2008, there has been an explosion of interest in the adoption and use of blockchain, the fundamental technology underlying Bitcoin (and its many variants). At Mosaic Financial Markets we have been researching ways of understanding and applying blockchain technology, focussing primarily (but not exclusively) on the Ethereum blockchain, as Ethereum offers a fully programmable 'smart contract' capability. \n\nThere is an enormous amount of interest (and hype) surrounding blockchains - we will explain what we have discovered, cut though some of the hype, and we hope give you some suggestions for working with this technology. \n\nWe have found that to successfully build blockchain applications, we needed to change the way we were thinking about the application architecture, understanding the benefits and costs of using a globally distributed, trustless, resilient and immutable transaction record.  \n\nThis session will give you an overview of the fundamental concepts behind blockchains, including Bitcoin and its variants, Ethereum, R3's Corda and other platforms under development. We will explain how we have lived with a rapidly-evolving platform which has undergone significant disruptive events, including the (in)famous 'DAO hack'. We have built three proof-of-concept Ethereum applications to help us understand what does and doesn't work, and we will show you how and why we built them. \n",
             "title": "Introduction to Blockchain technology, and how to build something useful with it"
@@ -108,6 +115,7 @@
                     "last_name": "Balaam"
                 }
             ],
+            "room": "empire",
             "session": "session_3",
             "text": "It sounds too difficult for mere mortals, but in principle a programming language interpreter is a relatively simple program.  To demonstrate the main ideas involved, I wrote a very simple programming language called Cell (github.com/andybalaam/cell) and in this session we will walk through how it works.\n\nCell's interpreter is written in Python, and the Cell language itself is designed to be as simple as possible to implement.  This leads to some different trade-offs from most other languages, but hopefully leaves the main concepts intact.\n\nWe will walk through the code of Cell's lexer (40 lines), parser (81 lines) and evaluator (92 lines) and on the way cover the main ideas you need to write your own language, including detecting the different symbols and literals the programmer wrote, building them up into a tree structure, evaluating the logic that is being represented, and writing a standard library of basic functions and structures.\n\nThis session is suitable for someone who has never thought of writing a programming language before.  We will assume a working knowledge of Python code in places, but it should be simple enough to follow for anyone who regularly writes code in any language.",
             "title": "How to write a programming language"
@@ -122,6 +130,7 @@
                     "last_name": "Orr"
                 }
             ],
+            "room": "bristol_3",
             "session": "session_2",
             "text": "Modern development environments and debuggers enable us to spend much of our time writing and reading source code.\nThis makes the life of a developer much easier and most of the time we can reason about our program solely based on the source code itself.\n\nHowever, from time to time we need to understand the layers beneath our high level language; for example when debugging a program or a crash.\n\nWhat sense can we make of a page of assembly language code - and how do we find the most important information easily?\n\nI'll look at some typical use cases, mainly focussing on 64-bit C++ programs as these are relatively \"close to the metal\".\n\n- What instructions are most common, and roughly what do they correspond to?\n- How do I walk the stack to find my caller(s)?\n- Where are my variables hiding?\n\nThe intent is to help you in relating the assembly language view of a program to the lines of source code.\n\n(No prior knowledge of assembler is required.)",
             "title": "Bluff your way in x64 assembler"
@@ -136,6 +145,7 @@
                     "last_name": "Orr"
                 }
             ],
+            "room": "bristol_1",
             "session": "session_2",
             "text": "Your chance to put questions to a selection of members of the ISO C++ committee. Here are a few ideas:\n\n* What's in the next standard?\n* What's the best (and worst) thing about standard C++?\n* How can I get involved in the process?\n",
             "title": "Grill the C++ committee"
@@ -150,6 +160,7 @@
                     "last_name": "Dodkins"
                 }
             ],
+            "room": "empire",
             "session": "session_3",
             "text": "We often use the metaphor of smell to describe issues with code which haven't necessarily manifested, but could end up causing serious problems (\u201ccode smells\u201d).\n\nArchitectural and habitability smells can help guide us during low-level debugging. The goal of this session is to give participants the tools they need to help refine their own and others\u2019 sense of code smell further.\n\nParallels will be drawn between techniques for refining actual sense of smell and improving debugging techniques.\n\nFirst 40 minutes - theoretical overview\n\n- The difficulties of low-level, real-time debugging, including different types of trace and their advantages and disadvantages\n- Testing - where it works, where it\u2019s hard, and where it\u2019s impossible\n- Habitability and how it relates to bugs\n- Overview of lots of different \u201ccode smells\", all with real world, embedded examples\n\nNext 40 minutes - mob programming practical\n\nFun, real-world problem with a custom threading implementation. There will be no libraries involved here - a complete (albeit small) scheduler / RTOS will be provided that isn\u2019t quite working correctly.\n\nThe group will be split into \u201cmob teams\u201d of 4-5 people and set up next to a large monitor each (which I will provide) so they can \"mob program\u201d together in order to solve the problem. Mob programming is a relatively new Agile technique which we regularly use to solve difficult problems. Each person in the team takes in turns to \u201cdrive\u201d at the keyboard.\n\nThere will be prizes for the winning team.",
             "title": "Improving Sense of Smell for Low-Level Debugging"
@@ -164,6 +175,7 @@
                     "last_name": "Simpson"
                 }
             ],
+            "room": "empire",
             "session": "session_2",
             "text": "It is unusual to find software which does not have to perform I/O of some kind, be it talking to persistent storage devices or communicating between networked machines. These operations are typically categorised by the fact that they incur latency - time which your software must wait patiently before it can continue its work. In a world ever reliant on distributed computing, with trends such as \"cloud\" and \"micro-services\", this concern has never been more prevalent. Developing software which is correct and resource efficient is not an easy task at the best of times, so involving slow networks and flaky spindles of rust will not make our life easier. Software which is heavily reliant on I/O is often complex in nature, as we encounter a number of trade-offs to achieve the perfect balance of efficiency, correctness and maintainability.\n\nIs there finally light at the end of the tunnel? Patterns are now gaining acceptance in younger languages which are gaining a broad, cross-language acceptance not often seen. This talk will take a brief look at the history of writing I/O centric software, and the techniques employed over time. By understanding these and the reason for each evolution, we can be better equipped to write, test and debug asynchronous software. Whilst C and C++ will serve as a basis for most of the talk, emphasis will also be placed on language independent concepts where appropriate.\n\nTopics to be covered will include:\n\n* Why I/O is hard - the trade-offs\n** Efficiency, performance, utilisation\n** Correctness, reasoning, safety, testability\n* The baseline - blocking I/O\n* Forking and threading\n* Select and poll\n* Epoll et al - \u201cC10K\u201d\n* Callback based libraries (e.g. ASIO)\n* Why std::future is not the future for I/O\n* Coroutines - are we there yet?\n\nGiven time, the talk will briefly summarise techniques which have been employed in other languages, are not trivially available, or have lacked wide adoption in C/C++, such as: communicating sequential processes (Occam, Go), user-space (green) threads, task-stealing. We may discover that through all the techniques discussed, there is a lot more in common between them than is obvious at first glance.",
             "title": "History of Time: Asynchronous C++"
@@ -178,6 +190,7 @@
                     "last_name": "Kazakova"
                 }
             ],
+            "room": "bristol_1",
             "session": "session_3",
             "text": "With its history going back to the early days of programming, rich heritage, tons of legacy code mixed with modern language features and patterns, quickly evolving language standards, and a variety of tools in the environment, C++ can be tricky and easily enable hacks and inaccurate solutions if you don\u2019t cook it right.\n\nDeveloping language tools (and IDEs in particular) is a good litmus test for such problems. When a tool gets confused by some code or fails to provide the full intelligence it\u2019s supposed to possess, doesn\u2019t that mean that developers should also pay more attention and be more careful in the same situations? This talk is dedicated to bringing such situations to light and sharing lessons learned.\n\nWe\u2019ll cover core language trickiness and peculiarities, including preprocessor and context-dependent parsing, and how the modern language standards can be helpful.\n\nWe\u2019ll also look at some good practices that can help prevent shooting yourself in the leg with C++, and will reflect on C++ Code Guidelines.\n\nWe\u2019ll analyze the tooling heritage as well, looking at the variety of build systems, compilers, debuggers, unit testing frameworks and package managers. Understanding the drawbacks of how they are integrated into language tools will give us insight into their limitations as well as into more accurate and error-free development in C++.",
             "title": "A look at C++ through the glasses of a language tool"
@@ -192,6 +205,7 @@
                     "last_name": "Holmes"
                 }
             ],
+            "room": "bristol_1",
             "session": "session_3",
             "text": "Many of the concepts presented in Alexandrescus infamous book were arguably ahead of their time. Many of the concepts could not be effectively or cleanly expressed due to a lack of language features and the user was often exposed to too much complexity.\n \nNow 15 years later we have many more tools. Now alexandrescus as well as similar statically linking yet powerful and generic design patterns are proving invaluable in resource constrained and low latency fields.\n\nIn this talk I will share my experience creating \"post modern\" C++ abstractions for bare metal hard realtime systems as well as my work on the tools needed to provide sleek and sexy public interfaces for these libraries such as various improvements to template metaprogramming libraries, lazy evaluation techniques and named parameters. \n\nI hope to add idioms and design patterns to any advanced programmers toolbox allowing them to more efficiently and more effectively abstract whatever domain they work in.\n",
             "title": "Modern C++ Design reloaded"
@@ -206,6 +220,7 @@
                     "last_name": "Holmes"
                 }
             ],
+            "room": "great_britain",
             "session": "session_1",
             "text": "The only boost.parameter library was seldom used, mainly because it is macro hell getting it working, its not SFINAE friendly and the return type of a function cannot depend on the types of the inputs. \nWith modern C++ we can solve all those problems elegantly. This works especially well when making factory functions which spit out policy based class specializations.",
             "title": "Named parameters"
@@ -220,6 +235,7 @@
                     "last_name": "Horlock"
                 }
             ],
+            "room": "bristol_3",
             "session": "session_3",
             "text": "Recent European financial regulations have required \"traceable time\". The ability to prove the correctness of you timestamps relative to a defined reference such as UTC. The first such requirement within civilian industries.\n\nIn this talk, we will take a look at the regulations and why they are challenging. We will define some words with which we can describe time readings, look at how time arrives at our machines, how we trace it, and how std::chrono and in fact all current programming languages lets us down. \n\nWe will then look into the future and see how the hard to do will become increasingly harder; we'll suggest why this is not just for the banks and hedge funds, how provably accurate wall clock time is going to be increasingly important in a connected, heterogeneous world.\n\nFinally, we will have a look at what we can to rectify these shortcomings and propose some ideas around abstract APIs and possible underlying implementation options. This latter part of the session, in particular, will seek thoughts and comments from the audience on architecture specific constraints/solutions.\n\nThis talk should be easily accessible to all levels, though an interest in how computers measure time will be useful.\n\nThose in Banking/Finance and also high-performance distributed (grid/cloud) computing will find direct relevance. Internet of Things, self-driving cars, and multimedia broadcasting should also find relevance.",
             "title": "Time gentlemen please"
@@ -239,6 +255,7 @@
                     "last_name": "Jagger"
                 }
             ],
+            "room": "great_britain",
             "session": "session_3",
             "text": "This is a fun session based on the popular UK game show \"Countdown\" [1] and its parody, \"8/10 cats does Countdown\". [2]\n\nIn each round, instead of picking vowels and consonants the teams take it in turns to pick ~6 C++ tokens from 5 categories: keywords, identifiers, operators, punctuators, and literals! \n\nThe aim of each round is to write the smallest program (excluding whitespace) containing all the tokens. After ~8 mins we all stop and review the submissions. Points will be awarded!\n\nThere will be winners and losers, but most of all, there will be learning and fun.\n\nWe may also introduce some bonus rounds including surprise other languages!\n\nWe will be using the online coding practice site http://cyber-dojo.org to facilitate the competition.\n\nNumbers are limited: at most 8 teams, two people per team. \n\nIf you aren't in an official team, you can still be part of the audience, where you are invited to \"play along at home\".\n\n[1] http://www.channel4.com/programmes/countdown\n\n[2] http://www.channel4.com/programmes/8-out-of-10-cats-does-countdown\n",
             "title": "ACCU does Countdown"
@@ -253,6 +270,7 @@
                     "last_name": "Kelly"
                 }
             ],
+            "room": "great_britain",
             "session": "session_3",
             "text": "Because CMake is already over 15 years old, best practices have changed over time, in particular in the last 4 years. This talk will explore how to achieve some tasks using modern CMake idioms, as well as tooling and future directions.\n\nC and C++ developers wishing to build code on multiple platforms will often rely on CMake to find dependencies and generate their buildsystem.\n\nThe Internet is full of ways to write CMake code as it was common in 2006. However, CMake itself has moved on. A new set of APIs introduced in more-recent CMake versions aim for a conceptual consistency, simplicity and modularity in CMake code which was not previously possible.\n\nCMake backward compatibility promises ensure that existing code continues to work, but as for C++, this form of \u2018Modern CMake\u2019 aims to simplify the developer experience, result in easier, more understandable and maintainable code, and establish future direction for how we use CMake.\n\nThis presentation will illustrate some differences and advantages between legacy approaches to CMake code and \u2018Modern CMake\u2019. After this presentation, the audience will be able to easily recognize legacy code and be able to make refactoring steps to improve the buildsystem code.",
             "title": "Embracing Modern CMake"
@@ -267,6 +285,7 @@
                     "last_name": "Rosvall"
                 }
             ],
+            "room": "bristol_3",
             "session": "session_3",
             "text": "Collective Code Ownership is a tenet in most Agile methodologies and many Agile books suggest enforcing this with Pair Programming. Collective Code Ownership can also be upheld through Code Reviews. Formal code reviews can be very costly and destructive. They are hard to implement correctly but when done right they can provide many benefits such as finding bugs and sharing knowledge about designs and code base within the team. This talk looks at how to perform effective code reviews with little effort using code review tools to achieve the same benefits as formal reviews. I will share experiences with code review tools and compare a few available tools.\n",
             "title": "Practical Code Review using tools"
@@ -281,6 +300,7 @@
                     "last_name": "Kloss"
                 }
             ],
+            "room": "bristol_3",
             "session": "session_3",
             "text": "As Uncle Bob pointed out, software is everywhere, and without software, nothing works.\n\nThat gives us great power, and - as we all know - with great power comes great responsibility.\n\nWe have to make choices every day that affect others, sometimes in subtle and non-intuitive ways. To mention just a few\n- What logs should we capture? How does that change if we have to hand them over to the government?\n- Are our hiring practices fair? Are we sure about that? \n- Is there bias in our algorithms that unfairly disadvantages some groups people?\n- Is the core function of our software ethical? How about if it's deliberately misused?\n\nI hope to raise a few of these questions, not to provide answers - I don't have any - but to stimulate debate.",
             "title": "The Ethics of Software - some practical considerations"
@@ -295,6 +315,7 @@
                     "last_name": "Law"
                 }
             ],
+            "room": "empire",
             "session": "session_1",
             "text": "Many programmers aspire to start a company. It's less often about getting rich as it is to pursue a vision for a computer program(s) that is much bigger than one person could do alone. Like most programmers who start up, I had no formal training and little experience outside of software development. I was naively confident, and didn't know what I didn't know (it turned out that that was a LOT!) In this talk I'll present some of the lessons I've learned along the way, many of which were a complete surprise to me. I'll cover getting investment, building the product, building a team, and getting and keeping customers. Little of this talk is directly about programming, but it is aimed at programmers who want to create code in order to create a business, or who want to create a business so that they can create the code they want. This talk contains candid, warts-and-all war-stories, and because it's for programmers, comes with a no adverts and no business-talk BS guarantee.",
             "title": "The programmer/CEO, and how to do a software startup"
@@ -309,6 +330,7 @@
                     "last_name": "Law"
                 }
             ],
+            "room": "empire",
             "session": "session_1",
             "text": "Test Driven Development, Continuous Integration (CI), and testing with elastic compute in the cloud mean that a typical software project today will run 1000's of times more tests every hour than an equivalent sized project would have run ten years ago. This is undeniably a huge advance on previous best practices, but it does bring with it a new challenge: how to triage and manage all of the test failures? This talk will investigate the implications of this challenge and shall examine techniques and technologies that can overcome it. Only then can CI finally deliver on its promise.",
             "title": "The missing piece of the continuous integration puzzle - what to do with all those test failures?"
@@ -323,6 +345,7 @@
                     "last_name": "Bailey"
                 }
             ],
+            "room": "bristol_3",
             "session": "session_2",
             "text": "The index has been a core part of Git since its inception and yet its existence and purpose are often stumbling blocks for newcomers to Git. Even people experienced with Git often struggle to separate its interface from its implementation details.\n\nThis talk aims to improve understanding of the index and to show how to take advantage of its power.\n\nFirst, we'll examine the history of Git's index - effectively the first feature ever added to Git - to help explain why the index is the way it is. I shall look at the background and rationale behind some of the other words used for index: \"cache\" and \"staging area\".\n\nNext, I want to examine the features of the index as it exists in Git today and to separate exactly what I think that all Git users need to understand from the benefits that the index brings to Git's implementation which aren't necessary for a Git beginner to be aware of.\n\nFinally, I'll demonstrate some index manipulation tips and trips that have practical use. These will include a look at cases where the plumbing commands such as read-tree, update-index and checkout-index can be usefully employed, use of an alternate index by defining GIT_INDEX_FILE and the performance benefits of filter-branch's --index-filter over more mundane alternatives.",
             "title": "Mastering Git's index"
@@ -337,6 +360,7 @@
                     "last_name": "Haun"
                 }
             ],
+            "room": "empire",
             "session": "session_1",
             "text": "Job ads often ask for creativity as one of the skills for software developers. But what does creativity in software development actually mean? And how can you be creative under pressure?\n\nThis talk introduces a simple method to help you trigger your creativity when under stress.",
             "title": "Requirement: Creativity"
@@ -351,6 +375,7 @@
                     "last_name": "Haun"
                 }
             ],
+            "room": "bristol_3",
             "session": "session_2",
             "text": "Presentations in meetings have a tendency to be long-winding, telling you things you already know, things you don't need to know, and things you don't need to know yet. The things you actually need to know are in there, too; somewhere. But it's hard to find them.\n\nWouldn't it be great if business presentations were more focussed on the actual needs of their audience? And if they would only take 15 minutes, including the time for Q&A? Not possible? Well, presentation expert Joey Asher promises that it is possible. We'll take a look at his approach and maybe you'll only be giving 15-minute presentations from now on, too.\n\nNote: This session is not a workshop but does have some interactive elements.",
             "title": "How to present effectively in a meeting"
@@ -370,6 +395,7 @@
                     "last_name": "Ferreira"
                 }
             ],
+            "room": "great_britain",
             "session": "session_1",
             "text": "This presentation will be a case study of Paxport travel industries initial adoption of Machine Learning where we will go over our tools selection of Python with Jupyter as the main framework and its importance when dealing with uncertainty and the need for quick and reliable experimentation.\n\nMore specifically we will be looking at a recommendation system for accommodation's bookings based on Collaborative Filtering approaches by going over different stages and pointing certain aspects such as important libraries used (Pandas, Scikit-learn, etc.), data preparation/analysis, performance/scalability needs, implementation/deployment choices and results evaluation.\n\nFinally we briefly conclude on how we benefited from the tools selection on the subject of A.I./Machine Learning and their importance for dealing with uncertainties such as data quality, company's current infrastructure, business model incompatibilities, etc.\n\nTarget audience should be beginners to expert programmers that are curious about the usage of Python for Machine Learning, namely Collaborative Filtering, by having a quick case study on this new and exciting area that is Artificial Intelligence.",
             "title": "Machine Learning with Python Case Study"
@@ -384,6 +410,7 @@
                     "last_name": "Josuttis"
                 }
             ],
+            "room": "great_britain",
             "session": "session_1",
             "text": "Assume, we implement a very simple class having a string as member.\n\nAs an ordinary Application Programmer:\n- How should it be used?\n- How should it be implemented?\nEven if you want to have the best performance!\n\nYou think you know the answer?\nWell, you might be wrong!\n\nLet's look at a simple class with a string member and see the effect using different implementation approaches (using constructors passing by value, by reference, or doing more sphisticated tricks).\n\nSooner than later we will fall into the deep darkness of universal references and enable if...",
             "title": "The nightmare of Move Semantics for Simple Classes"
@@ -398,6 +425,7 @@
                     "last_name": "Jagger"
                 }
             ],
+            "room": "bristol_3",
             "session": "session_1",
             "text": "In the 2016 conference I did a 90 minute talk on the design and evolution of cyber-dojo. In this talk I provide an update on its further evolution, talking about (but not limited to) its\n\n* further decoupling using micro-services\n* multi-stage Travis build pipeline\n* pros and cons of 100% coverage\n* selenium testing hosted in a docker image\n* Ruby custom mini-testing-framework\n* decision to abandon versioning\n* testing the micro-services using a dual client-server approach\n\nhttp://cyber-dojo.org is an open-source web-based application for hosting team-based coding dojos. \n",
             "title": "Design and Evolution of cyber-dojo"
@@ -412,6 +440,7 @@
                     "last_name": "Davidson "
                 }
             ],
+            "room": "bristol_1",
             "session": "session_1",
             "text": "The SG13 subgroup, HMI or Human-Machine interface, seeks to offer a 2D graphics API to the standard committee. This is a considerable improvement on stdout when it comes to output from programs.\n\nOne advantage such an API offers is a standard platform for game development: currently, one has to choose from a considerable array of libraries and engines such as OpenGL, DirectX, SDL, SFML, and so on. The job of merely creating and displaying a window is deeply non-trivial.\n\nThis talk will consider the prospect of developing games using only standard C++. It will cover the options available for the single developer learning to write games, and how this may change with the adoption of this new API. It will include plenty of simple examples and consider how this might change how C++ is taught and how this increases accessibility to school-age learners.",
             "title": "Writing games in very modern C++"
@@ -426,6 +455,7 @@
                     "last_name": "Matthews"
                 }
             ],
+            "room": "bristol_2",
             "session": "session_3",
             "text": "C++ programmers want fast and small code that is safe, generic and reusable. This talk shows how using the C++ type system and templates can achieve this using simple lightweight abstractions.\n\nType-rich APIs help avoid errors whilst improving readability, and template techniques provide reusable libraries for operators and their relationships with zero run-time overhead.",
             "title": "The C++ Type System Is Your Friend"
@@ -440,6 +470,7 @@
                     "last_name": "Smallshire"
                 }
             ],
+            "room": "bristol_3",
             "session": "session_2",
             "text": "Wireless sensors networks are a central feature of the Internet of Things. Unfortunately, many useful sensors are proprietary designs which use undocumented wireless protocols, locking our data into the vendor\u2019s devices or services. The closed nature of these protocols inhibits interoperability of these devices within larger systems, and might even be considered ethically dubious.\n\nI will tell the story of a small-scale, industrial reverse engineering effort to liberate our data from a proprietary solar irradiance meter which transmits measurements over a wireless link to an equally proprietary remote base-station.  By combining protocol analysers developed in Python and Excel with a logic analyzer, oscilloscope and a large measure of obstinate tenacity, we illustrate how the signal protocol was ultimately figured out. This information was used to inform an open-source protocol implementation in C++, designed to run on a simple open-source hardware device comprising an 8-bit microcontroller and a radio receiver connected to a Raspberry Pi.\n\nCuriously, the forensic process revealed several design flaws in the upstream proprietary sensor software, one of which results in silent correctness failures of the system, calling into question reliance on unpublished proprietary protocols in areas where there may be safety implications.\n\nThis session should be of interest to anybody interested in the Internet of Things, wireless sensors, embedded systems, hardware hacking, openness and puzzle solving.",
             "title": "Liberating Wireless Sensor Data"
@@ -454,6 +485,7 @@
                     "last_name": "Bingham"
                 }
             ],
+            "room": "great_britain",
             "session": "session_1",
             "text": "Elm is a statically-typed functional language designed for building reliable web applications with \u201cgreat performance and no runtime exceptions\u201d. Elm compiles to Javascript, is easy to embed into existing websites, and has great Javascript interop, meaning that you can use as little or as much Elm as you want in your project. In this talk I\u2019ll introduce the audience to Elm, look at its syntax and tooling, and show where it fits into the larger picture of web development. I\u2019ll also discuss the prescribed method for structuring programs built in Elm, \u201cThe Elm Architecture\u201d. \n\nElm has a great community and excellent documentation, so my goal with this talk isn\u2019t to give a comprehensive lecture on the language. Instead, I want to get you excited about the possibilities of Elm, maybe pique your interest in functional languages, and ultimately get you pointed in the right direction so that you can confidently start to explore Elm for yourself.",
             "title": "Functional Programming for the Web with Elm"
@@ -468,6 +500,7 @@
                     "last_name": "Lester"
                 }
             ],
+            "room": "bristol_2",
             "session": "session_1",
             "text": "It is good every now and then to pause and take stock and this applies to ACCU too.  Hence the aim of this session to discuss issues facing the ACCU in a relaxed and informal way. ACCU Committee Members will be on hand to participate in the conversation.  We will seed the session with some topics including: how do we widen our appeal; learn about what committee roles entail and how you can contribute, & how to setup a local group.  We are very interested to hear your concerns and ideas so please bring them along. Members and non members are all welcome.",
             "title": "ACCU - The View From The Conference"
@@ -482,6 +515,7 @@
                     "last_name": "Higgins"
                 }
             ],
+            "room": "bristol_3",
             "session": "session_3",
             "text": "ES6 is (almost) the most recent version of the language most commonly known as Javascript. It's publication in 2015 was1 the first update to Javascript since 2009 and brings a number of\npretty radical revisions to both language and library.  \n\nThis session takes a look at some of the most significant features, the impact they have way we write Javascript, how we can start using them today, and a look forward to Javascript's future evolution.\n",
             "title": "A Browse Through ES2016"
@@ -496,6 +530,7 @@
                     "last_name": "Nash"
                 }
             ],
+            "room": "empire",
             "session": "session_2",
             "text": "C++11 gave us lambdas in the language for the first time (if you ignore boost::lambda) - so it's a functional language now, right? There's a bit more to functional programming than having first class function objects. I'd even argue we still don't quite have that. But does that mean we can't do functional programming in C++? Yes. No. Maybe...\n\nFirst we have to define what functional programming actually is - and it may not be quite what you think. Then we need to see what valuable ideas have come out of the functional approach to software design and which ones we can use in C++ to good effect.\n\nIn the end we'll see that, while not strictly a functional programming language, we can get quite a long way with immutable data types, persistent data structures, atomic references, and - if you're not watching carefully - we might even throw the M word in there!\n",
             "title": "Functional C++ For Fun And Profit"
@@ -510,6 +545,7 @@
                     "last_name": "Birbacher"
                 }
             ],
+            "room": "bristol_2",
             "session": "session_2",
             "text": "Multithreading in C++ has been used successfully for many years prior to the introduction of C++ 11 to run programs on multi-core hardware.  Then the C++ 11 Memory Model for multithreading was introduced with much debate as to its proper application.  On the one hand some suggest not to bother with atomics and just use volatile if at all.  On the other hand some might be happy to have everything guarded with mutexes.  Either side may have been discouraged from looking deeper into the C++ 11 Memory Model, put of by its apparent complexity.\n    The talk will focus on different options of \u201cmemory order\u201d when using std::atomic.  It'll explain what the memory order is and what each of the options mean.  We'll take a look at the C++ memory model, sequencing of expressions and synchronization between threads.  The talk sheds light on compiler optimizations and generated assembly, examines out-of-order execution in CPUs and possible cache communication between cores.  In the end it should be clear what an atomic variable does apart from storing a value.",
             "title": "Atomic's memory orders, what for?"
@@ -524,6 +560,7 @@
                     "last_name": "Mertz"
                 }
             ],
+            "room": "bristol_1",
             "session": "session_3",
             "text": "The complexity of the C++ language, which allows for versatility and good performance in a range of different domains, results in a steep learning curve and a reputation for being hard to learn and master. The rapid development of C++ with the recent standards C++11, C++14 and C++17 brings a challenge. What is modern C++, how can we keep up, and how can we avoid to learn and teach outdated idioms?\nThe session discusses these challenges and then analyses the different information resources at our disposal, like books and different kinds of online content.",
             "title": "Learning (and teaching) modern C++ - Challenges and Resources"
@@ -538,6 +575,7 @@
                     "last_name": "Goodrich"
                 }
             ],
+            "room": "great_britain",
             "session": "session_1",
             "text": "For many functions which iterate over elements of a node-based container (such as std::list and std::map), the bottleneck is frequently due to accessing data from memory while chasing pointers.  In bidirectional containers, these functions may be rewritten to reduce the number of data dependencies, thereby allowing modern processors to perform more operations in parallel.\n\nIn this session we will rewrite a few methods of std::list to demonstrate some of these techniques and benchmark them against current standard library implementations.",
             "title": "Missing Optimizations on Node-based Containers"
@@ -552,6 +590,7 @@
                     "last_name": "Sommerlad"
                 }
             ],
+            "room": "bristol_1",
             "session": "session_2",
             "text": "Leading C++ experts propose the C++ Core Guidelines to foster better coding practices for C++ developers. The Core Guidelines build around safe coding practices without losing C++'s efficiency, such as using const deliberately or minimize the use of raw pointers. Many of the guidelines provide hints for enforcing the guideline and some even require or imply effective static analysis tooling to make them useful.\nOur institute has a long history of providing static analysis within an IDE and also suggesting transformation for improving code, such as, applying C++11's initializers, instead of uninitialized or old-fashioned initialized variable declarations. While already addressing some areas covered by the Core Guidelines, we recently targeted many more of those explicitly and provide corresponding static analysis and quick-fix refactoring support to adjust existing C++ code toward following the core guidelines.\nThis talk will introduce the C++ Core Guidelines and demonstrate how you can modernize your code and improve its quality without losing performance through automated tooling built into Cevelop.\nTopics covered:\n\n* What are the C++ Core Guidelines\n** Philosophy and goals\n** Areas covered\n** Examples\n* Automatic \"repair\" of code\n** const Correctness\n** Constructors/destructors/assignment\n** Pointers and arrays\n* Future work/Outlook\n\nThe audience will get an overview of the C++ Core Guidelines. Using practical code examples improvements through application of the guidelines is demonstrated. Tools will be shown, that aid in detection of guideline violation and automatic repair to guideline-conforming code. Attending developers will be enabled to apply the Core Guidelines in the future to create or refactor to safer and more maintainable C++ code.",
             "title": "C++ Core Guidelines - Modernize your C++ Code Base"
@@ -566,6 +605,7 @@
                     "last_name": "Henney"
                 }
             ],
+            "room": "empire",
             "session": "session_2",
             "text": "Ask programmers what comes to mind when you say concurrency and most are likely to say threads. Ask what comes to mind when you say threads and most are likely to say locks or synchronisation. These assumptions are so deeply held that they define and constrain how programmers are taught and think about concurrency: thread safety is almost synonymous with the avoidance of race conditions and the guarded protection of mutable state. But this is only one quadrant of four possibilities, a quadrant diagram partitioned by mutable\u2013immutable along one axis and shared\u2013unshared along another.\n\nWhether C++, C# or Java, many mainstream languages support programmers in all four quadrants, not just the synchronisation quadrant. From immutability to actors, this talk will take a look at patterns and practices that encourage thinking and coding outside the locked box.",
             "title": "Thinking Outside the Synchronisation Quadrant"
@@ -580,6 +620,7 @@
                     "last_name": "Ignatchenko"
                 }
             ],
+            "room": "great_britain",
             "session": "session_2",
             "text": "Whether we like it or not, most of the programs out there are not deterministic; making developers to take an effort and start thinking about determinism, is known to be difficult.\n\nOn the other hand, the case for deterministic programs is strong, with multiple benefits available for such programs. These benefits include such things as replay-based regression testing using production data, production post-mortem analysis (including both server-side and client-side), low-latency fault tolerance, and so on. \n\nSuch benefits become even more important for interactive distributed systems, where various race conditions tend to represent a lion share of those bugs which manage to slip into production. \n\nFortunately, there exists a very practical approach (which has succeeded for a rather large real-world project) that allows to make components of a distributed system deterministic. \n\nThe talk discusses benefits of deterministic components for distributed systems, different definitions of determinism from practical standpoint, and the way to implement deterministic components (very shortly - good old event-driven programs/ad-hoc FSMs/Reactors plus several tricks to make them deterministic). \n\nLevel: Intermediate/Expert",
             "title": "Deterministic Components for Interactive Distributed Systems: Benefits and Implementation"
@@ -594,6 +635,7 @@
                     "last_name": "K\u00fchl"
                 }
             ],
+            "room": "bristol_1",
             "session": "session_1",
             "text": "C++17 introduces parallel versions of the algorithms into the standard C++ library. The algorithms are intended for the general software development community rather than addressing a few specialist. It is becoming more important for all developers to understand how the parallel algorithms can be used.\n\nDifferent kinds of parallelism are exposed using corresponding execution policies. Each execution policy implies specific constraints for the use of algorithms to enable the respective parallel approaches. The interface for execution policies is described together with the constraints of the defined execution policies.\n\nThis presentation discusses the model behind the parallel algorithms and the associated constraints. Some example uses are shown together with results to motivate the importance of enabling parallelism in programs.\n\nThe current specification is an initial version exposing parallel interfaces and there are some proposals on refining the interface for better support of composition. The direction for making the parallel algorithms asynchronous is described together with some alternatives of how it can be designed.",
             "title": "Parallel Algorithms"
@@ -608,6 +650,7 @@
                     "last_name": "Love"
                 }
             ],
+            "room": "great_britain",
             "session": "session_3",
             "text": "You've written a function that takes an integer and returns true if that\nnumber is a multiple of both 3 and 5. How will you test it? You could\nthrow every integer at it, but that might take some time...\n\nProperty Based Testing has become increasingly popular of late. It's a\nform of parameterized unit-testing that automatically generates sample\ninputs to a test to try and dis-prove that test's assumptions.\n\nIt grew up in the Functional Programming world (Haskell, specifically)\nbut there's more to it than Functional 'chic'. With adaptations in many\nlanguages and styles, and integration with a plethora of popular testing\nframeworks, programmers of all kinds are finding Property Based Testing\na useful addition to their arsenal.\n\nFor a bit of fun, in this talk I will look at some simple problems that\nlend themselves to being tested this way, rather than, for example, by\nexample-based testing. And since it's enlightening to compare and\ncontrast styles and languages, I'll try and cover some different ones of\nthose, including C++, C#, F#, Python, Ruby, maybe some Scala, perhaps\neven a little Powershell. \n\nNo prior experience is required, but some exposure to automated testing in one or more languages will be helpful. Open to all.",
             "title": "Got To Test Them All"
@@ -622,6 +665,7 @@
                     "last_name": "Robinson"
                 }
             ],
+            "room": "bristol_2",
             "session": "session_3",
             "text": "C++ coroutines have not yet been standardised, but are available today in Visual Studio 2015 (coming soon to clang/llvm) in the form of the stackless coroutines/resumable functions [1] presented at CppCon2016 [2][3][4].\n\nThis session will look beyond the canonical examples of generators and asynchronous IO to see if coroutines can be leveraged in the pursuit of C++ DSLs to make concurrency easier to work with for humans - \"Concurrency at Human Scale\".\n\nAs of writing, the investigations and technology behind this talk are still evolving, so the outcome is not a foregone conclusion.\n\nOther material, illustrating the search for inspiration on how to tackle these problems, may include:\n\nA look at other systems for specifying, testing and reasoning about concurrency such as Leslie Lamport's PlusCal/TLA+ [5] (see also [6]).\n\nA look at the facilities for high level control flow manipulation afforded by other languages and runtime systems such as Racket's first class continuations, continuation marks and prompts [7][8].\n\nA look at other programming models for concurrency including Erlang's actors (in the form of C++ Erlesque Actors [9]), Linda's tuple spaces [10], and Syndicate's coordinated concurrent proramming [11].\n\nLevel: Intermediate to expert\n\nReferences:\n\n[1] Gor Nishanov, Jim Radigan :  Resumable Functions - N4402\nhttps://isocpp.org/files/papers/N4402.pdf\n\n[2] CppCon 2016: Jame McNellis - Introduction to C++ Coroutines\nhttps://www.youtube.com/watch?v=ZTqHjjm86Bw&list=PLHTh1InhhwT7J5jl4vAhO1WvGHUUFgUQH&index=41\n\n[3] CppCon 2016: Kenny Kerr & James McNellis \u201cEmbracing Standard C++ for the Windows Runtime\"\nhttps://www.youtube.com/watch?v=v0SjumbIips&index=61&list=PLHTh1InhhwT7J5jl4vAhO1WvGHUUFgUQH\n\n[4] CppCon 2016: Gor Nishanov \u201cC++ Coroutines: Under the covers\"\nhttps://www.youtube.com/watch?v=8C8NnE1Dg4A&index=87&list=PLHTh1InhhwT7J5jl4vAhO1WvGHUUFgUQH\n\n[5] Leslie Lamport: The PlusCal Algorithm Language\nhttp://research.microsoft.com/en-us/um/people/lamport/tla/pluscal.html\n\n[6] ACCU 2016: Dominic Robinson : Test Driven Specification \u2013 A Gentle Introduction to TLA+ (finding concurrency bugs before you write code)\nhttps://accu.org/index.php/conferences/accu_conference_2016/accu2016_sessions#Test_Driven_Specification_%E2%80%93_A_Gentle_Introduction_to_TLA+_(finding_concurrency_bugs_before_you_write_code)\n\n[7] Continuations in Racket\nhttps://docs.racket-lang.org/reference/cont.html\n\n[8] Mathew Flatt et al : Adding Delimited and Composable Control to a Production Programming Environment\nhttp://www.cs.utah.edu/plt/publications/icfp07-fyff.pdf\n\n[9] ACCU 2014: Dominic Robinson : Comfortable concurrency\nhttps://accu.org/index.php/conferences/accu_conference_2014/accu2014_sessions#comfortable_concurrency\nhttp://www.infoq.com/presentations/concurrency-models\n\n[10] Nichlas Carriero and David Gelernter : Linda in Context\nhttp://www.inf.ed.ac.uk/teaching/courses/ppls/linda.pdf\n\n[11] Tony Garnock-Jones and Matthias Felleisen : Coordinated Concurrent Programming in Syndicate\nhttps://www.google.co.uk/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwjD7M_Fgs7QAhUHCMAKHR8uBucQFggaMAA&url=http%3A%2F%2Fwww.ccs.neu.edu%2Fhome%2Ftonyg%2Fmarketplace%2Fcoordinated-concurrent-programming-in-syndicate-20160111-1409.pdf&usg=AFQjCNGZN1pub5uMIq-Bek7eH7-EuooN4w&bvm=bv.139782543,d.d24",
             "title": "Coroutines and C++ DSLs for Human Scale Concurrency"
@@ -636,6 +680,7 @@
                     "last_name": "Nepomnyachiy"
                 }
             ],
+            "room": "bristol_3",
             "session": "session_1",
             "text": "As most developers have experienced, code frequently calls into unreliable agents: databases, remote services and highly inefficient algorithms. The calls can timeout, throw exceptions or return invalid results. The industry has invested much time and money in devising software patterns that attempt to minimise the impact of these routine errors. We propose to record the execution history of such calls for the purpose of assessing the likelihood of a task completing successfully. Our system can decide to cancel a call that is likely to fail in order to save the resource of both the caller and the callee, generally improving system resilience. Additionally, the system validates the results returned from successful calls and provides a recourse mechanism for cancelled calls.  We achieve this by introducing instrumentation that is simple to add to C++ code that provides cancelling logic, validation, and result normalization.",
             "title": "Easy High Constancy"
@@ -650,6 +695,7 @@
                     "last_name": "Davis"
                 }
             ],
+            "room": "empire",
             "session": "session_1",
             "text": "Love them or loath them, passwords are here for the foreseeable future so we really should learn how to deal with them properly. So much of what we think we know about passwords is based on historical half truths, and actually makes how we generally handle them less secure. \n\nIn this session we'll look at how to safely, securely and quickly store passwords for login, and take a look at what implementation details you could be leaking by making people jump through hoops to generate a \"valid\" password.\n\nAimed at all levels from the absolute novice, to the advanced developer who may have picked up some bad habits, this light hearted, language agnostic talk will look at a simple problem that we persist in making hard for ourselves.",
             "title": "Passwords. Are. Not. Hard!"
@@ -664,6 +710,7 @@
                     "last_name": "Garcia"
                 }
             ],
+            "room": "bristol_1",
             "session": "session_1",
             "text": "Contracts programming is based in the idea that any operation has a number of preconditions and postconditions. Different instantiations of this idea has been used in different programming languages (Eiffel, Ada2012, C#).\n\nIn this talk, I will briefly cover the general ideas behind contracts programming. Then I will provide details on how this ideas can be incorporated into C++. I will present also the latest updates on the C++ contracts proposal that is under discusscion at the ISO C++ standards committee.\n\nAdditional note: The content of this talk will be influenced by the results of discussions at the March ISO C++ meeting where I will present the proposed wording of the feature.\n\nFor reference, please see the latest ISO C++ paper \"A Contract Design\"\n[http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0380r1.pdf]",
             "title": "Contracts programming after C++17"
@@ -683,6 +730,7 @@
                     "last_name": "D'Angelo"
                 }
             ],
+            "room": "bristol_2",
             "session": "session_3",
             "text": "Applications wanting to include 3D graphics have mostly had to rely on low level graphics APIs or on a number of higher level scene graph based libraries. Modern day 3D graphics however has increased in complexity and many of the existing C++ libraries have struggled to provide versatility and performance. This is likely to become even more problematic with the growth of Virtual Reality and Augmented Reality.\n\nQt 5.7 introduces Qt3D, a new library for integrating 3D real time rendering in C++ application. Qt 3D is structured around an Entity Component System (ECS) architecture which will be introduced. We will present how to add custom  geometries and materials to your scene, or how to deal with user's input.\n\nFurthermore, we will show how the ECS architecture has been used in two useful ways.  First, data related to entities and components can be very easily be modelled in a declarative language like QML (which has been key to Qt\u2019s recent development), enabling unprecedented ease of use for complex rendering techniques. Second, the separation of data and operations has facilitated the  creation of a highly concurrent simulation engine, enabling the integration of many different algorithms.\n\nThis talk will be interesting to any developer having to implement a 3D scene inside an application (wether already using Qt, or evaluating various technologies for this job). No prior knowledge of OpenGL or GPU programming is required for this talk.",
             "title": "Introduction to Qt 3D"
@@ -697,6 +745,7 @@
                     "last_name": "Smith"
                 }
             ],
+            "room": "bristol_3",
             "session": "session_1",
             "text": "To most of us the linker is a tool that combines the output of many compilations into a single output file, but to many its inner workings are a mystery.\n\nIn this session we'll deconstruct the linking process to reveal:\n- The component parts of an object file and how they map to your C/C++ source code\n- How a linker finds all the content your program needs\n- How the linker generates code and data to support dynamic linking, position independent code and thread-local storage.\n- How a linker combines all the component parts into a single file\n- How link time optimisation works\n\nWe'll be concentrating on the ELF object file format, using the System V dynamic linking conventions. The details of linking on Windows are different, but the underlying concepts are similar. \n\nThe talk is suitable for intermediate developers with a working knowledge of C, ideally on a Unix like system. No prior knowledge of linkers is assumed.",
             "title": "The Missing Link (the role of a linker in a development toolchain)"
@@ -711,6 +760,7 @@
                     "last_name": "Boddy"
                 }
             ],
+            "room": "bristol_3",
             "session": "session_1",
             "text": "Traditionally, memory usage analysis and memory leak analysis for C and C++\nprograms involve instrumenting either source code or binary code before\nrunning it through a series of tests.  Such an approach, depending on how\naggressively the code is instrumented, either results in false leaks, if the\ncode is not sufficiently instrumented to completely understand whether\nallocations are still in use, or distorts the timing so much that it is not\npractical to run on a regular basis.  What is worse, if the memory usage of\ninterest happened using code that was not instrumented, it may not be practical\nto reproduce the problem, for example due to dependence on some obscure code\npath or on some test that is expensive to run.\n\nAt VMware I have developed a tool called ah64 that avoids these issues by\nanalyzing un-instrumented core files, either live cores or cores from\ncrashes, for leaks and memory usage and corruption.  It does not report any\nfalse leaks and is sufficiently reliable that we run it in an automated way\nto catch leaks before they are checked in to our code base.  We also use it\nregularly to understand memory growth issues and cases of memory corruption.\n\nVMware is making this available as open source.  At present it is working only\nfor Linux ELF cores generated with programs that use libc malloc, and mostly\nworking with windows MDMP files.  Some expected areas of growth are likely to\ninclude support for other allocators, such as tcmalloc and jemalloc, support\nfor other dump formats, better scripting, and use of DWARF information to make usage analysis more precise.",
             "title": "ah64: A memory analyzer for un-instrumented cores"
@@ -725,6 +775,7 @@
                     "last_name": "Clow"
                 }
             ],
+            "room": "bristol_1",
             "session": "session_2",
             "text": "Hidden in the Library fundamentals Technical Specification, there is a section called \"Detection idiom\". The specification doesn't really say what it is for, and it has not received a lot of notice.\n\nThat's a shame. This is an amazingly powerful method for distinguishing between kinds of types. Writing SFINAE constraints is tedious and confusing, and this will make them much easier to do.\n\nThis session will introduce the detection idiom, talk about how it works, and then give examples on how to use it.\n\nA basic knowledge of template meta-programming will be useful",
             "title": "The Detection Idiom - a simpler way to SFINAE"
@@ -739,6 +790,7 @@
                     "last_name": "Kandalov"
                 }
             ],
+            "room": "empire",
             "session": "session_2",
             "text": "Kotlin is a new programming language for JVM (and JavaScript VM) by JetBrains. It is a statically typed language designed to include the most pragmatic features from Java, Groovy, C# and Scala. Kotlin is what Java 9 should've been in an ideal world.\n\nThis session is an overview of Kotlin features using code examples and comparison with other JVM languages.\nThe idea is to move from compiling and running \"hello world\" to more advanced examples, encounter some of Kotlin puzzlers along the way and finish with actual program written in Kotlin (most likely Snake game).\n\nTarget audience: software developers (with basic knowledge of Java/Groovy/Scala syntax).",
             "title": "An introduction to Kotlin by example"
@@ -758,6 +810,7 @@
                     "last_name": "Voskresensky"
                 }
             ],
+            "room": "bristol_3",
             "session": "session_1",
             "text": "Clang - is the name of the C/C++ frontend in LLVM project. It has many powerful features and one of them is its design. It was written in a way that allows to use it inside any IDE as a provider for various things - from navigation and code completion to refactorings. But is it possible to use it with the modern Java IDE? That is the question we will answer in this session. Our team spent some time porting Clang into Java. We will tell you how it was done, what difficulties we faced and what outcome we have at this point.",
             "title": " LLVM C/C++ compiler frontend in Java"
@@ -772,6 +825,7 @@
                     "last_name": "Romeo"
                 }
             ],
+            "room": "bristol_1",
             "session": "session_3",
             "text": "The addition of `std::variant` to the upcoming C++17 standard will introduce a \"type-safe sum type\" to the STL. \nGiven a set of types, `std::variant` (and `boost::variant`) model an ADT (\"algebraic data type\") where only one of them can be active: they essentially are a type-safe \"tagged union\". \n\nThe interface they provide, however, is more cumbersome than it needs to be and doesn't lend itself to monadic composition. Defining exhaustive visitors requires the user to create a class with several `operator()` overloads, or to create a chain of `if constexpr(...)` calls. Both solutions are not very elegant.\n\nAfter a brief overview of `std::variant` and its usefulness, this talk will focus on the implementation of a \"lambda-based in-place visitation\" approach, where the user can visit a variant by simply providing a set of overloaded lambdas on the spot.\n\nDon't be fooled, though - the implementation will not be as simple as it sounds. The talk will cover:\n* Traditional non-recursive variant visitation.\n* Lambda-based non-recursive variant visitation.\n    * The implementation of an \"overload set\" generator will be analyzed.\n* Traditional recursive variant visitation.\n* Lambda-based recursive variant visitation.\n    * The implementation of a \"Y-Combinator\" will be analyzed and benchmarked against `std::function`.\n    * Callable object arity deduction techniques will be implemented and applied to make the user interface more elegant.\n\nThis talk is intended for an audience familiar with C++11 and C++14 core language features.",
             "title": "Implementing `variant` visitation using lambdas"
@@ -786,6 +840,7 @@
                     "last_name": "Hague"
                 }
             ],
+            "room": "empire",
             "session": "session_3",
             "text": "2017 sees the 30th anniversary of RFC1035, the RFC that defined the\ninternet Domain Name System (DNS). These days there can't be many\napplications that don't interact with a nameserver at some point. Just\nabout the only change visible to most developers in recent years has\nbeen encouragement to switch from gethostbyname() to getaddrinfo().\n\nBut after a shaky start crypto authenticated DNS, DNSSEC, is gaining\ntraction, and there are some potentially important services defined on\ntop of DNSSEC such as DNS-DANE, using DNSSEC to replace certificate\nauthorities. There is also work in progress on DNS Privacy, or\npreventing snopping on DNS queries.\n\nIn this session, suitable for all-comers, we'll begin with a look at\nhow DNS works currently, and then go on to look at DNSSEC and other\nrecent and in-progress developements. We'll see how to use secure your\ndomain with DNSSEC, how to use DNSSEC and other new technologies in\nyour application, and answer any questions you may ever have had about\nDNS.",
             "title": "DNS at 30"
@@ -800,6 +855,7 @@
                     "last_name": "Sadovnikov"
                 }
             ],
+            "room": "bristol_1",
             "session": "session_2",
             "text": "Almost every C/C++ programmer eventually runs into a situation when he has to write a lot of boilerplate code. Enum to string conversion (and vice versa), data serialization/deserialization, remoting proxy/stubs are the most common cases. There is a number of different techniques to reduce the effort to produce this kind of code, such as macros metaprogramming, templates metaprogramming, tricks with files inclusion, special DSL with converters and so on.\n\nThis talk introduces one such technique based on clang 3.9 front-end and its special 'libtooling' library. It describes an easy method to analyze the existing C++ sources and to produce another set of C++ sources for specified task (for instance, enum to string converters). Development of a clang-based tool \"from scratch\" is introduced, including command line options analysis, clang compiler invocation, AST investigation, result code generation, etc. Also, the method for custom tool integration into the CMake-based build system is presented. The talk is illustrated with simple examples, which can be useful for making your own custom clang-based tools. Write less code and enjoy!",
             "title": "Automatic C++ source code generation with clang"
@@ -814,6 +870,7 @@
                     "last_name": "Rodriguez-Losada"
                 }
             ],
+            "room": "bristol_2",
             "session": "session_1",
             "text": "Creating and maintaining a FOSS is time consuming, but easy.\nGetting users and popularity, is a bit harder.\nTargeting C and C++ developers as users, in the devtools space, that is tough.\nAnd if we are talking about creating the \"missing link\" of dev tools, a C and C++ package manager, it becomes really hard. \n\nThis talk will summarize my experience, from founding a venture capital backed startup called biicode.com, then closing it, to finally creating conan.io, a FOSS project, and recently acquihired by JFrog, trying to offer my insights to some of the following questions, as well as any other the audience might have:\n\n- How do you choose the stack?\n- Do you need financial support for your OSS project?\n- Is it possible to bootstrap your project?\n- What do investors and VC think of OSS?\n- How to find co-creators/maintainers? Do you need them?\n- How to get feedback, filter and prioritize features?\n- An absolutely necessary skill: How to say no to users.\n- How to promote your project? Dos and don'ts\n- Does the project needs devops, release, sysadmin, services? \n- How to manage work/life balance? Holidays, what holidays?\n- How to make money? What are the goals of the project?\n- Is there a business model?\n\nThis talk will deep dive into the unknown parts of OSS development, more specifically in the space of devtools, and all the important lessons learnt in the process.\n\nThis talk is inspired by last Accu 2016 talk by A. Bryce \"How I Went from C++ Programmer to Running My Own Software Product Company\"",
             "title": "5 years creating FOSS dev tools for C and C++: the untold"
@@ -828,6 +885,7 @@
                     "last_name": "Truu"
                 }
             ],
+            "room": "empire",
             "session": "session_1",
             "text": "Fenwick tree (sometimes also called binary indexed tree, or BIT) is a data structure that deserves to be much more well known among software developers.\n\nInvented by Peter M. Fenwick in 1994, it allows updating of elements in an array and computing sums of arbitrary contiguous blocks of the array, both in time proportional to the logarithm of the length of the array. The magic bit is that the tree lives in the same array and does not take any extra memory!\n\nOriginally designed to support frequency counting in arithmetic compression, another usage example is mapping between screen positions and row numbers in a table where row heights may change.",
             "title": "Efficient data aggregation with Fenwick trees"
@@ -842,6 +900,7 @@
                     "last_name": "Lakos"
                 }
             ],
+            "room": "bristol_2",
             "session": "session_1",
             "text": "Are memory allocators worth the trouble? What situations merit their use? How are they applied effectively? What\u2019s the performance impact? This practical talk by large-scale C++ expert John Lakos demonstrates that having *local memory allocators* in your tool box may lead to as much as *order-of-magnitude speed improvements*.\n\nThe runtime implications of the physical location of allocated memory are sometimes overlooked\u2014even in the most performance-critical code. In this talk, we will examine how the performance of long-running systems can degrade when using just one global allocator (e.g., via new/delete). We will contrast the use of global allocators with various kinds of local allocators\u2014allocators that allocate memory for a well-defined subset of objects in the system.  We will also demonstrate how local allocators can reduce, if not entirely prevent, degradation seen in systems that rely solely on the global allocator. Six dimensions\u2014_fragmentability_, _allocation density_, _variation_, _utilization_, _locality_, and _contention_\u2014will be introduced to help ",
             "title": "Local (arena) Memory Allocators"
@@ -856,6 +915,7 @@
                     "last_name": "Gaunard"
                 }
             ],
+            "room": "bristol_2",
             "session": "session_2",
             "text": "Making programs run as efficiently as possible is a popular topic in C++; it being a fairly low-level language, it is indeed particularly well suited to mapping algorithms to the architecture that evaluates them with minimal overhead. Making that mapping as optimized as possible is a vast domain, which this talk merely introduces by presenting an overview compiling various techniques, their reasoning, when they can be applied, and the challenges associated with generalizing them throughout your source code.\n\nThe first part of this talk will focus on understanding the architecture, from which we will deduce what properties code needs to satisfy in order to map efficiently to it, and will cover aspects such as NUMA, multi-core, superscalar execution, instruction pipelining, specialized processing units, caching behavior and branch prediction.\n\nThe second part of the talk will present actual programming techniques that can be used to make use of the previously introduced properties, among others: asynchronous programming, strength reduction, tiling, loop unrolling and pipelining, branch elimination, vectorization, mixed precision and specialized algorithms. For each of those we will discuss how C++ templates can help in generalizing and combining those techniques.\n\nFinally we will take a look at some benchmarks to assess how useful those techniques ended up being on particular use cases.",
             "title": "An Overview of Program Optimization Techniques"
@@ -870,6 +930,7 @@
                     "last_name": "Merkle"
                 }
             ],
+            "room": "empire",
             "session": "session_3",
             "text": "Modern software projects usually contain a mixture of languages and tools. Delivering software becomes a challenge as different language aware tools (e.g. ant/maven for Java, (c)make for C++) \nare used for managing the build pipeline. And invoking the compiler + linker is only 20% of the story.\nManaging a build also involves clean dependency management, multiple configurations and variants, cross-plattform builds (e.g. C++), documentation, test, deployments, devops and more. \n\nI this session I will show the key concepts of Gradle using real-world examples. We will first dive into a short Groovy introduction and then continue with Gradle as a DSL (domain specific language) for managing the software delivery pipeline. We will look at key concepts like declarative build systems over imperative, conventions over configuration, Gradle included plugins, multi-language and multi-project support and optimized build strategies. Furthermore we will show how Groovy can be used to simplify builds and extending the ecosystem with own plugins.\n\nI will present the examples live (expect to see an editor + code and now only slides ;-) and also talk about strategies for migrating from old build systems towards gradle.\nWe will show how we migrated a large Java and C++ system which suffered from ant-hell and IDE specific project files towards build happiness with Gradle.",
             "title": "Gradle: Building and delivering Software in a modern world"
@@ -884,6 +945,7 @@
                     "last_name": "Merkle"
                 }
             ],
+            "room": "great_britain",
             "session": "session_1",
             "text": "In this session we will use clangs features to find bugs at compile time (via static analysis) and runtime (via sanitizers). First we will look how clang is able to detect common C/C++ traps and pitfalls via static analysis. We will write our own code checker to implement a common C++ guideline. Second, we will demonstrate sanitizers which enable code instrumentation and detection of problems which happen at runtime.",
             "title": "linting with clang and clang-tidy"
@@ -898,6 +960,7 @@
                     "last_name": "van Leeuwen"
                 }
             ],
+            "room": "bristol_1",
             "session": "session_1",
             "text": "Strings tend to be an under-appreciated but very important part in modern code. Whenever you deal with human input, your code probably has to deal with strings at some point. C++ and the STL have traditionally been lagging behind other languages and their standard libraries, especially scripting languages, in allowing rich operations on strings. But things have changed with recent standards: processing strings has become both attractive and fast.\n\nIn this talk I'll talk about dealing with strings, while keeping performance in mind. Why is optimizing string access important? What about string encoding? What if strings are connected to other data structures? What makes string operations slow and how do I avoid that?",
             "title": "Dealing with strings in C++"
@@ -912,6 +975,7 @@
                     "last_name": "Doumler"
                 }
             ],
+            "room": "bristol_2",
             "session": "session_1",
             "text": "Lock-free programming is an important technique for writing thread-safe code for low-latency and real-time applications. It is also often regarded as challenging and notoriously hard to get right. But it doesn't always have to be that way! This talk gives an accessible but comprehensive introduction to the subject.\n\nA lot of material has been published on lock-free programming already. However, the modern C++ standard has significantly improved the situation by introducing an inherently thread-safe generic type \u2013 std::atomic \u2013 and a well-defined memory model for multithreaded code. It is therefore worth approaching the topic of lock-free programming from the perspective of modern standard C++. In fact, all code examples in this talk will be standard-conforming, portable C++11/14, and we won't discuss  platform-specific solutions.\n\nThe talk will start by motivating lock-free programming and its use cases. I will then clarify the meaning of terms like atomic, lock-free, and wait-free. Diving into some actual code, we will discuss the usage of std::atomic, its member functions, its template specialisations, compare-exhange operations, and common pitfalls.\n\nIn the main part of the talk, I will then show various common use-cases of lock-free programming. We will discuss useful and generic ways to safely share and move data across threads without locks and critical sections. We will also work through the implementation of a lock-free data structure: the lock-free queue (also known as fifo or ring buffer). This will serve as an example of how lock-free structures work, when they're useful, and what to watch out for.",
             "title": "Lock-free programming with modern C++"
@@ -926,6 +990,7 @@
                     "last_name": "Oldwood"
                 }
             ],
+            "room": "empire",
             "session": "session_1",
             "text": "When it comes to writing tests we often live in the here-and-now and consequently end up producing \"write-only\" tests. This session looks at what we need to consider if we want to create tests that our future selves and teammates will find valuable instead of becoming another burden on top of delivering the feature itself.\n\nIf there is one place that we find it easy to take shortcuts it's when writing tests. Whether we're under the cosh or have an overly-optimistic view of our ability to write self-documenting code, instead of creating tests that support the production code and development process we can find ourselves producing WTFs (Weak Test Functions). The net effect is often a viscous cycle that disparages, instead of encourages us.\n\nIn the past I've tried many different ways to try and short-circuit the test writing process, but have only come-up short every time. This session takes a look at why skimping on elements of the test structure, such as organisation, naming and scope only leads to pain and hardship in the long run. Along the way we'll uncover the truth behind common folklore, such as only having one assertion per test.",
             "title": "A Test of Strength"
@@ -940,6 +1005,7 @@
                     "last_name": "McGuiness"
                 }
             ],
+            "room": "great_britain",
             "session": "session_2",
             "text": "High-Frequency Trading (HFT) and low-latency trading are becoming one of the few preserves of C++. The fact that it is amenable to extensive optimisation, including micro-optimisations, has made it highly effective, some of the major trading systems are hybrid FGPA/C++ solutions or native C++ solutions.\n\nBy popular demand this talk will be an expanded and updated version of that given to ACCU/London! I shall provide an analysis of some micro-optimisation techniques that have been successfully used, but also an investigation of the pitfalls that may arise. For example: Performance anomalies lead to a discovery of quirks in generated assembler due to different compiler versions. Exactly what is static branch-prediction, and how is it (ab)used? Why is counting the number of set bits of the remotest interest? And the \"curious case of the switch-statement\" will be investigated. How fast can one create a FIX message (involving adventures in std::memcpy!)?",
             "title": "Knuth, Amdahl: I spurn thee!"
@@ -954,6 +1020,7 @@
                     "last_name": "Hilton"
                 }
             ],
+            "room": "bristol_3",
             "session": "session_1",
             "text": "Documentation\u2019s lack of popularity among programmers is at least partly due to time wasted on too much documentation, and producing docs the hard way. However, neglecting software documentation and technical writing skills holds us and our projects back. The solution is to improve basic skills, integrate documentation with modern software development methods, and learn about modern tools. Topics include:\n\n* Documentation requirements - understanding why we need system documentation\n* Content guidelines - deciding what to document\n* Technical writing - learning techniques for effective writing\n* Documentation types - comparing essential documentation with special-purpose docs\n* Production pipelines - using tools to produce software documentation\n* Architecture and code improvements - reducing the need for documentation\n* Project management - agile documentation planning and project risk reduction\n\nThis workshop teaches what to document, what not to, and how to produce documentation without the pain of traditional approaches. Attendees will learn to write and publish effective documentation with less effort, and develop a long-term skill. This benefits all software development teams, because good system documentation is a universal software requirement.",
             "title": "Documentation for software developers"
@@ -968,6 +1035,7 @@
                     "last_name": "Williams"
                 }
             ],
+            "room": "bristol_2",
             "session": "session_2",
             "text": "C++17 is adding parallel overloads of most of the Standard Library algorithms. There is a TS for Concurrency in C++ already published, and a TS for Coroutines in C++ and a second TS for Concurrency in C++ in the works.\n\nWhat does all this mean for programmers? How are they all related? How do coroutines help with parallelism?\n\nThis session will attempt to answer these questions and more. We will look at the implementation of parallel algorithms, and how continuations, coroutines and work-stealing fit together. We will also look at how this meshes with the Grand Unified Executors Proposal, and how you will be able to take advantage of all this as an application developer.",
             "title": "Concurrency, Parallelism and Coroutines"
@@ -982,6 +1050,7 @@
                     "last_name": "Bratterud"
                 }
             ],
+            "room": "great_britain",
             "session": "session_3",
             "text": "\nC++ has seen a fast paced evolution over the last six years, giving performance oriented programmers access to high level features such as range based loops, automatic type deduction, lambdas and unprecedented compile time expressivity. The core guidelines has emerged as a manual for using the new language features to write  type safe code without sacrificing performance or control.\nBut the moment you want to interact directly with the operating system, to get block level access to a hard drive, interact with the file system directly, create a timer or set up a TCP server, it\u2019s a blast from the past with good old POSIX. Brimming with macro magic, pointer / size- and even pointer-to-pointer interfaces and a very unnecessary amount of blocking calls, it\u2019s obvious that a modern C++ implementation of the same functionality can be done much better, cleaner and safer.\nIn IncludeOS we\u2019re working on just that - we\u2019re implementing POSIX because we realize there\u2019s no way around it, but we\u2019ve decided to create a modern C++ interface for every new feature first, and then wrap the old interface around that as an optional layer.\nIn this talk we\u2019ll show you our take on the virtual file system (mount a lambda or a const float safely on any file system path!), why integer-based file descriptors are all wrong, how we approach sockets, threading, asynchronicity and more.",
             "title": "POSIX violates core guidelines: A new take on the operating system interface"

@@ -56,7 +56,7 @@ type alias Proposal =
     , day : Day
     , session : Session
     , quickieSlot : Maybe QuickieSlot
-    -- , room: Room
+    , room: Room
     -- , track: Track
     }
 
