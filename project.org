@@ -1,11 +1,15 @@
 * Dev data server
-** TODO Figure out format of existing data
-** TODO Create dev server with dummy data
+** DONE Figure out format of existing data
+   CLOSED: [2017-02-05 Sun 21:54]
+** DONE Create dev server with dummy data
+   CLOSED: [2017-02-05 Sun 21:54]
 * UI
-** TODO Sort out a basic view of the data
+** DONE Sort out a basic view of the data
+   CLOSED: [2017-02-05 Sun 21:54]
    A table seems like it would work for a first pass.
 ** TODO Allow users to select sessions to create a personal schedule
 ** TODO Create "personal schedule" view
+** TODO Button to reload schedule
 * Local storage
 ** TODO Create a local storage port
    This seems like the most straightforward solution until such time as there's
