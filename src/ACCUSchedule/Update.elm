@@ -4,6 +4,8 @@ import ACCUSchedule.Msg as Msg
 import ACCUSchedule.Model exposing (Model)
 import ACCUSchedule.Routing as Routing
 import Material
+import Navigation
+import Return exposing (command, singleton)
 
 
 update : Msg.Msg -> Model -> (Model, Cmd Msg.Msg)
@@ -20,6 +22,12 @@ update msg model =
                 -- TODO: display error message or something...maybe a button for
                 -- re-fetching the proposals.
                 model ! []
+
+        Msg.VisitProposal proposal ->
+            let
+                url = "#/session/" ++ toString proposal.id
+            in
+                (model, Navigation.newUrl url)
 
         Msg.UrlChange location ->
             { model | location = Routing.parseLocation location } ! []

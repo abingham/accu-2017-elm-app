@@ -1,5 +1,6 @@
 module ACCUSchedule.Routing exposing (..)
 
+import ACCUSchedule.Types as Types
 import Navigation
 
 

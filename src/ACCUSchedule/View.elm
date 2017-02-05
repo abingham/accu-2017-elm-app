@@ -3,12 +3,14 @@ module ACCUSchedule.View exposing (view)
 import ACCUSchedule.Model as Model
 import ACCUSchedule.Msg as Msg
 import ACCUSchedule.Types as Types
-import Html exposing (a, div, h1, Html, p, text)
-import Html.Attributes exposing (style)
+import Html exposing (a, br, div, h1, Html, p, text)
+import Html.Attributes exposing (href, style)
 import Material.Card as Card
 import Material.Color as Color
 import Material.Grid as Grid
 import Material.Layout as Layout
+import Material.Options as Options
+import Material.Typography as Typo
 
 
 dayString : Types.Day -> String
@@ -85,18 +87,21 @@ tabToDay tab =
             Types.Day4
 
 
-proposalCard : Types.Proposal -> Html Msg.Msg
-proposalCard proposal =
+presenters : Types.Proposal -> String
+presenters proposal =
     let
         fullName =
             \p -> p.firstName ++ " " ++ p.lastName
 
         presenterNames =
             List.map fullName proposal.presenters
+    in
+        String.join ", " presenterNames
 
-        presenters =
-            String.join ", " presenterNames
 
+proposalCard : Types.Proposal -> Html Msg.Msg
+proposalCard proposal =
+    let
         room =
             roomToString proposal.room
 
@@ -107,13 +112,13 @@ proposalCard proposal =
             time ++ ", " ++ room
     in
         Card.view
-            []
+            [ Options.onClick (Msg.VisitProposal proposal) ]
             [ Card.title [ Color.background (Color.color Color.LightBlue Color.S100) ]
                 ([ Card.head [] [ text proposal.title ]
                  ]
                 )
             , Card.title [ Color.background (Color.color Color.Grey Color.S100) ]
-                ([ Card.subhead [] [ text presenters ]
+                ([ Card.subhead [] [ text (presenters proposal) ]
                  , Card.subhead [] [ text location ]
                  ]
                 )
@@ -170,11 +175,72 @@ scheduleView model =
             ]
 
 
+proposalIdView : Model.Model -> Int -> Html Msg.Msg
+proposalIdView model proposalId =
+    let
+        prop =
+            (List.filter (\p -> p.id == proposalId) model.proposals) |> List.head
+    in
+        case prop of
+            Just proposal ->
+                proposalView proposal
+
+            Nothing ->
+                notFoundView
+
+
+proposalView : Types.Proposal -> Html Msg.Msg
+proposalView proposal =
+    let
+        room =
+            roomToString proposal.room
+
+        session =
+            sessionToString proposal.session
+
+        location =
+            session ++ ", " ++ room
+    in
+        Grid.grid []
+            [ Grid.cell [ Grid.size Grid.All 8 ]
+                [ Options.styled p
+                    [ Typo.title ]
+                    [ text proposal.title ]
+                , Options.styled p
+                    [ Typo.subhead ]
+                    [ text (presenters proposal) ]
+                , Options.styled p
+                    [ Typo.subhead ]
+                    [ text location ]
+                , Options.styled p
+                    [ Typo.body1 ]
+                    [ text proposal.text ]
+                ]
+            ]
+
+
 notFoundView : Html Msg.Msg
 notFoundView =
-    text "view not found :("
+    div []
+        [ text "view not found :("
+        , br [] []
+        , a [ href "#" ] [ text "return to app" ]
+        ]
 
 
 view : Model.Model -> Html Msg.Msg
 view model =
-    scheduleView model
+    case model.location of
+        [] ->
+            scheduleView model
+
+        [ "session", id ] ->
+            case (String.toInt id) of
+                Ok id ->
+                    proposalIdView model id
+
+                Err _ ->
+                    notFoundView
+
+        _ ->
+            notFoundView
