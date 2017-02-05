@@ -31,6 +31,23 @@ dayString day =
         Types.Day4 ->
             "Day 4"
 
+roomToString : Types.Room -> String
+roomToString room =
+    case room of
+        Types.BristolSuite -> "Bristol Suite"
+        Types.Bristol1 -> "Bristol 1"
+        Types.Bristol2 -> "Bristol 2"
+        Types.Bristol3 -> "Bristol 3"
+        Types.Empire -> "Empire"
+        Types.GreatBritain -> "Great Britain"
+
+sessionToString : Types.Session -> String
+sessionToString session =
+    case session of
+        Types.Session1 -> "Session 1"
+        Types.Session2 -> "Session 2"
+        Types.Session3 -> "Session 3"
+
 
 tabToDay : Int -> Types.Day
 tabToDay tab =
@@ -68,6 +85,14 @@ proposalCard proposal =
 
         presenters =
             String.join ", " presenterNames
+
+        room =
+            roomToString proposal.room
+
+        time =
+            sessionToString proposal.session
+
+        location = time ++ ", " ++ room
     in
         Card.view
             [ margin2
@@ -79,9 +104,9 @@ proposalCard proposal =
             [ Card.title []
                 ([ Card.head [] [ text proposal.title ]
                  , Card.subhead [] [ text presenters ]
+                 , Card.subhead [] [text location]
                  ]
                 )
-            , Card.text [] [ text proposal.text ]
             ]
 
 
@@ -91,14 +116,13 @@ proposalsView model =
         day =
             tabToDay model.selectedTab
 
-        pred =
+        forToday =
             \p -> p.day == day
 
         proposals =
-            List.filter pred model.proposals
+            List.filter forToday model.proposals
     in
-        List.map proposalCard proposals |> div []
-
+        div [] (List.map proposalCard proposals)
 
 view : Model.Model -> Html Msg.Msg
 view model =
@@ -123,7 +147,6 @@ view model =
                 { header = []
                 , drawer =
                     []
-                    -- , tabs = ( [ text "Milk", text "Oranges" ], [ Color.background (Color.color Color.Teal Color.S400) ] )
                 , tabs = ( tabs, [ Color.background (Color.color Color.Teal Color.S400) ] )
                 , main = [ proposalsView model ]
                 }
