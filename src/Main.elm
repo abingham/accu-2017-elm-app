@@ -12,7 +12,7 @@ import Material
 main : Program Never Model.Model Msg.Msg
 main =
     Html.program
-        { init = (Model.initialModel, Cmd.batch [Material.init Msg.Mdl, Comms.fetchProposals])
+        { init = ( Model.initialModel, Cmd.batch [ Material.init Msg.Mdl, Comms.fetchProposals ] )
         , view = view
         , update = update
         , subscriptions = Material.subscriptions Msg.Mdl

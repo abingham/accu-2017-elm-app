@@ -4,8 +4,6 @@ module ACCUSchedule.Model exposing (initialModel, Model)
 -}
 
 import ACCUSchedule.Types as Types
--- import Date exposing (Month(..))
--- import Date.Extra as Date
 import Material
 
 
@@ -14,6 +12,7 @@ type alias Model =
     , selectedTab : Int
     , mdl : Material.Model
     }
+
 
 initialModel : Model
 initialModel =

@@ -1,12 +1,5 @@
 module ACCUSchedule.Types exposing (..)
 
-import Date
-import Time
-import Uuid
-
-
--- TODO: What about things like lunch, special sessions, etc?
-
 
 type Day
     = Workshops
@@ -37,9 +30,11 @@ type Room
     | Empire
     | GreatBritain
 
+
 type Track
     = CppTrack
     | OtherTrack
+
 
 type alias Presenter =
     { id : Int
@@ -56,12 +51,5 @@ type alias Proposal =
     , day : Day
     , session : Session
     , quickieSlot : Maybe QuickieSlot
-    , room: Room
-    -- , track: Track
+    , room : Room
     }
-
--- type ConversionDetails
---     = Initiated StatusLocator
---     | InProgress InProgressDetails
---     | Complete CompleteDetails
---     | Error String
