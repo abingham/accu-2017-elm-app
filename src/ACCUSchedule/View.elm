@@ -9,15 +9,59 @@ import Material.Color as Color
 import Material.Layout as Layout
 
 
+dayString : Types.Day -> String
+dayString day =
+    case day of
+        Types.Workshops ->
+            "Workshop"
+
+        Types.Day1 ->
+            "Day 1"
+
+        Types.Day2 ->
+            "Day 2"
+
+        Types.Day3 ->
+            "Day 3"
+
+        Types.Day4 ->
+            "Day 4"
+
+
+tabToDay : Int -> Types.Day
+tabToDay tab =
+    case tab of
+        0 ->
+            Types.Workshops
+
+        1 ->
+            Types.Day1
+
+        2 ->
+            Types.Day2
+
+        3 ->
+            Types.Day3
+
+        -- TODO: This is sloppy. We should handle an invalid tab better.
+        _ ->
+            Types.Day4
+
+
 proposalView : Types.Proposal -> Html Msg.Msg
 proposalView proposal =
     div []
-        [ text proposal.title ]
+        [ text (proposal.title) ]
 
 
-proposalsView : List Types.Proposal -> Html Msg.Msg
-proposalsView =
-    List.map proposalView >> div []
+proposalsView : Model.Model -> Html Msg.Msg
+proposalsView model =
+    let
+        day = tabToDay model.selectedTab
+        pred = \p -> p.day == day
+        proposals = List.filter pred model.proposals
+    in
+        List.map proposalView proposals |> div []
 
 
 view : Model.Model -> Html Msg.Msg
@@ -45,6 +89,6 @@ view model =
                     []
                     -- , tabs = ( [ text "Milk", text "Oranges" ], [ Color.background (Color.color Color.Teal Color.S400) ] )
                 , tabs = ( tabs, [ Color.background (Color.color Color.Teal Color.S400) ] )
-                , main = [ proposalsView model.proposals ]
+                , main = [ proposalsView model ]
                 }
             ]
