@@ -17,8 +17,10 @@ titleBackgroundColor : Color.Color
 titleBackgroundColor =
     Color.color Color.LightBlue Color.S100
 
+infoBackgroundColor : Color.Color
 infoBackgroundColor =
     Color.color Color.Grey Color.S100
+
 
 dayString : Types.Day -> String
 dayString day =
@@ -219,10 +221,12 @@ proposalView proposal =
                 , Options.styled p
                     [ Typo.subhead
                     , Options.css "padding" "10px"
-                    , Color.background infoBackgroundColor]
+                    , Color.background infoBackgroundColor
+                    ]
                     [ text (presenters proposal)
                     , br [] []
-                    , text location]
+                    , text location
+                    ]
                 , Options.styled p
                     [ Typo.body1 ]
                     [ text proposal.text ]
