@@ -1,6 +1,7 @@
 module ACCUSchedule.Types exposing (..)
 
 
+
 type Day
     = Workshops
     | Day1

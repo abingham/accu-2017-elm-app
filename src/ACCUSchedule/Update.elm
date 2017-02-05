@@ -2,11 +2,11 @@ module ACCUSchedule.Update exposing (update)
 
 import ACCUSchedule.Msg as Msg
 import ACCUSchedule.Model exposing (Model)
+import ACCUSchedule.Routing as Routing
 import Material
-import Return exposing (command, map, Return, return, singleton, zero)
 
 
-update : Msg.Msg -> Model -> Return Msg.Msg Model
+update : Msg.Msg -> Model -> (Model, Cmd Msg.Msg)
 update msg model =
     case msg of
         Msg.ProposalsResult (Ok proposals) ->
@@ -20,6 +20,9 @@ update msg model =
                 -- TODO: display error message or something...maybe a button for
                 -- re-fetching the proposals.
                 model ! []
+
+        Msg.UrlChange location ->
+            { model | location = Routing.parseLocation location } ! []
 
         Msg.SelectTab idx ->
             { model | selectedTab = idx } ! []

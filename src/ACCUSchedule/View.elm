@@ -7,7 +7,6 @@ import Html exposing (a, div, h1, Html, p, text)
 import Html.Attributes exposing (style)
 import Material.Card as Card
 import Material.Color as Color
-import Material.Elevation as Elevation
 import Material.Grid as Grid
 import Material.Layout as Layout
 
@@ -140,8 +139,8 @@ proposalsView model =
         List.map makeCell proposals |> Grid.grid []
 
 
-view : Model.Model -> Html Msg.Msg
-view model =
+scheduleView : Model.Model -> Html Msg.Msg
+scheduleView model =
     let
         tabs =
             [ text "Workshops"
@@ -163,6 +162,19 @@ view model =
                 , drawer =
                     []
                 , tabs = ( tabs, [ Color.background (Color.color Color.Teal Color.S400) ] )
-                , main = [ proposalsView model ]
+                , main =
+                    [ text <| String.join "/" model.location
+                    , proposalsView model
+                    ]
                 }
             ]
+
+
+notFoundView : Html Msg.Msg
+notFoundView =
+    text "view not found :("
+
+
+view : Model.Model -> Html Msg.Msg
+view model =
+    scheduleView model
