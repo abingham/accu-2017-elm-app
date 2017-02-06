@@ -6,6 +6,10 @@ schedule.
 The structure of this project is largely derived from the
 excellent [Elm Tutorial](https://www.elm-tutorial.org/).
 
+To build and run the app, make sure
+you've
+[installed a recent version of node.js](https://docs.npmjs.com/getting-started/installing-node).
+
 ## Building
 
 First install the necessary npm dependencies:
@@ -18,7 +22,8 @@ Then build the Elm code:
 npm run build
 ```
 
-If this succeeds, the compiled and web-packed code will be in the `dist`
+If this succeeds, t
+he compiled and web-packed code will be in the `dist`
 directory.
 
 ## Running the development server
