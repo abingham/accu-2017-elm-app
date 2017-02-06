@@ -258,7 +258,17 @@ view model =
                 , Layout.selectedTab model.selectedTab
                 , Layout.onSelectTab Msg.SelectTab
                 ]
-                { header = [ Layout.row [] [ Layout.title [ Typo.title ] [ text "ACCU 2017" ] ] ]
+                { header =
+                    [ Layout.row
+                        []
+                        [ Layout.title
+                            [ Typo.title ]
+                            [ text "ACCU 2017" ]
+                        , Layout.navigation
+                            []
+                            [ Layout.link [ Layout.href "#" ] [ text "Schedule" ] ]
+                        ]
+                    ]
                 , drawer = []
                 , tabs = tabs
                 , main = [ main ]
