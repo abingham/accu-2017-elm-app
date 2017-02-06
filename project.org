@@ -7,14 +7,18 @@
 ** DONE Sort out a basic view of the data
    CLOSED: [2017-02-05 Sun 21:54]
    A table seems like it would work for a first pass.
-** TODO Allow users to select sessions to create a personal schedule
+** DONE Allow users to select sessions to create a personal schedule
+   CLOSED: [2017-02-06 Mon 10:05]
 ** TODO Create "personal schedule" view
 ** TODO Button to reload schedule
-** TODO Remove "workshops" from tabs
+** DONE Remove "workshops" from tabs
+   CLOSED: [2017-02-06 Mon 10:04]
 ** TODO Use days of week rather than day numbers for tabs
 ** TODO Footer with basic nav and SN details.
+** TODO Show "starred" status on proposal view
 * Local storage
-** TODO Create a local storage port
+** DONE Create a local storage port
+   CLOSED: [2017-02-06 Mon 10:05]
    This seems like the most straightforward solution until such time as there's
    a more "official" solution from the elm world.
 * Things to think about
