@@ -31,4 +31,6 @@ nf start
 After that the webapp should be available on http://localhost:3000.
 
 When the development server is running, it will monitor changes to the source
-code and recompile/redeploy as necessary.
+code and recompile/redeploy as necessary. This is probably what you want to do
+if you're hacking around in the code; it provides a very responsive edit-run
+cycle.
