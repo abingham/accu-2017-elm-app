@@ -13,6 +13,10 @@ import Material.Options as Options
 import Material.Typography as Typo
 
 
+type alias Tabs =
+    ( List (Html.Html Msg.Msg), List (Options.Style Msg.Msg) )
+
+
 titleBackgroundColor : Color.Color
 titleBackgroundColor =
     Color.color Color.LightBlue Color.S100
@@ -151,7 +155,7 @@ proposalsView model =
         List.map makeCell proposals |> Grid.grid []
 
 
-scheduleView : Model.Model -> Html Msg.Msg
+scheduleView : Model.Model -> ( Tabs, Html Msg.Msg )
 scheduleView model =
     let
         tabs =
@@ -161,25 +165,12 @@ scheduleView model =
             , text "Day 4"
             ]
     in
-        div
-            [ style [ ( "padding", "2rem" ) ] ]
-            [ Layout.render Msg.Mdl
-                model.mdl
-                [ Layout.fixedHeader
-                , Layout.selectedTab model.selectedTab
-                , Layout.onSelectTab Msg.SelectTab
-                ]
-                { header = [Layout.row [] [Layout.title [Typo.title] [text "ACCU 2017"]]]
-                , drawer = []
-                , tabs = ( tabs, [ Color.background (Color.color Color.Teal Color.S400) ] )
-                , main =
-                    [ proposalsView model
-                    ]
-                }
-            ]
+        ( ( tabs, [ Color.background (Color.color Color.Teal Color.S400) ] )
+        , proposalsView model
+        )
 
 
-proposalIdView : Model.Model -> Int -> Html Msg.Msg
+proposalIdView : Model.Model -> Int -> ( Tabs, Html Msg.Msg )
 proposalIdView model proposalId =
     let
         prop =
@@ -187,7 +178,7 @@ proposalIdView model proposalId =
     in
         case prop of
             Just proposal ->
-                proposalView proposal
+                ( ( [], [] ), proposalView proposal )
 
             Nothing ->
                 notFoundView
@@ -229,28 +220,47 @@ proposalView proposal =
             ]
 
 
-notFoundView : Html Msg.Msg
+notFoundView : ( Tabs, Html Msg.Msg )
 notFoundView =
-    div []
+    ( ( [], [] )
+    , div []
         [ text "view not found :("
         , br [] []
         , a [ href "#" ] [ text "return to app" ]
         ]
+    )
 
 
 view : Model.Model -> Html Msg.Msg
 view model =
-    case model.location of
-        [] ->
-            scheduleView model
+    let
+        ( tabs, main ) =
+            case model.location of
+                [] ->
+                    scheduleView model
 
-        [ "session", id ] ->
-            case (String.toInt id) of
-                Ok id ->
-                    proposalIdView model id
+                [ "session", id ] ->
+                    case (String.toInt id) of
+                        Ok id ->
+                            proposalIdView model id
 
-                Err _ ->
+                        Err _ ->
+                            notFoundView
+
+                _ ->
                     notFoundView
-
-        _ ->
-            notFoundView
+    in
+        div
+            [ style [ ( "padding", "2rem" ) ] ]
+            [ Layout.render Msg.Mdl
+                model.mdl
+                [ Layout.fixedHeader
+                , Layout.selectedTab model.selectedTab
+                , Layout.onSelectTab Msg.SelectTab
+                ]
+                { header = [ Layout.row [] [ Layout.title [ Typo.title ] [ text "ACCU 2017" ] ] ]
+                , drawer = []
+                , tabs = tabs
+                , main = [ main ]
+                }
+            ]
