@@ -22,8 +22,7 @@ Then build the Elm code:
 npm run build
 ```
 
-If this succeeds, t
-he compiled and web-packed code will be in the `dist`
+If this succeeds, the compiled and web-packed code will be in the `dist`
 directory.
 
 ## Running the development server
@@ -33,7 +32,7 @@ You can use node-foreman to run the API server and the client:
 nf start
 ```
 
-After that the webapp should be available on http://localhost:3000.
+After that the app should be available on http://localhost:3000.
 
 When the development server is running, it will monitor changes to the source
 code and recompile/redeploy as necessary. This is probably what you want to do
