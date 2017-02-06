@@ -44,8 +44,5 @@ update msg model =
         Msg.UrlChange location ->
             { model | location = Routing.parseLocation location } ! []
 
-        Msg.SelectTab idx ->
-            { model | selectedTab = idx } ! []
-
         Msg.Mdl mdlMsg ->
             Material.update Msg.Mdl mdlMsg model

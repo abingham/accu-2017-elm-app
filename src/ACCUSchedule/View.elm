@@ -25,9 +25,6 @@ starredControlGroup =
     0
 
 
-type alias Tabs =
-    ( List (Html.Html Msg.Msg), List (Options.Style Msg.Msg) )
-
 
 titleBackgroundColor : Color.Color
 titleBackgroundColor =
@@ -56,6 +53,15 @@ dayString day =
 
         Types.Day4 ->
             "Day 4"
+
+stringToDay : String -> Maybe Types.Day
+stringToDay s =
+    case s of
+        "1" -> Just Types.Day1
+        "2" -> Just Types.Day2
+        "3" -> Just Types.Day3
+        "4" -> Just Types.Day4
+        _ -> Nothing
 
 
 roomToString : Types.Room -> String
@@ -172,12 +178,9 @@ proposalCard model proposal =
             ]
 
 
-proposalsView : Model.Model -> Html Msg.Msg
-proposalsView model =
+dayView : Model.Model -> Types.Day -> Html Msg.Msg
+dayView model day =
     let
-        day =
-            tabToDay model.selectedTab
-
         forToday =
             \p -> p.day == day
 
@@ -191,22 +194,7 @@ proposalsView model =
         List.map makeCell proposals |> Grid.grid []
 
 
-scheduleView : Model.Model -> ( Tabs, Html Msg.Msg )
-scheduleView model =
-    let
-        tabs =
-            [ text "Day 1"
-            , text "Day 2"
-            , text "Day 3"
-            , text "Day 4"
-            ]
-    in
-        ( ( tabs, [ Color.background (Color.color Color.Teal Color.S400) ] )
-        , proposalsView model
-        )
-
-
-proposalIdView : Model.Model -> Int -> ( Tabs, Html Msg.Msg )
+proposalIdView : Model.Model -> Int -> Html Msg.Msg
 proposalIdView model proposalId =
     let
         prop =
@@ -214,7 +202,7 @@ proposalIdView model proposalId =
     in
         case prop of
             Just proposal ->
-                ( ( [], [] ), proposalView proposal )
+                proposalView proposal
 
             Nothing ->
                 notFoundView
@@ -256,24 +244,25 @@ proposalView proposal =
             ]
 
 
-notFoundView : ( Tabs, Html Msg.Msg )
+notFoundView : Html Msg.Msg
 notFoundView =
-    ( ( [], [] )
-    , div []
+    div []
         [ text "view not found :("
-        , br [] []
-        , a [ href "#" ] [ text "return to app" ]
         ]
-    )
 
 
 view : Model.Model -> Html Msg.Msg
 view model =
     let
-        ( tabs, main ) =
+        main =
             case model.location of
                 [] ->
-                    scheduleView model
+                    dayView model Types.Day1
+
+                ["day", day ] ->
+                    case (stringToDay day) of
+                        Just d -> dayView model d
+                        Nothing -> notFoundView
 
                 [ "session", id ] ->
                     case (String.toInt id) of
@@ -291,8 +280,6 @@ view model =
             [ Layout.render Msg.Mdl
                 model.mdl
                 [ Layout.fixedHeader
-                , Layout.selectedTab model.selectedTab
-                , Layout.onSelectTab Msg.SelectTab
                 ]
                 { header =
                     [ Layout.row
@@ -302,11 +289,15 @@ view model =
                             [ text "ACCU 2017" ]
                         , Layout.navigation
                             []
-                            [ Layout.link [ Layout.href "#" ] [ text "Schedule" ] ]
+                            [ Layout.link [ Layout.href "#/day/1" ] [ text "Day 1" ]
+                            , Layout.link [ Layout.href "#/day/2" ] [ text "Day 2" ]
+                            , Layout.link [ Layout.href "#/day/3" ] [ text "Day 3" ]
+                            , Layout.link [ Layout.href "#/day/4" ] [ text "Day 4" ]
+                            ]
                         ]
                     ]
                 , drawer = []
-                , tabs = tabs
+                , tabs = ([], [])
                 , main = [ main ]
                 }
             ]
