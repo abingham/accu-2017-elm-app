@@ -17,6 +17,7 @@ titleBackgroundColor : Color.Color
 titleBackgroundColor =
     Color.color Color.LightBlue Color.S100
 
+
 infoBackgroundColor : Color.Color
 infoBackgroundColor =
     Color.color Color.Grey Color.S100
@@ -80,15 +81,12 @@ tabToDay : Int -> Types.Day
 tabToDay tab =
     case tab of
         0 ->
-            Types.Workshops
-
-        1 ->
             Types.Day1
 
-        2 ->
+        1 ->
             Types.Day2
 
-        3 ->
+        2 ->
             Types.Day3
 
         -- TODO: This is sloppy. We should handle an invalid tab better.
@@ -157,8 +155,7 @@ scheduleView : Model.Model -> Html Msg.Msg
 scheduleView model =
     let
         tabs =
-            [ text "Workshops"
-            , text "Day 1"
+            [ text "Day 1"
             , text "Day 2"
             , text "Day 3"
             , text "Day 4"
@@ -172,13 +169,11 @@ scheduleView model =
                 , Layout.selectedTab model.selectedTab
                 , Layout.onSelectTab Msg.SelectTab
                 ]
-                { header = []
-                , drawer =
-                    []
+                { header = [Layout.row [] [Layout.title [Typo.title] [text "ACCU 2017"]]]
+                , drawer = []
                 , tabs = ( tabs, [ Color.background (Color.color Color.Teal Color.S400) ] )
                 , main =
-                    [ text <| String.join "/" model.location
-                    , proposalsView model
+                    [ proposalsView model
                     ]
                 }
             ]
