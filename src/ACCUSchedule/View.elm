@@ -2,6 +2,7 @@ module ACCUSchedule.View exposing (view)
 
 import ACCUSchedule.Model as Model
 import ACCUSchedule.Msg as Msg
+import ACCUSchedule.Routing as Routing
 import ACCUSchedule.Types as Types
 import Html exposing (a, br, div, h1, Html, p, text)
 import Html.Attributes exposing (href, style)
@@ -35,6 +36,25 @@ infoBackgroundColor =
     Color.color Color.Grey Color.S100
 
 
+dayOrd : Types.Day -> Int
+dayOrd day =
+    case day of
+        Types.Workshops ->
+            0
+
+        Types.Day1 ->
+            1
+
+        Types.Day2 ->
+            2
+
+        Types.Day3 ->
+            3
+
+        Types.Day4 ->
+            4
+
+
 dayString : Types.Day -> String
 dayString day =
     case day of
@@ -54,25 +74,6 @@ dayString day =
             "Day 4"
 
 
-stringToDay : String -> Result String Types.Day
-stringToDay s =
-    case s of
-        "1" ->
-            Ok Types.Day1
-
-        "2" ->
-            Ok Types.Day2
-
-        "3" ->
-            Ok Types.Day3
-
-        "4" ->
-            Ok Types.Day4
-
-        _ ->
-            Err <| "no such day: " ++ s
-
-
 
 {- ! Find a proposal based on a string representation of its id.
 
@@ -80,14 +81,9 @@ stringToDay s =
 -}
 
 
-findProposal : Model.Model -> String -> Maybe Types.Proposal
+findProposal : Model.Model -> Types.ProposalId -> Maybe Types.Proposal
 findProposal model id =
-    case String.toInt id of
-        Ok pid ->
-            (List.filter (\p -> p.id == pid) model.proposals) |> List.head
-
-        Err _ ->
-            Nothing
+    (List.filter (\p -> p.id == id) model.proposals) |> List.head
 
 
 roomToString : Types.Room -> String
@@ -263,23 +259,41 @@ notFoundView =
         ]
 
 
+dayLink : Model.Model -> Types.Day -> Html Msg.Msg
+dayLink model day =
+    let
+        dayNum =
+            dayOrd day |> toString
+
+        color =
+            case model.location of
+                Routing.Day routeDay ->
+                    if routeDay == day then
+                        Color.accent
+                    else
+                        Color.primary
+
+                _ ->
+                    Color.primary
+
+        style =
+            [ Layout.href ("#/day/" ++ dayNum), Color.background color ]
+    in
+        Layout.link style [ text (dayString day) ]
+
+
 view : Model.Model -> Html Msg.Msg
 view model =
     let
         main =
             case model.location of
-                [] ->
+                Routing.Home ->
                     dayView model Types.Day1
 
-                [ "day", day ] ->
-                    case (stringToDay day) of
-                        Ok d ->
-                            dayView model d
+                Routing.Day day ->
+                    dayView model day
 
-                        Err _ ->
-                            notFoundView
-
-                [ "session", id ] ->
+                Routing.Proposal id ->
                     case findProposal model id of
                         Just proposal ->
                             proposalView proposal
@@ -287,7 +301,7 @@ view model =
                         Nothing ->
                             notFoundView
 
-                _ ->
+                Routing.NotFound ->
                     notFoundView
     in
         div
@@ -300,15 +314,15 @@ view model =
                     [ Layout.row
                         []
                         [ Layout.title
-                            [ Typo.title ]
+                            [ Typo.title, Typo.left ]
                             [ text "ACCU 2017" ]
+                        , Layout.spacer
                         , Layout.navigation
                             []
-                            [ Layout.link [ Layout.href "#/day/1" ] [ text "Day 1" ]
-                            , Layout.link [ Layout.href "#/day/2" ] [ text "Day 2" ]
-                            , Layout.link [ Layout.href "#/day/3" ] [ text "Day 3" ]
-                            , Layout.link [ Layout.href "#/day/4" ] [ text "Day 4" ]
-                            ]
+                            (List.map
+                                (dayLink model)
+                                [ Types.Day1, Types.Day2, Types.Day3, Types.Day4 ]
+                            )
                         ]
                     ]
                 , drawer = []

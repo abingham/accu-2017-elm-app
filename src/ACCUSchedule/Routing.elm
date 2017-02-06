@@ -4,10 +4,64 @@ import ACCUSchedule.Types as Types
 import Navigation
 
 
-type alias RoutePath =
-    List String
+type RoutePath
+    = Home
+    | Day Types.Day
+    | Proposal Types.ProposalId
+    | NotFound
+
+
+parseDayRoute : List String -> RoutePath
+parseDayRoute path =
+    case path of
+        [ "1" ] ->
+            Day Types.Day1
+
+        [ "2" ] ->
+            Day Types.Day2
+
+        [ "3" ] ->
+            Day Types.Day3
+
+        [ "4" ] ->
+            Day Types.Day4
+
+        _ ->
+            NotFound
+
+
+parseSessionRoute : List String -> RoutePath
+parseSessionRoute path =
+    let
+        nums =
+            List.map String.toInt path
+    in
+        case nums of
+            [ Ok id ] ->
+                Proposal id
+
+            _ ->
+                NotFound
 
 
 parseLocation : Navigation.Location -> RoutePath
-parseLocation =
-    .hash >> String.split "/" >> List.drop 1
+parseLocation location =
+    let
+        path =
+            (String.split "/" >> List.drop 1) location.hash
+
+        head =
+            List.head path
+    in
+        case head of
+            Nothing ->
+                Home
+
+            Just "day" ->
+                parseDayRoute (List.drop 1 path)
+
+            Just "session" ->
+                parseSessionRoute (List.drop 1 path)
+
+            _ ->
+                NotFound
