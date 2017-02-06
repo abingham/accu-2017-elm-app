@@ -9,11 +9,16 @@ import Material
 import Navigation
 
 
-
-
 main =
-    Navigation.program Msg.UrlChange
-        { init = \loc -> ( Model.initialModel loc, Cmd.batch [ Material.init Msg.Mdl, Comms.fetchProposals ] )
+    Navigation.programWithFlags Msg.UrlChange
+        { init =
+            \starred loc ->
+                ( Model.initialModel starred loc
+                , Cmd.batch
+                    [ Material.init Msg.Mdl
+                    , Comms.fetchProposals
+                    ]
+                )
         , view = view
         , update = update
         , subscriptions = Material.subscriptions Msg.Mdl

@@ -5,12 +5,24 @@ import ACCUSchedule.Msg as Msg
 import ACCUSchedule.Types as Types
 import Html exposing (a, br, div, h1, Html, p, text)
 import Html.Attributes exposing (href, style)
+import Material.Button as Button
 import Material.Card as Card
 import Material.Color as Color
 import Material.Grid as Grid
+import Material.Icon as Icon
 import Material.Layout as Layout
 import Material.Options as Options
 import Material.Typography as Typo
+
+
+proposalCardGroup : Int
+proposalCardGroup =
+    0
+
+
+starredControlGroup : Int
+starredControlGroup =
+    0
 
 
 type alias Tabs =
@@ -110,8 +122,8 @@ presenters proposal =
         String.join ", " presenterNames
 
 
-proposalCard : Types.Proposal -> Html Msg.Msg
-proposalCard proposal =
+proposalCard : Model.Model -> Types.Proposal -> Html Msg.Msg
+proposalCard model proposal =
     let
         room =
             roomToString proposal.room
@@ -121,6 +133,12 @@ proposalCard proposal =
 
         location =
             time ++ ", " ++ room
+
+        icon =
+            if List.member proposal.id model.starred then
+                "favorite"
+            else
+                "favorite_border"
     in
         Card.view
             [ Options.onClick (Msg.VisitProposal proposal) ]
@@ -133,6 +151,24 @@ proposalCard proposal =
                  , Card.subhead [] [ text location ]
                  ]
                 )
+            , Card.actions
+                [ Card.border
+                , Color.background infoBackgroundColor
+                , Color.text Color.black
+                , Typo.right
+                ]
+                [ Button.render Msg.Mdl
+                    [ proposalCardGroup
+                    , starredControlGroup
+                    , proposal.id
+                    ]
+                    model.mdl
+                    [ Button.icon
+                    , Button.ripple
+                    , Options.onClick <| Msg.ToggleStarred proposal.id
+                    ]
+                    [ Icon.i icon ]
+                ]
             ]
 
 
@@ -150,7 +186,7 @@ proposalsView model =
 
         makeCell p =
             Grid.cell [ Grid.size Grid.All 4 ]
-                [ proposalCard p ]
+                [ proposalCard model p ]
     in
         List.map makeCell proposals |> Grid.grid []
 

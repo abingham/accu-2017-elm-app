@@ -1,7 +1,6 @@
 module ACCUSchedule.Types exposing (..)
 
 
-
 type Day
     = Workshops
     | Day1
@@ -37,15 +36,23 @@ type Track
     | OtherTrack
 
 
+type alias PresenterId =
+    Int
+
+
+type alias ProposalId =
+    Int
+
+
 type alias Presenter =
-    { id : Int
+    { id : PresenterId
     , firstName : String
     , lastName : String
     }
 
 
 type alias Proposal =
-    { id : Int
+    { id : ProposalId
     , title : String
     , text : String
     , presenters : List Presenter

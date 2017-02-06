@@ -12,15 +12,17 @@ import Navigation
 
 type alias Model =
     { proposals : List Types.Proposal
+    , starred : List Types.ProposalId
     , selectedTab : Int
     , mdl : Material.Model
-    , location: Routing.RoutePath
+    , location : Routing.RoutePath
     }
 
 
-initialModel : Navigation.Location -> Model
-initialModel location =
+initialModel : List Types.ProposalId -> Navigation.Location -> Model
+initialModel starred location =
     { proposals = []
+    , starred = starred
     , selectedTab = 0
     , mdl = Material.model
     , location = Routing.parseLocation location

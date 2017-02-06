@@ -11,5 +11,7 @@ require('./index.html');
 var Elm = require('./Main.elm');
 var mountNode = document.getElementById('main');
 
-// .embed() can take an optional second argument. This would be an object describing the data we need to start a program, i.e. a userID or some token
-var app = Elm.ACCUSchedule.embed(mountNode);
+// TODO: handle "store" port to save starred proposals
+
+// TODO: Load starred proposals from localstorage and pass to embed().
+var app = Elm.ACCUSchedule.embed(mountNode, []);

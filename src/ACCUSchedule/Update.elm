@@ -3,6 +3,7 @@ module ACCUSchedule.Update exposing (update)
 import ACCUSchedule.Msg as Msg
 import ACCUSchedule.Model exposing (Model)
 import ACCUSchedule.Routing as Routing
+import ACCUSchedule.Storage as Storage
 import Material
 import Navigation
 import Return exposing (command, singleton)
@@ -28,6 +29,17 @@ update msg model =
                 url = "#/session/" ++ toString proposal.id
             in
                 (model, Navigation.newUrl url)
+
+        Msg.ToggleStarred id ->
+            let
+                starred =
+                    if List.member id model.starred then
+                        List.filter (\pid -> pid /= id) model.starred
+                    else
+                        id :: model.starred
+            in
+                -- TODO: Store the new starred array via the port
+                {model | starred = starred } ! [Storage.store starred]
 
         Msg.UrlChange location ->
             { model | location = Routing.parseLocation location } ! []
