@@ -6,7 +6,6 @@ import ACCUSchedule.Routing as Routing
 import ACCUSchedule.Storage as Storage
 import Material
 import Navigation
-import Return exposing (command, singleton)
 
 
 update : Msg.Msg -> Model -> (Model, Cmd Msg.Msg)

@@ -25,7 +25,6 @@ starredControlGroup =
     0
 
 
-
 titleBackgroundColor : Color.Color
 titleBackgroundColor =
     Color.color Color.LightBlue Color.S100
@@ -54,14 +53,41 @@ dayString day =
         Types.Day4 ->
             "Day 4"
 
-stringToDay : String -> Maybe Types.Day
+
+stringToDay : String -> Result String Types.Day
 stringToDay s =
     case s of
-        "1" -> Just Types.Day1
-        "2" -> Just Types.Day2
-        "3" -> Just Types.Day3
-        "4" -> Just Types.Day4
-        _ -> Nothing
+        "1" ->
+            Ok Types.Day1
+
+        "2" ->
+            Ok Types.Day2
+
+        "3" ->
+            Ok Types.Day3
+
+        "4" ->
+            Ok Types.Day4
+
+        _ ->
+            Err <| "no such day: " ++ s
+
+
+
+{- ! Find a proposal based on a string representation of its id.
+
+   This is just convenienve for parsing the route.
+-}
+
+
+findProposal : Model.Model -> String -> Maybe Types.Proposal
+findProposal model id =
+    case String.toInt id of
+        Ok pid ->
+            (List.filter (\p -> p.id == pid) model.proposals) |> List.head
+
+        Err _ ->
+            Nothing
 
 
 roomToString : Types.Room -> String
@@ -194,20 +220,6 @@ dayView model day =
         List.map makeCell proposals |> Grid.grid []
 
 
-proposalIdView : Model.Model -> Int -> Html Msg.Msg
-proposalIdView model proposalId =
-    let
-        prop =
-            (List.filter (\p -> p.id == proposalId) model.proposals) |> List.head
-    in
-        case prop of
-            Just proposal ->
-                proposalView proposal
-
-            Nothing ->
-                notFoundView
-
-
 proposalView : Types.Proposal -> Html Msg.Msg
 proposalView proposal =
     let
@@ -259,17 +271,20 @@ view model =
                 [] ->
                     dayView model Types.Day1
 
-                ["day", day ] ->
+                [ "day", day ] ->
                     case (stringToDay day) of
-                        Just d -> dayView model d
-                        Nothing -> notFoundView
-
-                [ "session", id ] ->
-                    case (String.toInt id) of
-                        Ok id ->
-                            proposalIdView model id
+                        Ok d ->
+                            dayView model d
 
                         Err _ ->
+                            notFoundView
+
+                [ "session", id ] ->
+                    case findProposal model id of
+                        Just proposal ->
+                            proposalView proposal
+
+                        Nothing ->
                             notFoundView
 
                 _ ->
@@ -297,7 +312,7 @@ view model =
                         ]
                     ]
                 , drawer = []
-                , tabs = ([], [])
+                , tabs = ( [], [] )
                 , main = [ main ]
                 }
             ]
