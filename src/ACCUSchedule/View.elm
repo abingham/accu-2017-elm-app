@@ -270,26 +270,28 @@ notFoundView =
         ]
 
 
+drawerLink : String -> String -> Html Msg.Msg
+drawerLink url linkText =
+    Layout.link
+        [ Layout.href url
+        , Options.onClick <| Layout.toggleDrawer Msg.Mdl
+        ]
+    [ text linkText]
+
+
+
 dayLink : Model.Model -> Types.Day -> Html Msg.Msg
 dayLink model day =
     let
         dayNum =
             dayOrd day |> toString
     in
-        Layout.link
-            [ Layout.href ("#/day/" ++ dayNum)
-            , Options.onClick <| Layout.toggleDrawer Msg.Mdl
-            ]
-            [ text (dayString day) ]
+        drawerLink ("#/day/" ++ dayNum) (dayString day)
 
 
 agendaLink : Html Msg.Msg
 agendaLink =
-    Layout.link
-        [ Layout.href "#/agenda"
-        , Options.onClick <| Layout.toggleDrawer Msg.Mdl
-        ]
-        [ text "Agenda" ]
+    drawerLink "#/agenda" "Agenda"
 
 
 view : Model.Model -> Html Msg.Msg
@@ -353,8 +355,7 @@ view model =
                                 (dayLink model)
                                 [ Types.Day1, Types.Day2, Types.Day3, Types.Day4 ]
                            )
-                        ++ [ agendaLink ]
-
+                        ++ [ drawerLink "#/agenda" "Agenda"]
                     ]
                 , tabs = ( [], [] )
                 , main = [ main ]
