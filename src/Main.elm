@@ -1,25 +1,27 @@
 module ACCUSchedule exposing (..)
 
 import ACCUSchedule.Comms as Comms
-import ACCUSchedule.Model as Model
-import ACCUSchedule.Msg as Msg
+import ACCUSchedule.Model exposing (..)
+import ACCUSchedule.Msg exposing (..)
+import ACCUSchedule.Types exposing (ProposalId)
 import ACCUSchedule.Update exposing (update)
 import ACCUSchedule.View exposing (view)
 import Material
 import Navigation
 
 
+main : Program (List ProposalId) Model Msg
 main =
-    Navigation.programWithFlags Msg.UrlChange
+    Navigation.programWithFlags UrlChange
         { init =
-            \starred loc ->
-                ( Model.initialModel starred loc
+            \bookmarks loc ->
+                ( initialModel bookmarks loc
                 , Cmd.batch
-                    [ Material.init Msg.Mdl
+                    [ Material.init Mdl
                     , Comms.fetchProposals
                     ]
                 )
         , view = view
         , update = update
-        , subscriptions = Material.subscriptions Msg.Mdl
+        , subscriptions = Material.subscriptions Mdl
         }

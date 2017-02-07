@@ -9,6 +9,6 @@ import Navigation
 type Msg
     = ProposalsResult (Result Http.Error (List Types.Proposal))
     | VisitProposal Types.Proposal
-    | ToggleStarred Types.ProposalId
+    | ToggleBookmark Types.ProposalId
     | Mdl (Material.Msg Msg)
     | UrlChange Navigation.Location

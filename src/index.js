@@ -10,20 +10,20 @@ require('./index.html');
 var Elm = require('./Main.elm');
 var mountNode = document.getElementById('main');
 
-var starredItem = 'accu2017_starred';
+var bookmarksItem = 'accu2017_bookmarks';
 
-// TODO: Load starred proposals from localstorage and pass to embed().
-var starred = localStorage.getItem(starredItem);
-if (starred) {
-    starred = JSON.parse(starred);
+// TODO: Load bookmarks proposals from localstorage and pass to embed().
+var bookmarks = localStorage.getItem(bookmarksItem);
+if (bookmarks) {
+    bookmarks = JSON.parse(bookmarks);
 }
 else {
-    starred = [];
+    bookmarks = [];
 }
 
-var app = Elm.ACCUSchedule.embed(mountNode, starred);
+var app = Elm.ACCUSchedule.embed(mountNode, bookmarks);
 
-// handle "store" port to save starred proposals
-app.ports.store.subscribe(function(starred) {
-    localStorage.setItem(starredItem, JSON.stringify(starred));
+// handle "store" port to save bookmarks proposals
+app.ports.store.subscribe(function(bookmarks) {
+    localStorage.setItem(bookmarksItem, JSON.stringify(bookmarks));
 });

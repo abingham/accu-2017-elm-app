@@ -22,8 +22,8 @@ proposalCardGroup =
     0
 
 
-starredControlGroup : Int
-starredControlGroup =
+bookmarksControlGroup : Int
+bookmarksControlGroup =
     0
 
 
@@ -139,12 +139,6 @@ proposalCard model proposal =
 
         location =
             time ++ ", " ++ room
-
-        icon =
-            if List.member proposal.id model.starred then
-                "favorite"
-            else
-                "favorite_border"
     in
         Card.view
             [ Options.onClick (Msg.VisitProposal proposal)
@@ -175,18 +169,7 @@ proposalCard model proposal =
                 , Color.text Color.white
                 , Typo.right
                 ]
-                [ Button.render Msg.Mdl
-                    [ proposalCardGroup
-                    , starredControlGroup
-                    , proposal.id
-                    ]
-                    model.mdl
-                    [ Button.icon
-                    , Button.ripple
-                    , Options.onClick <| Msg.ToggleStarred proposal.id
-                    ]
-                    [ Icon.i icon ]
-                ]
+                [ bookmarkButton model proposal]
             ]
 
 
@@ -217,15 +200,36 @@ dayView model day =
         filteredCardView model forToday
 
 
-{-| Display all "starred" proposals, i.e. the users personal agenda.
+{-| Display all "bookmarks" proposals, i.e. the users personal agenda.
 -}
 agendaView : Model.Model -> Html Msg.Msg
 agendaView model =
     let
-        starred =
-            \p -> List.member p.id model.starred
+        bookmarks =
+            \p -> List.member p.id model.bookmarks
     in
-        filteredCardView model starred
+        filteredCardView model bookmarks
+
+bookmarkButton : Model.Model -> Types.Proposal -> Html Msg.Msg
+bookmarkButton model proposal =
+    let
+        icon =
+            if List.member proposal.id model.bookmarks then
+                "bookmark"
+            else
+                "bookmark_border"
+    in
+        Button.render Msg.Mdl
+            [ proposalCardGroup
+            , bookmarksControlGroup
+            , proposal.id
+            ]
+            model.mdl
+                [ Button.icon
+                , Button.ripple
+                , Options.onClick <| Msg.ToggleBookmark proposal.id
+                ]
+            [ Icon.i icon]
 
 
 {-| Display a single proposal. This includes all of the details of the proposal,

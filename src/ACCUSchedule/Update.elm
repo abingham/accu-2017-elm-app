@@ -29,16 +29,16 @@ update msg model =
             in
                 (model, Navigation.newUrl url)
 
-        Msg.ToggleStarred id ->
+        Msg.ToggleBookmark id ->
             let
-                starred =
-                    if List.member id model.starred then
-                        List.filter (\pid -> pid /= id) model.starred
+                bookmarks =
+                    if List.member id model.bookmarks then
+                        List.filter (\pid -> pid /= id) model.bookmarks
                     else
-                        id :: model.starred
+                        id :: model.bookmarks
             in
-                -- TODO: Store the new starred array via the port
-                {model | starred = starred } ! [Storage.store starred]
+                -- TODO: Store the new bookmarks array via the port
+                {model | bookmarks = bookmarks } ! [Storage.store bookmarks]
 
         Msg.UrlChange location ->
             { model | location = Routing.parseLocation location } ! []
