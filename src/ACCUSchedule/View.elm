@@ -254,6 +254,8 @@ proposalView proposal =
                     ]
                     [ text (presenters proposal)
                     , br [] []
+                    , text (dayString proposal.day)
+                    , br [] []
                     , text location
                     ]
                 , Options.styled p
@@ -276,8 +278,7 @@ drawerLink url linkText =
         [ Layout.href url
         , Options.onClick <| Layout.toggleDrawer Msg.Mdl
         ]
-    [ text linkText]
-
+        [ text linkText ]
 
 
 dayLink : Model.Model -> Types.Day -> Html Msg.Msg
@@ -350,12 +351,12 @@ view model =
                     ]
                 , drawer =
                     [ Layout.title [] [ text "ACCU 2017" ]
-                    , Layout.navigation []
-                        <| (List.map
-                                (dayLink model)
-                                [ Types.Day1, Types.Day2, Types.Day3, Types.Day4 ]
-                           )
-                        ++ [ drawerLink "#/agenda" "Agenda"]
+                    , Layout.navigation [] <|
+                        (List.map
+                            (dayLink model)
+                            [ Types.Day1, Types.Day2, Types.Day3, Types.Day4 ]
+                        )
+                            ++ [ drawerLink "#/agenda" "Agenda" ]
                     ]
                 , tabs = ( [], [] )
                 , main = [ main ]
