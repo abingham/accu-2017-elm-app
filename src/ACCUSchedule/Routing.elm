@@ -7,6 +7,7 @@ import Navigation
 type RoutePath
     = Day Types.Day
     | Proposal Types.ProposalId
+    | Agenda
     | NotFound
 
 
@@ -61,6 +62,11 @@ parseLocation location =
 
             Just "session" ->
                 parseSessionRoute (List.drop 1 path)
+
+            Just "agenda" ->
+                case List.length path of
+                    1 -> Agenda
+                    _ -> NotFound
 
             _ ->
                 NotFound

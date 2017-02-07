@@ -250,6 +250,20 @@ proposalView proposal =
                 ]
             ]
 
+agendaView : Model.Model -> Html Msg.Msg
+agendaView model =
+    let
+        starred =
+            \p -> List.member p.id model.starred
+
+        proposals =
+            List.filter starred model.proposals
+
+        makeCell p =
+            Grid.cell [ Grid.size Grid.All 4 ]
+                [ proposalCard model p ]
+    in
+        List.map makeCell proposals |> Grid.grid []
 
 notFoundView : Html Msg.Msg
 notFoundView =
@@ -271,6 +285,15 @@ dayLink model day =
             [ text (dayString day) ]
 
 
+agendaLink : Html Msg.Msg
+agendaLink =
+    Layout.link
+        [ Layout.href "#/agenda"
+        , Options.onClick <| Layout.toggleDrawer Msg.Mdl
+        ]
+        [ text "Agenda" ]
+
+
 view : Model.Model -> Html Msg.Msg
 view model =
     let
@@ -287,6 +310,9 @@ view model =
                         Nothing ->
                             notFoundView
 
+                Routing.Agenda ->
+                    agendaView model
+
                 Routing.NotFound ->
                     notFoundView
 
@@ -297,6 +323,9 @@ view model =
 
                 Routing.Proposal id ->
                     ""
+
+                Routing.Agenda ->
+                    "Agenda"
 
                 Routing.NotFound ->
                     ""
@@ -322,10 +351,10 @@ view model =
                 , drawer =
                     [ Layout.title [] [ text "ACCU 2017" ]
                     , Layout.navigation []
-                        (List.map
+                        ((List.map
                             (dayLink model)
                             [ Types.Day1, Types.Day2, Types.Day3, Types.Day4 ]
-                        )
+                        ) ++ [agendaLink])
                     ]
                 , tabs = ( [], [] )
                 , main = [ main ]
