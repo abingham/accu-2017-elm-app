@@ -9,6 +9,7 @@ import Html.Attributes exposing (href, style)
 import Material.Button as Button
 import Material.Card as Card
 import Material.Color as Color
+import Material.Elevation as Elevation
 import Material.Grid as Grid
 import Material.Icon as Icon
 import Material.Layout as Layout
@@ -24,16 +25,6 @@ proposalCardGroup =
 starredControlGroup : Int
 starredControlGroup =
     0
-
-
-titleBackgroundColor : Color.Color
-titleBackgroundColor =
-    Color.color Color.LightBlue Color.S100
-
-
-infoBackgroundColor : Color.Color
-infoBackgroundColor =
-    Color.color Color.Grey Color.S100
 
 
 dayOrd : Types.Day -> Int
@@ -169,20 +160,32 @@ proposalCard model proposal =
                 "favorite_border"
     in
         Card.view
-            [ Options.onClick (Msg.VisitProposal proposal) ]
-            [ Card.title [ Color.background titleBackgroundColor ]
+            [ Options.onClick (Msg.VisitProposal proposal)
+            , Elevation.e2
+            ]
+            [ Card.title
+                [ Color.text Color.black
+                , Color.background Color.white
+                ]
                 ([ Card.head [] [ text proposal.title ]
                  ]
                 )
-            , Card.title [ Color.background infoBackgroundColor ]
-                ([ Card.subhead [] [ text (presenters proposal) ]
-                 , Card.subhead [] [ text location ]
+            , Card.title
+                [ Color.text Color.black
+                , Color.background Color.white
+                ]
+                ([ Card.subhead
+                    []
+                    [ text (presenters proposal) ]
+                 , Card.subhead
+                    []
+                    [ text location ]
                  ]
                 )
             , Card.actions
                 [ Card.border
-                , Color.background infoBackgroundColor
-                , Color.text Color.black
+                , Color.background Color.accent
+                , Color.text Color.white
                 , Typo.right
                 ]
                 [ Button.render Msg.Mdl
@@ -232,14 +235,10 @@ proposalView proposal =
             [ Grid.cell [ Grid.size Grid.All 8 ]
                 [ Options.styled p
                     [ Typo.title
-                    , Color.background titleBackgroundColor
-                    , Options.css "padding" "25px"
                     ]
                     [ text proposal.title ]
                 , Options.styled p
                     [ Typo.subhead
-                    , Options.css "padding" "10px"
-                    , Color.background infoBackgroundColor
                     ]
                     [ text (presenters proposal)
                     , br [] []

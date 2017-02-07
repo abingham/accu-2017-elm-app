@@ -2,7 +2,6 @@
 
 require("./static/material.min.css");
 require("./static/material.min.js");
-require("./static/material.blue_grey-light_blue.min.css");
 require("./static/material_icons.css");
 
 // Require index.html so it gets copied to dist
