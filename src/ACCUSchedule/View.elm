@@ -137,8 +137,11 @@ proposalCard model proposal =
         time =
             sessionToString proposal.session
 
+        day =
+            dayString proposal.day
+
         location =
-            time ++ ", " ++ room
+            String.join ", " [day, time, room]
     in
         Card.view
             [ Options.onClick (Msg.VisitProposal proposal)
@@ -169,7 +172,7 @@ proposalCard model proposal =
                 , Color.text Color.white
                 , Typo.right
                 ]
-                [ bookmarkButton model proposal]
+                [ bookmarkButton model proposal ]
             ]
 
 
@@ -210,6 +213,7 @@ agendaView model =
     in
         filteredCardView model bookmarks
 
+
 bookmarkButton : Model.Model -> Types.Proposal -> Html Msg.Msg
 bookmarkButton model proposal =
     let
@@ -225,18 +229,18 @@ bookmarkButton model proposal =
             , proposal.id
             ]
             model.mdl
-                [ Button.icon
-                , Button.ripple
-                , Options.onClick <| Msg.ToggleBookmark proposal.id
-                ]
-            [ Icon.i icon]
+            [ Button.icon
+            , Button.ripple
+            , Options.onClick <| Msg.ToggleBookmark proposal.id
+            ]
+            [ Icon.i icon ]
 
 
 {-| Display a single proposal. This includes all of the details of the proposal,
 including the full text of the abstract.
 -}
-proposalView : Types.Proposal -> Html Msg.Msg
-proposalView proposal =
+proposalView : Model.Model -> Types.Proposal -> Html Msg.Msg
+proposalView model proposal =
     let
         room =
             roomToString proposal.room
@@ -249,20 +253,12 @@ proposalView proposal =
     in
         Grid.grid []
             [ Grid.cell [ Grid.size Grid.All 8 ]
+                [ proposalCard model proposal ]
+            , Grid.cell
+                [ Grid.size Grid.Phone 4
+                , Grid.size Grid.All 8
+                ]
                 [ Options.styled p
-                    [ Typo.title
-                    ]
-                    [ text proposal.title ]
-                , Options.styled p
-                    [ Typo.subhead
-                    ]
-                    [ text (presenters proposal)
-                    , br [] []
-                    , text (dayString proposal.day)
-                    , br [] []
-                    , text location
-                    ]
-                , Options.styled p
                     [ Typo.body1 ]
                     [ text proposal.text ]
                 ]
@@ -310,7 +306,7 @@ view model =
                 Routing.Proposal id ->
                     case findProposal model id of
                         Just proposal ->
-                            proposalView proposal
+                            proposalView model proposal
 
                         Nothing ->
                             notFoundView
