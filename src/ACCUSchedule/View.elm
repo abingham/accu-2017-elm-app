@@ -53,16 +53,16 @@ dayString day =
             "Workshop"
 
         Types.Day1 ->
-            "Day 1"
+            "Tuesday"
 
         Types.Day2 ->
-            "Day 2"
+            "Wednesday"
 
         Types.Day3 ->
-            "Day 3"
+            "Thursday"
 
         Types.Day4 ->
-            "Day 4"
+            "Friday"
 
 
 {-| Find a proposal based on a string representation of its id.
