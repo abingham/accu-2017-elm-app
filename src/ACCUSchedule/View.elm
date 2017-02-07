@@ -65,13 +65,10 @@ dayString day =
             "Day 4"
 
 
+{-| Find a proposal based on a string representation of its id.
 
-{- ! Find a proposal based on a string representation of its id.
-
-   This is just convenienve for parsing the route.
+   This is just convenience for parsing the route.
 -}
-
-
 findProposal : Model.Model -> Types.ProposalId -> Maybe Types.Proposal
 findProposal model id =
     (List.filter (\p -> p.id == id) model.proposals) |> List.head
@@ -112,23 +109,8 @@ sessionToString session =
             "Session 3"
 
 
-tabToDay : Int -> Types.Day
-tabToDay tab =
-    case tab of
-        0 ->
-            Types.Day1
-
-        1 ->
-            Types.Day2
-
-        2 ->
-            Types.Day3
-
-        -- TODO: This is sloppy. We should handle an invalid tab better.
-        _ ->
-            Types.Day4
-
-
+{-| Create a display-ready string of the names of all presenters for a proposal.
+-}
 presenters : Types.Proposal -> String
 presenters proposal =
     let
@@ -141,6 +123,11 @@ presenters proposal =
         String.join ", " presenterNames
 
 
+{-| A card-view of a single proposal. This displays the title, presenters,
+location, and potentially other information about a proposal, though not the
+full text of the abstract. This includes a clickable icon for "starring" a
+propposal.
+-}
 proposalCard : Model.Model -> Types.Proposal -> Html Msg.Msg
 proposalCard model proposal =
     let
@@ -203,14 +190,14 @@ proposalCard model proposal =
             ]
 
 
-dayView : Model.Model -> Types.Day -> Html Msg.Msg
-dayView model day =
+{-| Create a grid view of a subset of the proposals in a model. This displays a
+card for each proposal `p` in `model` for which `predicate p` is `true`.
+-}
+filteredCardView : Model.Model -> (Types.Proposal -> Bool) -> Html Msg.Msg
+filteredCardView model predicate =
     let
-        forToday =
-            \p -> p.day == day
-
         proposals =
-            List.filter forToday model.proposals
+            List.filter predicate model.proposals
 
         makeCell p =
             Grid.cell [ Grid.size Grid.All 4 ]
@@ -219,6 +206,31 @@ dayView model day =
         List.map makeCell proposals |> Grid.grid []
 
 
+{-| Display all proposals for a particular day.
+-}
+dayView : Model.Model -> Types.Day -> Html Msg.Msg
+dayView model day =
+    let
+        forToday =
+            \p -> p.day == day
+    in
+        filteredCardView model forToday
+
+
+{-| Display all "starred" proposals, i.e. the users personal agenda.
+-}
+agendaView : Model.Model -> Html Msg.Msg
+agendaView model =
+    let
+        starred =
+            \p -> List.member p.id model.starred
+    in
+        filteredCardView model starred
+
+
+{-| Display a single proposal. This includes all of the details of the proposal,
+including the full text of the abstract.
+-}
 proposalView : Types.Proposal -> Html Msg.Msg
 proposalView proposal =
     let
@@ -250,20 +262,6 @@ proposalView proposal =
                 ]
             ]
 
-agendaView : Model.Model -> Html Msg.Msg
-agendaView model =
-    let
-        starred =
-            \p -> List.member p.id model.starred
-
-        proposals =
-            List.filter starred model.proposals
-
-        makeCell p =
-            Grid.cell [ Grid.size Grid.All 4 ]
-                [ proposalCard model p ]
-    in
-        List.map makeCell proposals |> Grid.grid []
 
 notFoundView : Html Msg.Msg
 notFoundView =
@@ -351,10 +349,12 @@ view model =
                 , drawer =
                     [ Layout.title [] [ text "ACCU 2017" ]
                     , Layout.navigation []
-                        ((List.map
-                            (dayLink model)
-                            [ Types.Day1, Types.Day2, Types.Day3, Types.Day4 ]
-                        ) ++ [agendaLink])
+                        <| (List.map
+                                (dayLink model)
+                                [ Types.Day1, Types.Day2, Types.Day3, Types.Day4 ]
+                           )
+                        ++ [ agendaLink ]
+
                     ]
                 , tabs = ( [], [] )
                 , main = [ main ]
