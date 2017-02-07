@@ -1,6 +1,8 @@
 module ACCUSchedule.Routing exposing (..)
 
+import ACCUSchedule.Days as Days
 import ACCUSchedule.Types as Types
+import Http
 import Navigation
 
 
@@ -8,7 +10,32 @@ type RoutePath
     = Day Types.Day
     | Proposal Types.ProposalId
     | Agenda
+    | Search String
     | NotFound
+
+
+dayUrl : Types.Day -> String
+dayUrl day =
+    let
+        dayNum =
+            Days.ordinal day |> toString
+    in
+        "#/day/" ++ dayNum
+
+
+agendaUrl : String
+agendaUrl =
+    "#/agenda"
+
+
+proposalUrl : Types.Proposal -> String
+proposalUrl proposal =
+    "#/session/" ++ (toString proposal.id)
+
+
+searchUrl : String -> String
+searchUrl term =
+    "#/search/" ++ (Http.encodeUri term)
 
 
 parseDayRoute : List String -> RoutePath
@@ -44,6 +71,21 @@ parseSessionRoute path =
                 NotFound
 
 
+parseSearchRoute : List String -> RoutePath
+parseSearchRoute path =
+    case path of
+        [ x ] ->
+            case Http.decodeUri x of
+                Just dx ->
+                    Search dx
+
+                _ ->
+                    NotFound
+
+        _ ->
+            NotFound
+
+
 parseLocation : Navigation.Location -> RoutePath
 parseLocation location =
     let
@@ -65,8 +107,14 @@ parseLocation location =
 
             Just "agenda" ->
                 case List.length path of
-                    1 -> Agenda
-                    _ -> NotFound
+                    1 ->
+                        Agenda
+
+                    _ ->
+                        NotFound
+
+            Just "search" ->
+                parseSearchRoute (List.drop 1 path)
 
             _ ->
                 NotFound

@@ -1,5 +1,6 @@
 module ACCUSchedule.View exposing (view)
 
+import ACCUSchedule.Days as Days
 import ACCUSchedule.Model as Model
 import ACCUSchedule.Msg as Msg
 import ACCUSchedule.Routing as Routing
@@ -14,6 +15,7 @@ import Material.Grid as Grid
 import Material.Icon as Icon
 import Material.Layout as Layout
 import Material.Options as Options
+import Material.Textfield as Textfield
 import Material.Typography as Typo
 
 
@@ -24,45 +26,12 @@ proposalCardGroup =
 
 bookmarksControlGroup : Int
 bookmarksControlGroup =
-    0
+    1
 
 
-dayOrd : Types.Day -> Int
-dayOrd day =
-    case day of
-        Types.Workshops ->
-            0
-
-        Types.Day1 ->
-            1
-
-        Types.Day2 ->
-            2
-
-        Types.Day3 ->
-            3
-
-        Types.Day4 ->
-            4
-
-
-dayString : Types.Day -> String
-dayString day =
-    case day of
-        Types.Workshops ->
-            "Workshop"
-
-        Types.Day1 ->
-            "Tuesday"
-
-        Types.Day2 ->
-            "Wednesday"
-
-        Types.Day3 ->
-            "Thursday"
-
-        Types.Day4 ->
-            "Friday"
+searchFieldControlGroup : Int
+searchFieldControlGroup =
+    2
 
 
 {-| Find a proposal based on a string representation of its id.
@@ -138,10 +107,10 @@ proposalCard model proposal =
             sessionToString proposal.session
 
         day =
-            dayString proposal.day
+            Days.toString proposal.day
 
         location =
-            String.join ", " [day, time, room]
+            String.join ", " [ day, time, room ]
     in
         Card.view
             [ Options.onClick (Msg.VisitProposal proposal)
@@ -265,6 +234,15 @@ proposalView model proposal =
             ]
 
 
+searchView : Model.Model -> String -> Html Msg.Msg
+searchView model term =
+    let
+        matching =
+            \p -> String.contains term p.text
+    in
+        filteredCardView model matching
+
+
 notFoundView : Html Msg.Msg
 notFoundView =
     div []
@@ -281,18 +259,14 @@ drawerLink url linkText =
         [ text linkText ]
 
 
-dayLink : Model.Model -> Types.Day -> Html Msg.Msg
-dayLink model day =
-    let
-        dayNum =
-            dayOrd day |> toString
-    in
-        drawerLink ("#/day/" ++ dayNum) (dayString day)
+dayLink : Types.Day -> Html Msg.Msg
+dayLink day =
+    drawerLink (Routing.dayUrl day) (Days.toString day)
 
 
 agendaLink : Html Msg.Msg
 agendaLink =
-    drawerLink "#/agenda" "Agenda"
+    drawerLink Routing.agendaUrl "Agenda"
 
 
 view : Model.Model -> Html Msg.Msg
@@ -314,13 +288,16 @@ view model =
                 Routing.Agenda ->
                     agendaView model
 
-                Routing.NotFound ->
+                Routing.Search term ->
+                    searchView model term
+
+                _ ->
                     notFoundView
 
         pageName =
             case model.location of
                 Routing.Day day ->
-                    dayString day
+                    Days.toString day
 
                 Routing.Proposal id ->
                     ""
@@ -328,7 +305,10 @@ view model =
                 Routing.Agenda ->
                     "Agenda"
 
-                Routing.NotFound ->
+                Routing.Search term ->
+                    ""
+
+                _ ->
                     ""
     in
         div
@@ -347,13 +327,31 @@ view model =
                         , Layout.title
                             [ Typo.title ]
                             [ text pageName ]
+                        , Layout.spacer
+                        , Layout.title
+                            []
+                            [ Icon.i "search" ]
+                        , Layout.title
+                            [ Typo.title
+                            , Options.onInput Msg.VisitSearch
+                            ]
+                            [ Textfield.render Msg.Mdl
+                                [ searchFieldControlGroup ]
+                                model.mdl
+                                [ Textfield.label "Search"
+                                , Textfield.floatingLabel
+                                  -- , Textfield.expandable "search-field"
+                                  -- , Textfield.expandableIcon "search"
+                                ]
+                                []
+                            ]
                         ]
                     ]
                 , drawer =
                     [ Layout.title [] [ text "ACCU 2017" ]
                     , Layout.navigation [] <|
                         (List.map
-                            (dayLink model)
+                            dayLink
                             [ Types.Day1, Types.Day2, Types.Day3, Types.Day4 ]
                         )
                             ++ [ drawerLink "#/agenda" "Agenda" ]

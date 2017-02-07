@@ -4,11 +4,12 @@ import ACCUSchedule.Msg as Msg
 import ACCUSchedule.Model exposing (Model)
 import ACCUSchedule.Routing as Routing
 import ACCUSchedule.Storage as Storage
+import Http
 import Material
 import Navigation
 
 
-update : Msg.Msg -> Model -> (Model, Cmd Msg.Msg)
+update : Msg.Msg -> Model -> ( Model, Cmd Msg.Msg )
 update msg model =
     case msg of
         Msg.ProposalsResult (Ok proposals) ->
@@ -24,10 +25,10 @@ update msg model =
                 model ! []
 
         Msg.VisitProposal proposal ->
-            let
-                url = "#/session/" ++ toString proposal.id
-            in
-                (model, Navigation.newUrl url)
+            ( model, Navigation.newUrl (Routing.proposalUrl proposal) )
+
+        Msg.VisitSearch term ->
+            ( model, Navigation.newUrl (Routing.searchUrl term) )
 
         Msg.ToggleBookmark id ->
             let
@@ -38,7 +39,7 @@ update msg model =
                         id :: model.bookmarks
             in
                 -- TODO: Store the new bookmarks array via the port
-                {model | bookmarks = bookmarks } ! [Storage.store bookmarks]
+                { model | bookmarks = bookmarks } ! [ Storage.store bookmarks ]
 
         Msg.UrlChange location ->
             { model | location = Routing.parseLocation location } ! []
