@@ -263,22 +263,12 @@ dayLink model day =
     let
         dayNum =
             dayOrd day |> toString
-
-        color =
-            case model.location of
-                Routing.Day routeDay ->
-                    if routeDay == day then
-                        Color.accent
-                    else
-                        Color.primary
-
-                _ ->
-                    Color.primary
-
-        style =
-            [ Layout.href ("#/day/" ++ dayNum), Color.background color ]
     in
-        Layout.link style [ text (dayString day) ]
+        Layout.link
+            [ Layout.href ("#/day/" ++ dayNum)
+            , Options.onClick <| Layout.toggleDrawer Msg.Mdl
+            ]
+            [ text (dayString day) ]
 
 
 view : Model.Model -> Html Msg.Msg
@@ -286,9 +276,6 @@ view model =
     let
         main =
             case model.location of
-                Routing.Home ->
-                    dayView model Types.Day1
-
                 Routing.Day day ->
                     dayView model day
 
@@ -302,6 +289,17 @@ view model =
 
                 Routing.NotFound ->
                     notFoundView
+
+        pageName =
+            case model.location of
+                Routing.Day day ->
+                    dayString day
+
+                Routing.Proposal id ->
+                    ""
+
+                Routing.NotFound ->
+                    ""
     in
         div
             [ style [ ( "padding", "2rem" ) ] ]
@@ -316,15 +314,19 @@ view model =
                             [ Typo.title, Typo.left ]
                             [ text "ACCU 2017" ]
                         , Layout.spacer
-                        , Layout.navigation
-                            []
-                            (List.map
-                                (dayLink model)
-                                [ Types.Day1, Types.Day2, Types.Day3, Types.Day4 ]
-                            )
+                        , Layout.title
+                            [ Typo.title ]
+                            [ text pageName ]
                         ]
                     ]
-                , drawer = []
+                , drawer =
+                    [ Layout.title [] [ text "ACCU 2017" ]
+                    , Layout.navigation []
+                        (List.map
+                            (dayLink model)
+                            [ Types.Day1, Types.Day2, Types.Day3, Types.Day4 ]
+                        )
+                    ]
                 , tabs = ( [], [] )
                 , main = [ main ]
                 }

@@ -5,8 +5,7 @@ import Navigation
 
 
 type RoutePath
-    = Home
-    | Day Types.Day
+    = Day Types.Day
     | Proposal Types.ProposalId
     | NotFound
 
@@ -55,7 +54,7 @@ parseLocation location =
     in
         case head of
             Nothing ->
-                Home
+                Day Types.Day1
 
             Just "day" ->
                 parseDayRoute (List.drop 1 path)
