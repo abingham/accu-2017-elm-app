@@ -310,6 +310,11 @@ view model =
 
                 _ ->
                     ""
+
+        searchString =
+            case model.location of
+                Routing.Search x -> x
+                _ -> ""
     in
         div
             [ style [ ( "padding", "2rem" ) ] ]
@@ -329,9 +334,6 @@ view model =
                             [ text pageName ]
                         , Layout.spacer
                         , Layout.title
-                            []
-                            [ Icon.i "search" ]
-                        , Layout.title
                             [ Typo.title
                             , Options.onInput Msg.VisitSearch
                             ]
@@ -340,8 +342,9 @@ view model =
                                 model.mdl
                                 [ Textfield.label "Search"
                                 , Textfield.floatingLabel
-                                  -- , Textfield.expandable "search-field"
-                                  -- , Textfield.expandableIcon "search"
+                                , Textfield.value searchString
+                                , Textfield.expandable "search-field"
+                                , Textfield.expandableIcon "search"
                                 ]
                                 []
                             ]
