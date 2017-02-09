@@ -4,8 +4,11 @@ import ACCUSchedule.Days as Days
 import ACCUSchedule.Types as Types
 import Http
 import Navigation
+import UrlParser exposing (..)
 
 
+{-| All of the possible routes that we can display
+-}
 type RoutePath
     = Day Types.Day
     | Proposal Types.ProposalId
@@ -38,83 +41,62 @@ searchUrl term =
     "#/search/" ++ (Http.encodeUri term)
 
 
-parseDayRoute : List String -> RoutePath
-parseDayRoute path =
-    case path of
-        [ "1" ] ->
-            Day Types.Day1
-
-        [ "2" ] ->
-            Day Types.Day2
-
-        [ "3" ] ->
-            Day Types.Day3
-
-        [ "4" ] ->
-            Day Types.Day4
-
-        _ ->
-            NotFound
-
-
-parseSessionRoute : List String -> RoutePath
-parseSessionRoute path =
+{-| Parse the string form of a day ordinal to a result.
+-}
+parseDay : String -> Result String Types.Day
+parseDay path =
     let
-        nums =
-            List.map String.toInt path
+        matchDayOrd day rslt =
+            if (day |> (Days.ordinal >> toString)) == path then
+                Ok day
+            else
+                rslt
     in
-        case nums of
-            [ Ok id ] ->
-                Proposal id
-
-            _ ->
-                NotFound
+        List.foldl
+            matchDayOrd
+            (Err "Invalid day")
+            Days.conferenceDays
 
 
-parseSearchRoute : List String -> RoutePath
-parseSearchRoute path =
-    case path of
-        [ x ] ->
+{-| Location parser for days encoded as integers
+-}
+day : Parser (Types.Day -> b) b
+day =
+    custom "DAY" parseDay
+
+
+{-| Location parser for uri-encoded strings.
+-}
+uriEncoded : Parser (String -> b) b
+uriEncoded =
+    let
+        decode x =
             case Http.decodeUri x of
                 Just dx ->
-                    Search dx
+                    Ok dx
 
-                _ ->
-                    NotFound
+                Nothing ->
+                    Err "Invalid URI-encoded string"
+    in
+        custom "URI_ENCODED" decode
 
-        _ ->
-            NotFound
+
+matchers : Parser (RoutePath -> a) a
+matchers =
+    oneOf
+        [ map (Day Types.Day1) top
+        , map Day (s "day" </> day)
+        , map Proposal (s "session" </> int)
+        , map Agenda (s "agenda")
+        , map Search (s "search" </> uriEncoded)
+        ]
 
 
 parseLocation : Navigation.Location -> RoutePath
 parseLocation location =
-    let
-        path =
-            (String.split "/" >> List.drop 1) location.hash
+    case (parseHash matchers location) of
+        Just route ->
+            route
 
-        head =
-            List.head path
-    in
-        case head of
-            Nothing ->
-                Day Types.Day1
-
-            Just "day" ->
-                parseDayRoute (List.drop 1 path)
-
-            Just "session" ->
-                parseSessionRoute (List.drop 1 path)
-
-            Just "agenda" ->
-                case List.length path of
-                    1 ->
-                        Agenda
-
-                    _ ->
-                        NotFound
-
-            Just "search" ->
-                parseSearchRoute (List.drop 1 path)
-
-            _ ->
-                NotFound
+        Nothing ->
+            NotFound

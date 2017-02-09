@@ -352,7 +352,7 @@ view model =
                     , Layout.navigation [] <|
                         (List.map
                             dayLink
-                            [ Types.Day1, Types.Day2, Types.Day3, Types.Day4 ]
+                            Days.conferenceDays
                         )
                             ++ [ drawerLink "#/agenda" "Agenda" ]
                     ]
