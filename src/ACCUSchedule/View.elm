@@ -106,11 +106,10 @@ proposalCard model proposal =
         time =
             sessionToString proposal.session
 
-        day =
-            Days.toString proposal.day
-
-        location =
-            String.join ", " [ day, time, room ]
+        dayLink =
+            Layout.link
+                [ Layout.href (Routing.dayUrl proposal.day) ]
+                [ text <| Days.toString proposal.day ]
     in
         Card.view
             [ Options.onClick (Msg.VisitProposal proposal)
@@ -132,7 +131,8 @@ proposalCard model proposal =
                     [ text (presenters proposal) ]
                  , Card.subhead
                     []
-                    [ text location ]
+                    (dayLink :: (List.map text [time, room])
+                        |> List.intersperse (text ", "))
                  ]
                 )
             , Card.actions
@@ -313,8 +313,11 @@ view model =
 
         searchString =
             case model.location of
-                Routing.Search x -> x
-                _ -> ""
+                Routing.Search x ->
+                    x
+
+                _ ->
+                    ""
     in
         div
             [ style [ ( "padding", "2rem" ) ] ]
