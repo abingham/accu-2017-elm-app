@@ -28,7 +28,7 @@ update msg model =
             ( model, Navigation.newUrl (Routing.proposalUrl proposal) )
 
         Msg.VisitSearch term ->
-            ( model, Navigation.newUrl (Routing.searchUrl term) )
+            ( model, Navigation.modifyUrl (Routing.searchUrl term) )
 
         Msg.ToggleBookmark id ->
             let
