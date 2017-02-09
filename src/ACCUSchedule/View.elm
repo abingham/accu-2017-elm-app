@@ -114,6 +114,7 @@ proposalCard model proposal =
         Card.view
             [ Options.onClick (Msg.VisitProposal proposal)
             , Elevation.e2
+            , Options.css "margin" "10px"
             ]
             [ Card.title
                 [ Color.text Color.black
@@ -122,19 +123,15 @@ proposalCard model proposal =
                 ([ Card.head [] [ text proposal.title ]
                  ]
                 )
-            , Card.title
+            , Card.text
                 [ Color.text Color.black
                 , Color.background Color.white
+                , Card.expand
                 ]
-                ([ Card.subhead
-                    []
-                    [ text (presenters proposal) ]
-                 , Card.subhead
-                    []
-                    (dayLink :: (List.map text [time, room])
-                        |> List.intersperse (text ", "))
-                 ]
-                )
+                [ text (presenters proposal)
+                , br [] []
+                , dayLink
+                ]
             , Card.actions
                 [ Card.border
                 , Color.background Color.accent
@@ -153,12 +150,17 @@ filteredCardView model predicate =
     let
         proposals =
             List.filter predicate model.proposals
-
-        makeCell p =
-            Grid.cell [ Grid.size Grid.All 4 ]
-                [ proposalCard model p ]
     in
-        List.map makeCell proposals |> Grid.grid []
+        Options.div
+            [ Options.css "display" "flex"
+            , Options.css "flex-flow" "row wrap"
+              -- , Options.css "justify-content" "space-between"
+              -- , Options.css "margin" "20px"
+              --, Options.css "align-items" "flex-start"
+              -- , Options.css "width" "100%"
+              -- , Options.css "margin-top" "10px"
+            ]
+            (List.map (proposalCard model) proposals)
 
 
 {-| Display all proposals for a particular day.
