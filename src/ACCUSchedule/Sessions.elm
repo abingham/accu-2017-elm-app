@@ -21,3 +21,7 @@ ordinal s =
         Session1 -> 1
         Session2 -> 2
         Session3 -> 3
+
+conferenceSessions : List Session
+conferenceSessions =
+    [Session1, Session2, Session3]

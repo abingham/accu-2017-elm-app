@@ -8,7 +8,6 @@ import ACCUSchedule.Sessions as Sessions
 import ACCUSchedule.Types as Types
 import Html exposing (a, br, div, h1, Html, p, text)
 import Html.Attributes exposing (href, style)
-import List.Extra exposing (groupWhile)
 import Material.Button as Button
 import Material.Card as Card
 import Material.Color as Color
@@ -167,52 +166,59 @@ flowCardView model proposals =
         (List.map (proposalCard model) proposals)
 
 
+sessionView : Model.Model -> List Types.Proposal -> Types.Session -> List (Html Msg.Msg)
+sessionView model props session =
+    let
+        proposals =
+            List.filter (.session >> (==) session) props
+    in
+        case List.head proposals of
+            Nothing -> []
+
+            Just prop ->
+                let
+                    s =
+                        Sessions.toString prop.session
+
+                    d =
+                        Days.toString prop.day
+
+                    label =
+                        d ++ ", " ++ s
+                in
+                    [ Options.div
+                          [ Typo.title
+                          , Color.background Color.primary
+                          , Color.text Color.primaryContrast
+                          , Options.css "padding" "10px"
+                          ]
+                          [ text label ]
+                    , p [] []
+                    , flowCardView model proposals
+                    ]
+
+
 {-| Display all proposals for a particular day.
 -}
-dayView : Types.Day -> Model.Model -> Html Msg.Msg
-dayView day model =
+dayView : Model.Model -> List Types.Proposal -> Types.Day -> List (Html Msg.Msg)
+dayView model proposals day =
     let
-        forToday =
-            .day >> (==) day
-
-        sessionView proposals =
-            case List.head proposals of
-                Nothing ->
-                    div [] []
-
-                Just prop ->
-                    div []
-                        [ Options.div
-                            [ Typo.title
-                            , Color.background Color.primary
-                            , Color.text Color.primaryContrast
-                            , Options.css "padding" "10px"
-                            ]
-                            [ prop.session |> Sessions.toString |> text ]
-                        , p [] []
-                        , flowCardView model proposals
-                        ]
-
-        view =
-            List.filter forToday
-                >> List.sortBy (.session >> Sessions.ordinal)
-                >> groupWhile (\a b -> a.session == b.session)
-                >> List.map sessionView
-                >> div
-                    []
+        props =
+            List.filter (.day >> (==) day) proposals
     in
-        view model.proposals
+        List.concatMap
+            (sessionView model props)
+            Sessions.conferenceSessions
 
 
 {-| Display all "bookmarks" proposals, i.e. the users personal agenda.
 -}
-agendaView : Model.Model -> Html Msg.Msg
+agendaView : Model.Model -> List (Html Msg.Msg)
 agendaView model =
     let
-        bookmarks =
-            \p -> List.member p.id model.bookmarks
+        props = List.filter (\p -> List.member p.id model.bookmarks) model.proposals
     in
-        filteredCardView model bookmarks
+        List.concatMap (dayView model props) Days.conferenceDays
 
 
 bookmarkButton : Model.Model -> Types.Proposal -> Html Msg.Msg
@@ -307,7 +313,8 @@ view model =
         main =
             case model.location of
                 Routing.Day day ->
-                    dayView day model
+                    dayView model model.proposals day
+                        |> div []
 
                 Routing.Proposal id ->
                     case findProposal model id of
@@ -319,6 +326,7 @@ view model =
 
                 Routing.Agenda ->
                     agendaView model
+                        |> div []
 
                 Routing.Search term ->
                     searchView model term
