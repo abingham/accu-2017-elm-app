@@ -10,6 +10,7 @@ import Html exposing (a, br, div, h1, Html, p, text)
 import Html.Attributes exposing (href, style)
 import Material.Button as Button
 import Material.Card as Card
+import Material.Chip as Chip
 import Material.Color as Color
 import Material.Elevation as Elevation
 import Material.Grid as Grid
@@ -130,6 +131,7 @@ proposalCard model proposal =
                 [ bookmarkButton model proposal ]
             ]
 
+
 flowCardView : Model.Model -> List Types.Proposal -> Html Msg.Msg
 flowCardView model proposals =
     Options.div
@@ -151,7 +153,8 @@ sessionView model props session =
             List.filter (.session >> (==) session) props
     in
         case List.head proposals of
-            Nothing -> []
+            Nothing ->
+                []
 
             Just prop ->
                 let
@@ -164,13 +167,10 @@ sessionView model props session =
                     label =
                         d ++ ", " ++ s
                 in
-                    [ Options.div
-                          [ Typo.title
-                          , Color.background Color.primary
-                          , Color.text Color.primaryContrast
-                          , Options.css "padding" "10px"
-                          ]
-                          [ text label ]
+                    [ Chip.span [ Options.css "margin-top" "20px" ]
+                        [ Chip.content []
+                            [ text label ]
+                        ]
                     , p [] []
                     , flowCardView model proposals
                     ]
@@ -194,7 +194,8 @@ dayView model proposals day =
 agendaView : Model.Model -> List (Html Msg.Msg)
 agendaView model =
     let
-        props = List.filter (\p -> List.member p.id model.bookmarks) model.proposals
+        props =
+            List.filter (\p -> List.member p.id model.bookmarks) model.proposals
     in
         List.concatMap (dayView model props) Days.conferenceDays
 
@@ -255,6 +256,7 @@ searchView model term =
     let
         matching =
             \p -> String.contains term p.text
+
         proposals =
             List.filter matching model.proposals
     in
