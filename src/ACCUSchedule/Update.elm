@@ -4,7 +4,6 @@ import ACCUSchedule.Msg as Msg
 import ACCUSchedule.Model exposing (Model)
 import ACCUSchedule.Routing as Routing
 import ACCUSchedule.Storage as Storage
-import Http
 import Material
 import Navigation
 

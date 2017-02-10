@@ -4,9 +4,11 @@ import ACCUSchedule.Days as Days
 import ACCUSchedule.Model as Model
 import ACCUSchedule.Msg as Msg
 import ACCUSchedule.Routing as Routing
+import ACCUSchedule.Sessions as Sessions
 import ACCUSchedule.Types as Types
 import Html exposing (a, br, div, h1, Html, p, text)
 import Html.Attributes exposing (href, style)
+import List.Extra exposing (groupWhile)
 import Material.Button as Button
 import Material.Card as Card
 import Material.Color as Color
@@ -65,19 +67,6 @@ roomToString room =
             "Great Britain"
 
 
-sessionToString : Types.Session -> String
-sessionToString session =
-    case session of
-        Types.Session1 ->
-            "Session 1"
-
-        Types.Session2 ->
-            "Session 2"
-
-        Types.Session3 ->
-            "Session 3"
-
-
 {-| Create a display-ready string of the names of all presenters for a proposal.
 -}
 presenters : Types.Proposal -> String
@@ -104,7 +93,7 @@ proposalCard model proposal =
             roomToString proposal.room
 
         time =
-            sessionToString proposal.session
+            Sessions.toString proposal.session
 
         dayLink =
             Layout.link
@@ -131,6 +120,7 @@ proposalCard model proposal =
                 [ text (presenters proposal)
                 , br [] []
                 , dayLink
+                , text <| ", " ++ time ++ ", " ++ room
                 ]
             , Card.actions
                 [ Card.border
@@ -163,15 +153,49 @@ filteredCardView model predicate =
             (List.map (proposalCard model) proposals)
 
 
+flowCardView : Model.Model -> List Types.Proposal -> Html Msg.Msg
+flowCardView model proposals =
+    Options.div
+        [ Options.css "display" "flex"
+        , Options.css "flex-flow" "row wrap"
+          -- , Options.css "justify-content" "space-between"
+          -- , Options.css "margin" "20px"
+          --, Options.css "align-items" "flex-start"
+          -- , Options.css "width" "100%"
+          -- , Options.css "margin-top" "10px"
+        ]
+        (List.map (proposalCard model) proposals)
+
+
 {-| Display all proposals for a particular day.
 -}
-dayView : Model.Model -> Types.Day -> Html Msg.Msg
-dayView model day =
+dayView : Types.Day -> Model.Model -> Html Msg.Msg
+dayView day model =
     let
         forToday =
-            \p -> p.day == day
+            .day >> (==) day
+
+        sessionView proposals =
+            case List.head proposals of
+                Nothing ->
+                    div [] []
+
+                Just prop ->
+                    div []
+                        [ prop.session |> Sessions.toString |> text
+                        , p [] []
+                        , flowCardView model proposals
+                        ]
+
+        view =
+            List.filter forToday
+                >> List.sortBy (.session >> Sessions.ordinal)
+                >> groupWhile (\a b -> a.session == b.session)
+                >> List.map sessionView
+                >> div
+                    []
     in
-        filteredCardView model forToday
+        view model.proposals
 
 
 {-| Display all "bookmarks" proposals, i.e. the users personal agenda.
@@ -217,7 +241,7 @@ proposalView model proposal =
             roomToString proposal.room
 
         session =
-            sessionToString proposal.session
+            Sessions.toString proposal.session
 
         location =
             session ++ ", " ++ room
@@ -277,7 +301,7 @@ view model =
         main =
             case model.location of
                 Routing.Day day ->
-                    dayView model day
+                    dayView day model
 
                 Routing.Proposal id ->
                     case findProposal model id of
