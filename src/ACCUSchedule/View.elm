@@ -130,28 +130,6 @@ proposalCard model proposal =
                 [ bookmarkButton model proposal ]
             ]
 
-
-{-| Create a grid view of a subset of the proposals in a model. This displays a
-card for each proposal `p` in `model` for which `predicate p` is `true`.
--}
-filteredCardView : Model.Model -> (Types.Proposal -> Bool) -> Html Msg.Msg
-filteredCardView model predicate =
-    let
-        proposals =
-            List.filter predicate model.proposals
-    in
-        Options.div
-            [ Options.css "display" "flex"
-            , Options.css "flex-flow" "row wrap"
-              -- , Options.css "justify-content" "space-between"
-              -- , Options.css "margin" "20px"
-              --, Options.css "align-items" "flex-start"
-              -- , Options.css "width" "100%"
-              -- , Options.css "margin-top" "10px"
-            ]
-            (List.map (proposalCard model) proposals)
-
-
 flowCardView : Model.Model -> List Types.Proposal -> Html Msg.Msg
 flowCardView model proposals =
     Options.div
@@ -277,8 +255,10 @@ searchView model term =
     let
         matching =
             \p -> String.contains term p.text
+        proposals =
+            List.filter matching model.proposals
     in
-        filteredCardView model matching
+        flowCardView model proposals
 
 
 notFoundView : Html Msg.Msg
