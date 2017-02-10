@@ -137,11 +137,6 @@ flowCardView model proposals =
     Options.div
         [ Options.css "display" "flex"
         , Options.css "flex-flow" "row wrap"
-          -- , Options.css "justify-content" "space-between"
-          -- , Options.css "margin" "20px"
-          --, Options.css "align-items" "flex-start"
-          -- , Options.css "width" "100%"
-          -- , Options.css "margin-top" "10px"
         ]
         (List.map (proposalCard model) proposals)
 
@@ -237,16 +232,21 @@ proposalView model proposal =
         location =
             session ++ ", " ++ room
     in
-        Grid.grid []
-            [ Grid.cell [ Grid.size Grid.All 8 ]
-                [ proposalCard model proposal ]
-            , Grid.cell
-                [ Grid.size Grid.Phone 4
-                , Grid.size Grid.All 8
-                ]
-                [ Options.styled p
-                    [ Typo.body1 ]
-                    [ text proposal.text ]
+        Options.div
+            [ Options.css "display" "flex"
+            , Options.css "flex-flow" "row wrap"
+            ]
+            [ proposalCard model proposal
+            , Grid.grid []
+                [ Grid.cell
+                    [ Grid.size Grid.Phone 4
+                    , Grid.size Grid.All 8
+                    ]
+                    [ Options.styled p
+                        [ Typo.body1
+                        ]
+                        [ text proposal.text ]
+                    ]
                 ]
             ]
 
