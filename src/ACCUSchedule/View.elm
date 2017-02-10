@@ -13,6 +13,7 @@ import Material.Card as Card
 import Material.Chip as Chip
 import Material.Color as Color
 import Material.Elevation as Elevation
+import Material.Footer as Footer
 import Material.Grid as Grid
 import Material.Icon as Icon
 import Material.Layout as Layout
@@ -385,6 +386,21 @@ view model =
                             ++ [ drawerLink "#/agenda" "Agenda" ]
                     ]
                 , tabs = ( [], [] )
-                , main = [ main ]
+                , main =
+                    [ main
+                    , Footer.mini []
+                        { left =
+                            Footer.left []
+                                [ Footer.logo [] [ Footer.html <| text "ACCU 2017 Schedule" ]
+                                , Footer.links []
+                                    [ Footer.linkItem [ Footer.href "https://conference.accu.org/site" ] [ Footer.html <| text "Conference" ]
+                                    , Footer.linkItem [ Footer.href "https://github.com/abingham/accu-2017-elm-app" ] [ Footer.html <| text "Github" ]
+                                    ]
+                                ]
+                        , right =
+                            Footer.right []
+                                [ Footer.html <| text "© 2017 Sixty North AS" ]
+                        }
+                    ]
                 }
             ]
