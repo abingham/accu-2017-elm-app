@@ -182,7 +182,13 @@ dayView day model =
 
                 Just prop ->
                     div []
-                        [ prop.session |> Sessions.toString |> text
+                        [ Options.div
+                            [ Typo.title
+                            , Color.background Color.primary
+                            , Color.text Color.primaryContrast
+                            , Options.css "padding" "10px"
+                            ]
+                            [ prop.session |> Sessions.toString |> text ]
                         , p [] []
                         , flowCardView model proposals
                         ]
@@ -353,7 +359,7 @@ view model =
                 ]
                 { header =
                     [ Layout.row
-                        []
+                        [ Color.background Color.primary ]
                         [ Layout.title
                             [ Typo.title, Typo.left ]
                             [ text "ACCU 2017" ]
