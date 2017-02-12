@@ -343,7 +343,7 @@ view model =
                     ""
     in
         div
-            [ style [ ( "padding", "2rem" ) ] ]
+            [ ]
             [ Layout.render Msg.Mdl
                 model.mdl
                 [ Layout.fixedHeader
