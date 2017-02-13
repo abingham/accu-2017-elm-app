@@ -10,14 +10,14 @@ import UrlParser exposing (..)
 {-| All of the possible routes that we can display
 -}
 type RoutePath
-    = Day Types.Day
+    = Day Days.Day
     | Proposal Types.ProposalId
     | Agenda
     | Search String
     | NotFound
 
 
-dayUrl : Types.Day -> String
+dayUrl : Days.Day -> String
 dayUrl day =
     let
         dayNum =
@@ -43,7 +43,7 @@ searchUrl term =
 
 {-| Parse the string form of a day ordinal to a result.
 -}
-parseDay : String -> Result String Types.Day
+parseDay : String -> Result String Days.Day
 parseDay path =
     let
         matchDayOrd day rslt =
@@ -60,7 +60,7 @@ parseDay path =
 
 {-| Location parser for days encoded as integers
 -}
-day : Parser (Types.Day -> b) b
+day : Parser (Days.Day -> b) b
 day =
     custom "DAY" parseDay
 
@@ -84,7 +84,7 @@ uriEncoded =
 matchers : Parser (RoutePath -> a) a
 matchers =
     oneOf
-        [ map (Day Types.Day1) top
+        [ map (Day Days.Day1) top
         , map Day (s "day" </> day)
         , map Proposal (s "session" </> int)
         , map Agenda (s "agenda")

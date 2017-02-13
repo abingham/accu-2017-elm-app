@@ -1,13 +1,6 @@
 module ACCUSchedule.Types exposing (..)
 
-
-type Day
-    = Workshops
-    | Day1
-    | Day2
-    | Day3
-    | Day4
-
+import ACCUSchedule.Days exposing (Day)
 
 type Session
     = Session1

@@ -1,29 +1,30 @@
 module ACCUSchedule.Json exposing (..)
 
+import ACCUSchedule.Days as Days
 import ACCUSchedule.Types as Types
 import Json.Decode exposing (andThen, Decoder, fail, int, list, maybe, string, succeed)
 import Json.Decode.Pipeline exposing (decode, optional, required)
 
 
-day : Decoder Types.Day
+day : Decoder Days.Day
 day =
     let
         decoder s =
             case s of
                 "workshops" ->
-                    succeed Types.Workshops
+                    succeed Days.Workshops
 
                 "day_1" ->
-                    succeed Types.Day1
+                    succeed Days.Day1
 
                 "day_2" ->
-                    succeed Types.Day2
+                    succeed Days.Day2
 
                 "day_3" ->
-                    succeed Types.Day3
+                    succeed Days.Day3
 
                 "day_4" ->
-                    succeed Types.Day4
+                    succeed Days.Day4
 
                 _ ->
                     fail ("invalid day: " ++ s)

@@ -7,7 +7,6 @@ import ACCUSchedule.Routing as Routing
 import ACCUSchedule.Sessions as Sessions
 import ACCUSchedule.Types as Types
 import Html exposing (a, br, div, h1, Html, p, text)
-import Html.Attributes exposing (href, style)
 import Material.Button as Button
 import Material.Card as Card
 import Material.Chip as Chip
@@ -104,7 +103,8 @@ proposalCard model proposal =
         Card.view
             [ Options.onClick (Msg.VisitProposal proposal)
             , Elevation.e2
-            , Options.css "margin" "10px"
+            , Options.css "margin-right" "5px"
+            , Options.css "margin-bottom" "5px"
             ]
             [ Card.title
                 [ Color.text Color.black
@@ -163,25 +163,29 @@ sessionView model props session =
                     label =
                         d ++ ", " ++ s
                 in
-                    [ Chip.span [ Options.css "margin-top" "20px" ]
+                    [ Chip.span [ Options.css "margin-bottom" "5px" ]
                         [ Chip.content []
                             [ text label ]
                         ]
-                    , p [] []
                     , flowCardView model proposals
                     ]
 
 
 {-| Display all proposals for a particular day.
 -}
-dayView : Model.Model -> List Types.Proposal -> Types.Day -> List (Html Msg.Msg)
+dayView : Model.Model -> List Types.Proposal -> Days.Day -> List (Html Msg.Msg)
 dayView model proposals day =
     let
         props =
             List.filter (.day >> (==) day) proposals
+
+        sview =
+            sessionView model props
+                >> Options.styled div
+                    [ Options.css "margin-bottom" "10px" ]
     in
-        List.concatMap
-            (sessionView model props)
+        List.map
+            sview
             Sessions.conferenceSessions
 
 
@@ -236,19 +240,19 @@ proposalView model proposal =
         Options.div
             [ Options.css "display" "flex"
             , Options.css "flex-flow" "row wrap"
+              -- , Options.css "justify" "center"
+            , Options.css "justify-content" "flex-start"
+            , Options.css "align-items" "flex-start"
             ]
-            [ proposalCard model proposal
-            , Grid.grid []
-                [ Grid.cell
-                    [ Grid.size Grid.Phone 4
-                    , Grid.size Grid.All 8
-                    ]
-                    [ Options.styled p
-                        [ Typo.body1
-                        ]
-                        [ text proposal.text ]
-                    ]
+            [ Options.styled p
+                []
+                [ proposalCard model proposal ]
+            , Options.styled p
+                [ Typo.body1
+                , Options.css "width" "30em"
+                , Options.css "margin-left" "10px"
                 ]
+                [ text proposal.text ]
             ]
 
 
@@ -280,7 +284,7 @@ drawerLink url linkText =
         [ text linkText ]
 
 
-dayLink : Types.Day -> Html Msg.Msg
+dayLink : Days.Day -> Html Msg.Msg
 dayLink day =
     drawerLink (Routing.dayUrl day) (Days.toString day)
 
@@ -297,25 +301,23 @@ view model =
             case model.location of
                 Routing.Day day ->
                     dayView model model.proposals day
-                        |> div []
 
                 Routing.Proposal id ->
                     case findProposal model id of
                         Just proposal ->
-                            proposalView model proposal
+                            [ proposalView model proposal ]
 
                         Nothing ->
-                            notFoundView
+                            [ notFoundView ]
 
                 Routing.Agenda ->
                     agendaView model
-                        |> div []
 
                 Routing.Search term ->
-                    searchView model term
+                    [ searchView model term ]
 
                 _ ->
-                    notFoundView
+                    [ notFoundView ]
 
         pageName =
             case model.location of
@@ -343,7 +345,7 @@ view model =
                     ""
     in
         div
-            [ ]
+            []
             [ Layout.render Msg.Mdl
                 model.mdl
                 [ Layout.fixedHeader
@@ -387,7 +389,12 @@ view model =
                     ]
                 , tabs = ( [], [] )
                 , main =
-                    [ main
+                    [ Options.styled div
+                        [ Options.css "margin-left" "10px"
+                        , Options.css "margin-top" "10px"
+                        , Options.css "margin-bottom" "10px"
+                        ]
+                        main
                     , Footer.mini []
                         { left =
                             Footer.left []
