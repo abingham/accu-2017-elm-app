@@ -196,8 +196,16 @@ agendaView model =
     let
         props =
             List.filter (\p -> List.member p.id model.bookmarks) model.proposals
+
+        dview day =
+            [ Chip.span [ Options.css "margin-bottom" "5px" ]
+                  [ Chip.content []
+                        [ text <| Days.toString day ]
+                  ]
+            , flowCardView model <| List.filter (.day >> (==) day) props
+            ]
     in
-        List.concatMap (dayView model props) Days.conferenceDays
+        List.concatMap dview Days.conferenceDays
 
 
 bookmarkButton : Model.Model -> Types.Proposal -> Html Msg.Msg
