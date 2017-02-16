@@ -179,6 +179,7 @@ dayView model proposals day =
         props =
             List.filter (.day >> (==) day) proposals
 
+
         sview =
             sessionView model props
                 >> Options.styled div
@@ -198,10 +199,15 @@ agendaView model =
             List.filter (\p -> List.member p.id model.bookmarks) model.proposals
 
         dview day =
-            [ Chip.span [ Options.css "margin-bottom" "5px" ]
-                  [ Chip.content []
+            [ Chip.span
+                [ Options.css "margin-bottom" "5px"
+                , Elevation.e2]
+                [ Chip.content []
+                    [ Layout.link
+                        [ Layout.href <| Routing.dayUrl day ]
                         [ text <| Days.toString day ]
-                  ]
+                    ]
+                ]
             , flowCardView model <| List.filter (.day >> (==) day) props
             ]
     in
