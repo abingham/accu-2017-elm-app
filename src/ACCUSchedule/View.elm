@@ -179,7 +179,6 @@ dayView model proposals day =
         props =
             List.filter (.day >> (==) day) proposals
 
-
         sview =
             sessionView model props
                 >> Options.styled div
@@ -201,7 +200,8 @@ agendaView model =
         dview day =
             [ Chip.span
                 [ Options.css "margin-bottom" "5px"
-                , Elevation.e2]
+                , Elevation.e2
+                ]
                 [ Chip.content []
                     [ Layout.link
                         [ Layout.href <| Routing.dayUrl day ]
@@ -399,7 +399,9 @@ view model =
                             dayLink
                             Days.conferenceDays
                         )
-                            ++ [ drawerLink "#/agenda" "Agenda" ]
+                            ++ [ Html.hr [] []
+                               , agendaLink
+                               ]
                     ]
                 , tabs = ( [], [] )
                 , main =
