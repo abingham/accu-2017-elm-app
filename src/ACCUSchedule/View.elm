@@ -7,14 +7,14 @@ import ACCUSchedule.Routing as Routing
 import ACCUSchedule.Search as Search
 import ACCUSchedule.Sessions as Sessions
 import ACCUSchedule.Types as Types
-import Html exposing (a, br, div, h1, Html, p, text)
+import Html exposing (a, br, div, h1, Html, img, p, text)
+import Html.Attributes exposing (src)
 import Material.Button as Button
 import Material.Card as Card
 import Material.Chip as Chip
 import Material.Color as Color
 import Material.Elevation as Elevation
 import Material.Footer as Footer
-import Material.Grid as Grid
 import Material.Icon as Icon
 import Material.Layout as Layout
 import Material.Options as Options
@@ -303,6 +303,24 @@ agendaLink =
     drawerLink Routing.agendaUrl "Agenda"
 
 
+footer =
+    Footer.mini []
+        { left =
+            Footer.left []
+                [ Footer.logo [] [ Footer.html <| text "ACCU 2017 Schedule" ]
+                , Footer.links []
+                    [ Footer.linkItem [ Footer.href "https://conference.accu.org/site" ] [ Footer.html <| text "Conference" ]
+                    , Footer.linkItem [ Footer.href "https://github.com/abingham/accu-2017-elm-app" ] [ Footer.html <| img [ src "/static/img/GitHub-Mark-Light-32px.png" ] [] ]
+                    ]
+                ]
+        , right =
+            Footer.right []
+                [ Footer.links []
+                    [ Footer.linkItem [ Footer.href "https://sixty-north.com" ] [ Footer.html <| text "© 2017 Sixty North AS" ] ]
+                ]
+        }
+
+
 view : Model.Model -> Html Msg.Msg
 view model =
     let
@@ -406,21 +424,7 @@ view model =
                         , Options.css "margin-bottom" "10px"
                         ]
                         main
-                    , Footer.mini []
-                        { left =
-                            Footer.left []
-                                [ Footer.logo [] [ Footer.html <| text "ACCU 2017 Schedule" ]
-                                , Footer.links []
-                                    [ Footer.linkItem [ Footer.href "https://conference.accu.org/site" ] [ Footer.html <| text "Conference" ]
-                                    , Footer.linkItem [ Footer.href "https://github.com/abingham/accu-2017-elm-app" ] [ Footer.html <| text "Github" ]
-                                    ]
-                                ]
-                        , right =
-                            Footer.right []
-                                [ Footer.links []
-                                    [ Footer.linkItem [ Footer.href "https://sixty-north.com" ] [ Footer.html <| text "© 2017 Sixty North AS" ] ]
-                                ]
-                        }
+                    , footer
                     ]
                 }
             ]
