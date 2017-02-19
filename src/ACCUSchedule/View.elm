@@ -303,6 +303,7 @@ agendaLink =
     drawerLink Routing.agendaUrl "Agenda"
 
 
+footer : Html Msg.Msg
 footer =
     Footer.mini []
         { left =
