@@ -4,6 +4,7 @@ import ACCUSchedule.Days as Days
 import ACCUSchedule.Model as Model
 import ACCUSchedule.Msg as Msg
 import ACCUSchedule.Routing as Routing
+import ACCUSchedule.Search as Search
 import ACCUSchedule.Sessions as Sessions
 import ACCUSchedule.Types as Types
 import Html exposing (a, br, div, h1, Html, p, text)
@@ -270,16 +271,10 @@ proposalView model proposal =
             ]
 
 
-searchView : Model.Model -> String -> Html Msg.Msg
-searchView model term =
-    let
-        matching =
-            \p -> String.contains term p.text
-
-        proposals =
-            List.filter matching model.proposals
-    in
-        flowCardView model proposals
+searchView : String -> Model.Model -> Html Msg.Msg
+searchView term model =
+    Search.search term model
+        |> flowCardView model
 
 
 notFoundView : Html Msg.Msg
@@ -328,7 +323,7 @@ view model =
                     agendaView model
 
                 Routing.Search term ->
-                    [ searchView model term ]
+                    [ searchView term model ]
 
                 _ ->
                     [ notFoundView ]
