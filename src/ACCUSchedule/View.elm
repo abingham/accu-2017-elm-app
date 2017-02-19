@@ -422,7 +422,9 @@ view model =
                                 ]
                         , right =
                             Footer.right []
-                                [ Footer.html <| text "© 2017 Sixty North AS" ]
+                                [ Footer.links []
+                                    [ Footer.linkItem [ Footer.href "https://sixty-north.com" ] [ Footer.html <| text "© 2017 Sixty North AS" ] ]
+                                ]
                         }
                     ]
                 }
