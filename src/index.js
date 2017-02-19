@@ -21,9 +21,11 @@ else {
     bookmarks = [];
 }
 
-var app = Elm.ACCUSchedule.embed(mountNode, bookmarks);
+setTimeout(function() {
+    var app = Elm.ACCUSchedule.embed(mountNode, bookmarks);
 
-// handle "store" port to save bookmarks proposals
-app.ports.store.subscribe(function(bookmarks) {
-    localStorage.setItem(bookmarksItem, JSON.stringify(bookmarks));
+    // handle "store" port to save bookmarks proposals
+    app.ports.store.subscribe(function(bookmarks) {
+        localStorage.setItem(bookmarksItem, JSON.stringify(bookmarks));
+    });
 });
