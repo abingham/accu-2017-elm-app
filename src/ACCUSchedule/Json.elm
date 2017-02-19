@@ -1,6 +1,7 @@
 module ACCUSchedule.Json exposing (..)
 
 import ACCUSchedule.Days as Days
+import ACCUSchedule.Rooms as Rooms
 import ACCUSchedule.Sessions as Sessions
 import ACCUSchedule.Types as Types
 import Json.Decode exposing (andThen, Decoder, fail, int, list, maybe, string, succeed)
@@ -76,28 +77,28 @@ quickieSlot =
         string |> andThen decode
 
 
-room : Decoder Types.Room
+room : Decoder Rooms.Room
 room =
     let
         decode s =
             case s of
                 "bristol_suite" ->
-                    succeed Types.BristolSuite
+                    succeed Rooms.BristolSuite
 
                 "bristol_1" ->
-                    succeed Types.Bristol1
+                    succeed Rooms.Bristol1
 
                 "bristol_2" ->
-                    succeed Types.Bristol2
+                    succeed Rooms.Bristol2
 
                 "bristol_3" ->
-                    succeed Types.Bristol3
+                    succeed Rooms.Bristol3
 
                 "empire" ->
-                    succeed Types.Empire
+                    succeed Rooms.Empire
 
                 "great_britain" ->
-                    succeed Types.GreatBritain
+                    succeed Rooms.GreatBritain
 
                 _ ->
                     fail ("invalid room: " ++ s)

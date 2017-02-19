@@ -3,6 +3,7 @@ module ACCUSchedule.View exposing (view)
 import ACCUSchedule.Days as Days
 import ACCUSchedule.Model as Model
 import ACCUSchedule.Msg as Msg
+import ACCUSchedule.Rooms as Rooms
 import ACCUSchedule.Routing as Routing
 import ACCUSchedule.Search as Search
 import ACCUSchedule.Sessions as Sessions
@@ -46,27 +47,6 @@ findProposal model id =
     (List.filter (\p -> p.id == id) model.proposals) |> List.head
 
 
-roomToString : Types.Room -> String
-roomToString room =
-    case room of
-        Types.BristolSuite ->
-            "Bristol Suite"
-
-        Types.Bristol1 ->
-            "Bristol 1"
-
-        Types.Bristol2 ->
-            "Bristol 2"
-
-        Types.Bristol3 ->
-            "Bristol 3"
-
-        Types.Empire ->
-            "Empire"
-
-        Types.GreatBritain ->
-            "Great Britain"
-
 
 {-| Create a display-ready string of the names of all presenters for a proposal.
 -}
@@ -91,7 +71,7 @@ proposalCard : Model.Model -> Types.Proposal -> Html Msg.Msg
 proposalCard model proposal =
     let
         room =
-            roomToString proposal.room
+            Rooms.toString proposal.room
 
         time =
             Sessions.toString proposal.session
@@ -244,7 +224,7 @@ proposalView : Model.Model -> Types.Proposal -> Html Msg.Msg
 proposalView model proposal =
     let
         room =
-            roomToString proposal.room
+            Rooms.toString proposal.room
 
         session =
             Sessions.toString proposal.session

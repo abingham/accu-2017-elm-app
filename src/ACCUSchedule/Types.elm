@@ -1,6 +1,7 @@
 module ACCUSchedule.Types exposing (..)
 
 import ACCUSchedule.Days exposing (Day)
+import ACCUSchedule.Rooms exposing (Room)
 import ACCUSchedule.Sessions exposing (Session)
 
 
@@ -9,16 +10,6 @@ type QuickieSlot
     | QuickieSlot2
     | QuickieSlot3
     | QuickieSlot4
-
-
-type Room
-    = BristolSuite
-    | Bristol1
-    | Bristol2
-    | Bristol3
-    | Empire
-    | GreatBritain
-
 
 type Track
     = CppTrack
