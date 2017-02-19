@@ -143,7 +143,7 @@ flowCardView model proposals =
         (List.map (proposalCard model) proposals)
 
 
-sessionView : Model.Model -> List Types.Proposal -> Types.Session -> List (Html Msg.Msg)
+sessionView : Model.Model -> List Types.Proposal -> Sessions.Session -> List (Html Msg.Msg)
 sessionView model props session =
     let
         proposals =

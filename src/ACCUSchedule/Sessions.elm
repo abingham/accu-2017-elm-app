@@ -1,6 +1,10 @@
 module ACCUSchedule.Sessions exposing (..)
 
-import ACCUSchedule.Types exposing(..)
+type Session
+    = Session1
+    | Session2
+    | Session3
+
 
 toString : Session -> String
 toString session =
@@ -18,10 +22,16 @@ toString session =
 ordinal : Session -> Int
 ordinal s =
     case s of
-        Session1 -> 1
-        Session2 -> 2
-        Session3 -> 3
+        Session1 ->
+            1
+
+        Session2 ->
+            2
+
+        Session3 ->
+            3
+
 
 conferenceSessions : List Session
 conferenceSessions =
-    [Session1, Session2, Session3]
+    [ Session1, Session2, Session3 ]

@@ -1,11 +1,7 @@
 module ACCUSchedule.Types exposing (..)
 
 import ACCUSchedule.Days exposing (Day)
-
-type Session
-    = Session1
-    | Session2
-    | Session3
+import ACCUSchedule.Sessions exposing (Session)
 
 
 type QuickieSlot

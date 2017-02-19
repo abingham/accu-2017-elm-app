@@ -1,6 +1,7 @@
 module ACCUSchedule.Json exposing (..)
 
 import ACCUSchedule.Days as Days
+import ACCUSchedule.Sessions as Sessions
 import ACCUSchedule.Types as Types
 import Json.Decode exposing (andThen, Decoder, fail, int, list, maybe, string, succeed)
 import Json.Decode.Pipeline exposing (decode, optional, required)
@@ -32,19 +33,19 @@ day =
         string |> andThen decoder
 
 
-session : Decoder Types.Session
+session : Decoder Sessions.Session
 session =
     let
         decoder s =
             case s of
                 "session_1" ->
-                    succeed Types.Session1
+                    succeed Sessions.Session1
 
                 "session_2" ->
-                    succeed Types.Session2
+                    succeed Sessions.Session2
 
                 "session_3" ->
-                    succeed Types.Session3
+                    succeed Sessions.Session3
 
                 _ ->
                     fail ("invalid session" ++ s)
