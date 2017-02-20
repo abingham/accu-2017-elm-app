@@ -55,6 +55,7 @@
                     "last_name": "Rose"
                 }
             ],
+            "quickie_slot": "slot_3",
             "room": "bristol_3",
             "session": "session_1",
             "text": "Test Driven Development (TDD) and Behaviour Driven Development (BDD) are very similar.\n\nI'll explain why the most important part of both acronyms is the first 'D' for Driven and why it would be better if the second 'D' stood for Design.\n\nWe'll explore what challenges you might face when trying to adopt this way of working and what benefits you will reap when you succeed.",
@@ -220,6 +221,7 @@
                     "last_name": "Holmes"
                 }
             ],
+            "quickie_slot": "slot_1",
             "room": "great_britain",
             "session": "session_1",
             "text": "The only boost.parameter library was seldom used, mainly because it is macro hell getting it working, its not SFINAE friendly and the return type of a function cannot depend on the types of the inputs. \nWith modern C++ we can solve all those problems elegantly. This works especially well when making factory functions which spit out policy based class specializations.",
@@ -330,6 +332,7 @@
                     "last_name": "Law"
                 }
             ],
+            "quickie_slot": "slot_4",
             "room": "empire",
             "session": "session_1",
             "text": "Test Driven Development, Continuous Integration (CI), and testing with elastic compute in the cloud mean that a typical software project today will run 1000's of times more tests every hour than an equivalent sized project would have run ten years ago. This is undeniably a huge advance on previous best practices, but it does bring with it a new challenge: how to triage and manage all of the test failures? This talk will investigate the implications of this challenge and shall examine techniques and technologies that can overcome it. Only then can CI finally deliver on its promise.",
@@ -360,6 +363,7 @@
                     "last_name": "Haun"
                 }
             ],
+            "quickie_slot": "slot_2",
             "room": "empire",
             "session": "session_1",
             "text": "Job ads often ask for creativity as one of the skills for software developers. But what does creativity in software development actually mean? And how can you be creative under pressure?\n\nThis talk introduces a simple method to help you trigger your creativity when under stress.",
@@ -395,6 +399,7 @@
                     "last_name": "Ferreira"
                 }
             ],
+            "quickie_slot": "slot_3",
             "room": "great_britain",
             "session": "session_1",
             "text": "This presentation will be a case study of Paxport travel industries initial adoption of Machine Learning where we will go over our tools selection of Python with Jupyter as the main framework and its importance when dealing with uncertainty and the need for quick and reliable experimentation.\n\nMore specifically we will be looking at a recommendation system for accommodation's bookings based on Collaborative Filtering approaches by going over different stages and pointing certain aspects such as important libraries used (Pandas, Scikit-learn, etc.), data preparation/analysis, performance/scalability needs, implementation/deployment choices and results evaluation.\n\nFinally we briefly conclude on how we benefited from the tools selection on the subject of A.I./Machine Learning and their importance for dealing with uncertainties such as data quality, company's current infrastructure, business model incompatibilities, etc.\n\nTarget audience should be beginners to expert programmers that are curious about the usage of Python for Machine Learning, namely Collaborative Filtering, by having a quick case study on this new and exciting area that is Artificial Intelligence.",
@@ -425,6 +430,7 @@
                     "last_name": "Jagger"
                 }
             ],
+            "quickie_slot": "slot_2",
             "room": "bristol_3",
             "session": "session_1",
             "text": "In the 2016 conference I did a 90 minute talk on the design and evolution of cyber-dojo. In this talk I provide an update on its further evolution, talking about (but not limited to) its\n\n* further decoupling using micro-services\n* multi-stage Travis build pipeline\n* pros and cons of 100% coverage\n* selenium testing hosted in a docker image\n* Ruby custom mini-testing-framework\n* decision to abandon versioning\n* testing the micro-services using a dual client-server approach\n\nhttp://cyber-dojo.org is an open-source web-based application for hosting team-based coding dojos. \n",
@@ -575,6 +581,7 @@
                     "last_name": "Goodrich"
                 }
             ],
+            "quickie_slot": "slot_1",
             "room": "great_britain",
             "session": "session_1",
             "text": "For many functions which iterate over elements of a node-based container (such as std::list and std::map), the bottleneck is frequently due to accessing data from memory while chasing pointers.  In bidirectional containers, these functions may be rewritten to reduce the number of data dependencies, thereby allowing modern processors to perform more operations in parallel.\n\nIn this session we will rewrite a few methods of std::list to demonstrate some of these techniques and benchmark them against current standard library implementations.",
@@ -680,6 +687,7 @@
                     "last_name": "Nepomnyachiy"
                 }
             ],
+            "quickie_slot": "slot_4",
             "room": "bristol_3",
             "session": "session_1",
             "text": "As most developers have experienced, code frequently calls into unreliable agents: databases, remote services and highly inefficient algorithms. The calls can timeout, throw exceptions or return invalid results. The industry has invested much time and money in devising software patterns that attempt to minimise the impact of these routine errors. We propose to record the execution history of such calls for the purpose of assessing the likelihood of a task completing successfully. Our system can decide to cancel a call that is likely to fail in order to save the resource of both the caller and the callee, generally improving system resilience. Additionally, the system validates the results returned from successful calls and provides a recourse mechanism for cancelled calls.  We achieve this by introducing instrumentation that is simple to add to C++ code that provides cancelling logic, validation, and result normalization.",
@@ -695,6 +703,7 @@
                     "last_name": "Davis"
                 }
             ],
+            "quickie_slot": "slot_3",
             "room": "empire",
             "session": "session_1",
             "text": "Love them or loath them, passwords are here for the foreseeable future so we really should learn how to deal with them properly. So much of what we think we know about passwords is based on historical half truths, and actually makes how we generally handle them less secure. \n\nIn this session we'll look at how to safely, securely and quickly store passwords for login, and take a look at what implementation details you could be leaking by making people jump through hoops to generate a \"valid\" password.\n\nAimed at all levels from the absolute novice, to the advanced developer who may have picked up some bad habits, this light hearted, language agnostic talk will look at a simple problem that we persist in making hard for ourselves.",
@@ -810,6 +819,7 @@
                     "last_name": "Voskresensky"
                 }
             ],
+            "quickie_slot": "slot_1",
             "room": "bristol_3",
             "session": "session_1",
             "text": "Clang - is the name of the C/C++ frontend in LLVM project. It has many powerful features and one of them is its design. It was written in a way that allows to use it inside any IDE as a provider for various things - from navigation and code completion to refactorings. But is it possible to use it with the modern Java IDE? That is the question we will answer in this session. Our team spent some time porting Clang into Java. We will tell you how it was done, what difficulties we faced and what outcome we have at this point.",
@@ -885,6 +895,7 @@
                     "last_name": "Truu"
                 }
             ],
+            "quickie_slot": "slot_1",
             "room": "empire",
             "session": "session_1",
             "text": "Fenwick tree (sometimes also called binary indexed tree, or BIT) is a data structure that deserves to be much more well known among software developers.\n\nInvented by Peter M. Fenwick in 1994, it allows updating of elements in an array and computing sums of arbitrary contiguous blocks of the array, both in time proportional to the logarithm of the length of the array. The magic bit is that the tree lives in the same array and does not take any extra memory!\n\nOriginally designed to support frequency counting in arithmetic compression, another usage example is mapping between screen positions and row numbers in a table where row heights may change.",
@@ -945,6 +956,7 @@
                     "last_name": "Merkle"
                 }
             ],
+            "quickie_slot": "slot_4",
             "room": "great_britain",
             "session": "session_1",
             "text": "In this session we will use clangs features to find bugs at compile time (via static analysis) and runtime (via sanitizers). First we will look how clang is able to detect common C/C++ traps and pitfalls via static analysis. We will write our own code checker to implement a common C++ guideline. Second, we will demonstrate sanitizers which enable code instrumentation and detection of problems which happen at runtime.",
