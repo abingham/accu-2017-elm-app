@@ -47,7 +47,6 @@ findProposal model id =
     (List.filter (\p -> p.id == id) model.proposals) |> List.head
 
 
-
 {-| Create a display-ready string of the names of all presenters for a proposal.
 -}
 presenters : Types.Proposal -> String
@@ -128,6 +127,7 @@ sessionView model props session =
     let
         proposals =
             List.filter (.session >> (==) session) props
+                |> List.sortBy (.room >> Rooms.ordinal)
     in
         case List.head proposals of
             Nothing ->
