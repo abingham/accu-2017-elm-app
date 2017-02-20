@@ -1,10 +1,10 @@
 module ACCUSchedule.Json exposing (..)
 
-import ACCUSchedule.Days as Days
-import ACCUSchedule.QuickieSlots as QuickieSlots
-import ACCUSchedule.Rooms as Rooms
-import ACCUSchedule.Sessions as Sessions
 import ACCUSchedule.Types as Types
+import ACCUSchedule.Types.Days as Days
+import ACCUSchedule.Types.QuickieSlots as QuickieSlots
+import ACCUSchedule.Types.Rooms as Rooms
+import ACCUSchedule.Types.Sessions as Sessions
 import Json.Decode exposing (andThen, Decoder, fail, int, list, maybe, string, succeed)
 import Json.Decode.Pipeline exposing (decode, optional, required)
 

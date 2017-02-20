@@ -1,4 +1,4 @@
-module ACCUSchedule.Sessions exposing (..)
+module ACCUSchedule.Types.Sessions exposing (..)
 
 type Session
     = Session1

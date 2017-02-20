@@ -1,4 +1,4 @@
-module ACCUSchedule.Days exposing (..)
+module ACCUSchedule.Types.Days exposing (..)
 
 type Day
     = Workshops

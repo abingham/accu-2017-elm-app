@@ -1,4 +1,4 @@
-module ACCUSchedule.Rooms exposing (..)
+module ACCUSchedule.Types.Rooms exposing (..)
 
 
 type Room

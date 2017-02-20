@@ -1,7 +1,7 @@
 module ACCUSchedule.Routing exposing (..)
 
-import ACCUSchedule.Days as Days
 import ACCUSchedule.Types as Types
+import ACCUSchedule.Types.Days as Days
 import Http
 import Navigation
 import UrlParser exposing (..)

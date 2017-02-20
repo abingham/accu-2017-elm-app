@@ -1,4 +1,4 @@
-module ACCUSchedule.QuickieSlots exposing (..)
+module ACCUSchedule.Types.QuickieSlots exposing (..)
 
 type QuickieSlot
     = QuickieSlot1

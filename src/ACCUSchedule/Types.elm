@@ -1,9 +1,9 @@
 module ACCUSchedule.Types exposing (..)
 
-import ACCUSchedule.Days exposing (Day)
-import ACCUSchedule.QuickieSlots exposing (QuickieSlot)
-import ACCUSchedule.Rooms exposing (Room)
-import ACCUSchedule.Sessions exposing (Session)
+import ACCUSchedule.Types.Days exposing (Day)
+import ACCUSchedule.Types.QuickieSlots exposing (QuickieSlot)
+import ACCUSchedule.Types.Rooms exposing (Room)
+import ACCUSchedule.Types.Sessions exposing (Session)
 
 
 type Track

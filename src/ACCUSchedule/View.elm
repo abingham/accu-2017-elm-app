@@ -1,13 +1,13 @@
 module ACCUSchedule.View exposing (view)
 
-import ACCUSchedule.Days as Days
 import ACCUSchedule.Model as Model
 import ACCUSchedule.Msg as Msg
-import ACCUSchedule.Rooms as Rooms
 import ACCUSchedule.Routing as Routing
 import ACCUSchedule.Search as Search
-import ACCUSchedule.Sessions as Sessions
 import ACCUSchedule.Types as Types
+import ACCUSchedule.Types.Days as Days
+import ACCUSchedule.Types.Rooms as Rooms
+import ACCUSchedule.Types.Sessions as Sessions
 import Html exposing (a, br, div, h1, Html, img, p, text)
 import Html.Attributes exposing (src)
 import Material.Button as Button
