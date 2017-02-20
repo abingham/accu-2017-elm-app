@@ -6,6 +6,7 @@ import ACCUSchedule.Routing as Routing
 import ACCUSchedule.Search as Search
 import ACCUSchedule.Types as Types
 import ACCUSchedule.Types.Days as Days
+import ACCUSchedule.Types.QuickieSlots as QuickieSlots
 import ACCUSchedule.Types.Rooms as Rooms
 import ACCUSchedule.Types.Sessions as Sessions
 import Html exposing (a, br, div, h1, Html, img, p, text)
@@ -75,6 +76,15 @@ proposalCard model proposal =
         time =
             Sessions.toString proposal.session
 
+        location =
+            String.join ", " <|
+                case proposal.quickieSlot of
+                    Just slot ->
+                        [ time, QuickieSlots.toString slot, room ]
+
+                    _ ->
+                        [ time, room ]
+
         dayLink =
             Layout.link
                 [ Layout.href (Routing.dayUrl proposal.day) ]
@@ -90,18 +100,18 @@ proposalCard model proposal =
                 [ Color.text Color.black
                 , Color.background Color.white
                 ]
-                ([ Card.head [] [ text proposal.title ]
-                 ]
-                )
+                [ Card.head [] [ text proposal.title ]
+                , Card.subhead [] [ text (presenters proposal) ]
+                ]
+            , Card.text
+                [ Card.expand ]
+                []
             , Card.text
                 [ Color.text Color.black
                 , Color.background Color.white
-                , Card.expand
                 ]
-                [ text (presenters proposal)
-                , br [] []
-                , dayLink
-                , text <| ", " ++ time ++ ", " ++ room
+                [ dayLink
+                , text <| ", " ++ location
                 ]
             , Card.actions
                 [ Card.border
@@ -178,6 +188,7 @@ agendaView model =
         props =
             List.filter (\p -> List.member p.id model.bookmarks) model.proposals
                 |> List.sortBy (.session >> Sessions.ordinal)
+
         dview day =
             [ Chip.span
                 [ Options.css "margin-bottom" "5px"
