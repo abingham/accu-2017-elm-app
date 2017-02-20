@@ -11,6 +11,7 @@ import ACCUSchedule.Types.Rooms as Rooms
 import ACCUSchedule.Types.Sessions as Sessions
 import Html exposing (a, br, div, h1, Html, img, p, text)
 import Html.Attributes exposing (src)
+import List.Extra exposing (stableSortWith)
 import Material.Button as Button
 import Material.Card as Card
 import Material.Chip as Chip
@@ -135,9 +136,26 @@ flowCardView model proposals =
 sessionView : Model.Model -> List Types.Proposal -> Sessions.Session -> List (Html Msg.Msg)
 sessionView model props session =
     let
+        room = .room >> Rooms.ordinal
+
+        compareRooms p1 p2 =
+            compare (room p1) (room p2)
+
+        compareSlots p1 p2 =
+            case (p1.quickieSlot, p2.quickieSlot) of
+                (Nothing, Nothing) ->
+                    EQ
+                (Nothing, _) ->
+                    LT
+                (_, Nothing) ->
+                    GT
+                (Just s1, Just s2) ->
+                    compare (QuickieSlots.ordinal s1) (QuickieSlots.ordinal s2)
+
         proposals =
             List.filter (.session >> (==) session) props
-                |> List.sortBy (.room >> Rooms.ordinal)
+                |> stableSortWith compareSlots
+                |> stableSortWith compareRooms
     in
         case List.head proposals of
             Nothing ->
