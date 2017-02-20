@@ -1,15 +1,10 @@
 module ACCUSchedule.Types exposing (..)
 
 import ACCUSchedule.Days exposing (Day)
+import ACCUSchedule.QuickieSlots exposing (QuickieSlot)
 import ACCUSchedule.Rooms exposing (Room)
 import ACCUSchedule.Sessions exposing (Session)
 
-
-type QuickieSlot
-    = QuickieSlot1
-    | QuickieSlot2
-    | QuickieSlot3
-    | QuickieSlot4
 
 type Track
     = CppTrack
