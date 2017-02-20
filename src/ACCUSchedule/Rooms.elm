@@ -30,3 +30,25 @@ toString room =
 
         GreatBritain ->
             "Great Britain"
+
+
+ordinal : Room -> Int
+ordinal r =
+    case r of
+        BristolSuite ->
+            0
+
+        Bristol1 ->
+            1
+
+        Bristol2 ->
+            2
+
+        Bristol3 ->
+            3
+
+        Empire ->
+            4
+
+        GreatBritain ->
+            5
