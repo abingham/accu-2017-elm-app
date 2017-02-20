@@ -170,14 +170,14 @@ dayView model proposals day =
             Sessions.conferenceSessions
 
 
-{-| Display all "bookmarks" proposals, i.e. the users personal agenda.
+{-| Display all "bookmarked" proposals, i.e. the users personal agenda.
 -}
 agendaView : Model.Model -> List (Html Msg.Msg)
 agendaView model =
     let
         props =
             List.filter (\p -> List.member p.id model.bookmarks) model.proposals
-
+                |> List.sortBy (.session >> Sessions.ordinal)
         dview day =
             [ Chip.span
                 [ Options.css "margin-bottom" "5px"
