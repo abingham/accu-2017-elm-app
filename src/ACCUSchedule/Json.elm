@@ -61,16 +61,16 @@ quickieSlot =
         decode s =
             case s of
                 "slot_1" ->
-                    succeed QuickieSlots.QuickieSlot1
+                    succeed QuickieSlots.Slot1
 
                 "slot_2" ->
-                    succeed QuickieSlots.QuickieSlot2
+                    succeed QuickieSlots.Slot2
 
                 "slot_3" ->
-                    succeed QuickieSlots.QuickieSlot3
+                    succeed QuickieSlots.Slot3
 
                 "slot_4" ->
-                    succeed QuickieSlots.QuickieSlot4
+                    succeed QuickieSlots.Slot4
 
                 _ ->
                     fail ("invalid quickie slot: " ++ s)

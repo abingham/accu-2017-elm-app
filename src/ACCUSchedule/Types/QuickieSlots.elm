@@ -1,7 +1,7 @@
 module ACCUSchedule.Types.QuickieSlots exposing (..)
 
 type QuickieSlot
-    = QuickieSlot1
-    | QuickieSlot2
-    | QuickieSlot3
-    | QuickieSlot4
+    = Slot1
+    | Slot2
+    | Slot3
+    | Slot4
