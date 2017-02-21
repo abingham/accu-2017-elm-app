@@ -1,5 +1,7 @@
 var CopyWebpackPlugin = require( 'copy-webpack-plugin' );
+require('dotenv').config();
 var path = require("path");
+var webpack = require("webpack");
 
 module.exports = {
   entry: {
@@ -50,7 +52,8 @@ module.exports = {
               from: 'src/static/img/',
               to:   'static/img/'
           },
-      ])
+      ]),
+      new webpack.EnvironmentPlugin(["PROPOSAL_API_URL"])
   ],
 
   devServer: {

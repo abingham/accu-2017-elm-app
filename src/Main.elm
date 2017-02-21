@@ -10,15 +10,21 @@ import Material
 import Navigation
 
 
-main : Program (List ProposalId) Model Msg
+type alias Flags =
+    { bookmarks : List ProposalId
+    , apiUrl : String
+    }
+
+
+main : Program Flags Model Msg
 main =
     Navigation.programWithFlags UrlChange
         { init =
-            \bookmarks loc ->
-                ( initialModel bookmarks loc
+            \flags loc ->
+                ( initialModel flags.bookmarks loc
                 , Cmd.batch
                     [ Material.init Mdl
-                    , Comms.fetchProposals
+                    , Comms.fetchProposals flags.apiUrl
                     ]
                 )
         , view = view

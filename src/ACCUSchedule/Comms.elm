@@ -12,13 +12,9 @@ import Json.Decode exposing (list)
 import Http
 
 
-fetchProposals : Cmd Msg.Msg
-fetchProposals =
+fetchProposals : String -> Cmd Msg.Msg
+fetchProposals url =
     let
-        -- TODO: We need to get this URL through configuration or something, I guess.
-        url =
-            "http://localhost:4000/proposals/api/scheduled_proposals"
-
         request =
             Http.get url (list Json.proposalDecoder)
     in

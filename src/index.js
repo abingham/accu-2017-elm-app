@@ -21,8 +21,13 @@ else {
     bookmarks = [];
 }
 
+var flags = {
+    bookmarks: bookmarks,
+    apiUrl: process.env.PROPOSAL_API_URL
+};
+
 setTimeout(function() {
-    var app = Elm.ACCUSchedule.embed(mountNode, bookmarks);
+    var app = Elm.ACCUSchedule.embed(mountNode, flags);
 
     // handle "store" port to save bookmarks proposals
     app.ports.store.subscribe(function(bookmarks) {

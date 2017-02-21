@@ -25,6 +25,15 @@ npm run build
 If this succeeds, the compiled and web-packed code will be in the `dist`
 directory.
 
+## Configuring the environment
+
+The app reads certain configuration information from the file `.env`. You can
+find an example of this file in `dot.env`. Before you can run the system, you
+need to copy `dot.env` to `.env` and edit it as approporiate.
+
+The default configuration should be good for local development purposes, but
+you'll want to use different environments for various deployment scenarios.
+
 ## Running the development server
 
 You can use node-foreman to run the API server and the client:
