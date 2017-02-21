@@ -8,7 +8,16 @@ excellent [Elm Tutorial](https://www.elm-tutorial.org/).
 
 To build and run the app, make sure
 you've
-[installed a recent version of node.js](https://docs.npmjs.com/getting-started/installing-node).
+[installed a recent version of node.js (>= 6.0.0)](https://docs.npmjs.com/getting-started/installing-node).
+
+## Configuring the environment
+
+The app reads certain configuration information from the file `.env`. You can
+find an example of this file in `dot.env`. Before you can run the system, you
+need to copy `dot.env` to `.env` and edit it as approporiate.
+
+The default configuration should be good for local development purposes, but
+you'll want to use different environments for various deployment scenarios.
 
 ## Building
 
@@ -24,15 +33,6 @@ npm run build
 
 If this succeeds, the compiled and web-packed code will be in the `dist`
 directory.
-
-## Configuring the environment
-
-The app reads certain configuration information from the file `.env`. You can
-find an example of this file in `dot.env`. Before you can run the system, you
-need to copy `dot.env` to `.env` and edit it as approporiate.
-
-The default configuration should be good for local development purposes, but
-you'll want to use different environments for various deployment scenarios.
 
 ## Running the development server
 
