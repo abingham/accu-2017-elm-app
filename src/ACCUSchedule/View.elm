@@ -320,7 +320,7 @@ footer =
                 [ Footer.logo [] [ Footer.html <| text "ACCU 2017 Schedule" ]
                 , Footer.links []
                     [ Footer.linkItem [ Footer.href "https://conference.accu.org/site" ] [ Footer.html <| text "Conference" ]
-                    , Footer.linkItem [ Footer.href "https://github.com/abingham/accu-2017-elm-app" ] [ Footer.html <| img [ src "/static/img/GitHub-Mark-Light-32px.png" ] [] ]
+                    , Footer.linkItem [ Footer.href "https://github.com/abingham/accu-2017-elm-app" ] [ Footer.html <| img [ src "./static/img/GitHub-Mark-Light-32px.png" ] [] ]
                     ]
                 ]
         , right =
