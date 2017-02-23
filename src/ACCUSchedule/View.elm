@@ -136,20 +136,24 @@ flowCardView model proposals =
 sessionView : Model.Model -> List Types.Proposal -> Sessions.Session -> List (Html Msg.Msg)
 sessionView model props session =
     let
-        room = .room >> Rooms.ordinal
+        room =
+            .room >> Rooms.ordinal
 
         compareRooms p1 p2 =
             compare (room p1) (room p2)
 
         compareSlots p1 p2 =
-            case (p1.quickieSlot, p2.quickieSlot) of
-                (Nothing, Nothing) ->
+            case ( p1.quickieSlot, p2.quickieSlot ) of
+                ( Nothing, Nothing ) ->
                     EQ
-                (Nothing, _) ->
+
+                ( Nothing, _ ) ->
                     LT
-                (_, Nothing) ->
+
+                ( _, Nothing ) ->
                     GT
-                (Just s1, Just s2) ->
+
+                ( Just s1, Just s2 ) ->
                     compare (QuickieSlots.ordinal s1) (QuickieSlots.ordinal s2)
 
         proposals =
@@ -319,14 +323,25 @@ footer =
             Footer.left []
                 [ Footer.logo [] [ Footer.html <| text "ACCU 2017 Schedule" ]
                 , Footer.links []
-                    [ Footer.linkItem [ Footer.href "https://conference.accu.org/site" ] [ Footer.html <| text "Conference" ]
-                    , Footer.linkItem [ Footer.href "https://github.com/abingham/accu-2017-elm-app" ] [ Footer.html <| img [ src "./static/img/GitHub-Mark-Light-32px.png" ] [] ]
+                    [ Footer.linkItem
+                        [ Footer.href "https://conference.accu.org/site" ]
+                        [ Footer.html <| text "Conference" ]
+                    , Footer.linkItem
+                        [ Footer.href "https://github.com/abingham/accu-2017-elm-app" ]
+                        [ Footer.html <| img [ src "./static/img/GitHub-Mark-Light-32px.png" ] [] ]
                     ]
                 ]
         , right =
             Footer.right []
                 [ Footer.links []
-                    [ Footer.linkItem [ Footer.href "https://sixty-north.com" ] [ Footer.html <| text "© 2017 Sixty North AS" ] ]
+                    [ Footer.linkItem
+                        [ Footer.href "https://sixty-north.com" ]
+                        [ Footer.html <| text "© 2017 Sixty North AS "
+                        , Footer.html <| Options.img
+                            [ Options.css "height" "20px" ]
+                            [ src "static/img/sixty-north-logo.png" ]
+                        ]
+                    ]
                 ]
         }
 
