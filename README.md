@@ -36,10 +36,21 @@ directory.
 
 ## Running the development server
 
-You can use node-foreman to run the API server and the client:
+For development purposes, we've included a simple server that provides the
+necessary JSON to the web client. This is usually simpler to use than a full
+local or remote version of the ACCU website.
+
+To use this, you'll first need to
+install [node-foreman](https://github.com/strongloop/node-foreman):
+
 ```
-nf start
+npm install -g foreman
 ```
+
+You can then use node-foreman to run the API server along with a simple server
+for the web client:
+
+``` nf start ```
 
 After that the app should be available on http://localhost:3000.
 
