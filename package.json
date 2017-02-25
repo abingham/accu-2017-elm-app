@@ -4,7 +4,7 @@
   "description": "An Elm-based web app for the ACCU 2017 schedule",
   "main": "index.js",
   "scripts": {
-    "api": "node dev-server/api.js --routes dev-server/routes.json",
+    "api": "node dev-server/api.js",
     "build": "webpack",
     "watch": "webpack --watch",
     "dev": "webpack-dev-server --port 3000"
