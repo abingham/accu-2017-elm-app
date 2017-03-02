@@ -313,7 +313,7 @@ dayLink day =
 
 agendaLink : Html Msg.Msg
 agendaLink =
-    drawerLink Routing.agendaUrl "Agenda"
+    drawerLink Routing.agendaUrl "Your agenda"
 
 
 footer : Html Msg.Msg
@@ -380,7 +380,7 @@ view model =
                     ""
 
                 Routing.Agenda ->
-                    "Agenda"
+                    "Your agenda"
 
                 Routing.Search term ->
                     ""
