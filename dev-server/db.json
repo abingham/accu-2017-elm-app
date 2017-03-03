@@ -1,6 +1,21 @@
 {
     "scheduled_proposals": [
         {
+            "day": "invalid-day",
+            "id": 12341234,
+            "presenters": [
+                {
+                    "first_name": "Foo",
+                    "id": 12341234,
+                    "last_name": "Bar"
+                }
+            ],
+            "room": "empire",
+            "session": "session_1",
+            "text": "You should never see this",
+            "title": "You should never see this"
+        },
+        {
             "day": "day_4",
             "id": 4,
             "presenters": [

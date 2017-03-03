@@ -7,6 +7,7 @@ import ACCUSchedule.Types.Rooms as Rooms
 import ACCUSchedule.Types.Sessions as Sessions
 import Json.Decode exposing (andThen, Decoder, fail, int, list, maybe, string, succeed)
 import Json.Decode.Pipeline exposing (decode, optional, required)
+import List
 
 
 day : Decoder Days.Day
@@ -143,6 +144,28 @@ proposalDecoder =
         |> required "session" session
         |> optional "quickie_slot" (maybe quickieSlot) Nothing
         |> required "room" room
+
+
+{-| Decode a list of Proposals, taking care to dispose of invalid proposals that
+may have some from the server.
+-}
+proposalsDecoder : Decoder (List Types.Proposal)
+proposalsDecoder =
+    let
+        removeFailures =
+            List.foldl
+                (\m l ->
+                    case m of
+                        Just p ->
+                            p :: l
+
+                        Nothing ->
+                            l
+                )
+                []
+                >> succeed
+    in
+        list (maybe proposalDecoder) |> andThen removeFailures
 
 
 
