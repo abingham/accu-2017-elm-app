@@ -405,10 +405,8 @@ view model =
                 ]
                 { header =
                     [ Layout.row
-                        [ Color.background Color.primary ]
-                        [ Layout.title
-                            [ Typo.title, Typo.left ]
-                            [ text "ACCU 2017" ]
+                        [ Color.background (Color.color Color.Grey Color.S100) ]
+                        [ img [ src "./static/img/accu-logo.png", height 50] []
                         , Layout.spacer
                         , Layout.title
                             [ Typo.title ]
