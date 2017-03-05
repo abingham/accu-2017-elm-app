@@ -10,7 +10,7 @@ import ACCUSchedule.Types.QuickieSlots as QuickieSlots
 import ACCUSchedule.Types.Rooms as Rooms
 import ACCUSchedule.Types.Sessions as Sessions
 import Html exposing (a, br, div, h1, Html, img, p, text)
-import Html.Attributes exposing (src)
+import Html.Attributes exposing (height, src)
 import List.Extra exposing (stableSortWith)
 import Markdown
 import Material.Button as Button
@@ -117,7 +117,7 @@ proposalCard model proposal =
                 ]
             , Card.actions
                 [ Card.border
-                , Color.background Color.primaryDark
+                , Color.background Color.accent
                 , Color.text Color.white
                 , Typo.right
                 ]
@@ -338,9 +338,10 @@ footer =
                     [ Footer.linkItem
                         [ Footer.href "https://sixty-north.com" ]
                         [ Footer.html <| text "© 2017 Sixty North AS "
-                        , Footer.html <| Options.img
-                            [ Options.css "height" "20px" ]
-                            [ src "static/img/sixty-north-logo.png" ]
+                        , Footer.html <|
+                            Options.img
+                                [ Options.css "height" "20px" ]
+                                [ src "static/img/sixty-north-logo.png" ]
                         ]
                     ]
                 ]
