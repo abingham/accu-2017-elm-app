@@ -1,3 +1,5 @@
+ [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # ACCU 2017 Elm-based schedule app
 
 This is an Elm-based web application for browsing the ACCU 2017 conference

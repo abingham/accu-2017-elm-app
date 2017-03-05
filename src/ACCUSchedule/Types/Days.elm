@@ -34,16 +34,16 @@ toString day =
             "Workshop"
 
         Day1 ->
-            "Tuesday"
-
-        Day2 ->
             "Wednesday"
 
-        Day3 ->
+        Day2 ->
             "Thursday"
 
-        Day4 ->
+        Day3 ->
             "Friday"
+
+        Day4 ->
+            "Saturday"
 
 {-| The days to display in the app
 -}
