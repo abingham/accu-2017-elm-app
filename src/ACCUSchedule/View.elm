@@ -117,7 +117,7 @@ proposalCard model proposal =
                 ]
             , Card.actions
                 [ Card.border
-                , Color.background Color.accent
+                , Color.background Color.primaryDark
                 , Color.text Color.white
                 , Typo.right
                 ]
