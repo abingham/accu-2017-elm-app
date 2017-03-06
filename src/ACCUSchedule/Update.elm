@@ -29,6 +29,9 @@ update msg model =
         Msg.VisitProposal proposal ->
             ( model, Navigation.newUrl (Routing.proposalUrl proposal) )
 
+        Msg.VisitPresenter presenter ->
+            ( model, Navigation.newUrl (Routing.presenterUrl presenter.id) )
+
         Msg.VisitSearch term ->
             ( model, Navigation.modifyUrl (Routing.searchUrl term) )
 

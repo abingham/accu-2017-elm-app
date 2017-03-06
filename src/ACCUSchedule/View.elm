@@ -59,6 +59,46 @@ findPresenter model id =
     (List.filter (\p -> p.id == id) model.presenters) |> List.head
 
 
+presenterCard : Types.Presenter -> Html Msg.Msg
+presenterCard presenter =
+    let
+        proposalLink proposal =
+            Layout.link
+                [ Layout.href (Routing.proposalUrl proposal.id) ]
+                [ text <| proposal.title ]
+    in
+        Card.view
+            [ Options.onClick (Msg.VisitPresenter presenter)
+            , Options.css "margin-right" "5px"
+            , Options.css "margin-bottom" "5px"
+            , Elevation.e2
+            ]
+            [ Card.title
+                [ Color.text Color.black
+                , Color.background Color.white
+                ]
+                -- TODO: We really need a function that gives a presenter's full name...
+                [ Card.head [] [ text <| presenter.firstName ++ " " ++ presenter.lastName ]
+                  , Card.subhead [][text "country"]
+                ]
+            , Card.text
+                [ Card.expand ]
+                []
+            , Card.text
+                [ Color.text Color.black
+                , Color.background Color.white
+                ]
+                [ text "LIST OF PROPOSALS GOES HERE!" ]
+              , Card.actions
+                  [ Card.border
+                  , Color.background (Color.color Color.DeepOrange Color.S500)
+                  , Color.text Color.white
+                  , Typo.right
+                  ]
+                  [ text "SOMETHING USEFUL GOES HERE!" ]
+            ]
+
+
 {-| A card-view of a single proposal. This displays the title, presenters,
 location, and potentially other information about a proposal, though not the
 full text of the abstract. This includes a clickable icon for "starring" a
@@ -84,8 +124,8 @@ proposalCard model proposal =
 
         presenterLink presenter =
             Layout.link
-                [Layout.href (Routing.presenterUrl presenter.id)]
-                [text <| presenter.firstName ++ " " ++ presenter.lastName]
+                [ Layout.href (Routing.presenterUrl presenter.id) ]
+                [ text <| presenter.firstName ++ " " ++ presenter.lastName ]
 
         dayLink =
             Layout.link
@@ -302,6 +342,9 @@ presenterView model presenter =
         , Options.css "align-items" "flex-start"
         ]
         [ Options.styled p
+            []
+            [ presenterCard presenter ]
+        , Options.styled p
             [ Typo.body1
             , Options.css "width" "30em"
             , Options.css "margin-left" "10px"

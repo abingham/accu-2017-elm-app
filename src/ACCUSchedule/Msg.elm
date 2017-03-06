@@ -10,6 +10,7 @@ type Msg
     = ProposalsResult (Result Http.Error (List Types.Proposal))
     | PresentersResult (Result Http.Error (List Types.Presenter))
     | VisitProposal Types.Proposal
+    | VisitPresenter Types.Presenter
     | VisitSearch String
     | ToggleBookmark Types.ProposalId
     | RaiseProposal Bool Types.ProposalId
