@@ -53,12 +53,12 @@ module.exports = {
               to:   'static/img/'
           },
       ]),
-      new webpack.EnvironmentPlugin(["PROPOSAL_API_URL"])
+      new webpack.EnvironmentPlugin(["API_BASE_URL"])
   ],
 
   devServer: {
     inline: true,
     stats: { colors: true }
-  },
+  }
 
 };

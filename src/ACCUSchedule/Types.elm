@@ -23,6 +23,7 @@ type alias Presenter =
     { id : PresenterId
     , firstName : String
     , lastName : String
+    , bio: String
     }
 
 
@@ -30,7 +31,7 @@ type alias Proposal =
     { id : ProposalId
     , title : String
     , text : String
-    , presenters : List Presenter
+    , presenters : List PresenterId
     , day : Day
     , session : Session
     , quickieSlot : Maybe QuickieSlot

@@ -12,7 +12,7 @@ server.use(jsonServer.rewriter({
     '/proposals/api/': '/'
 }));
 
-var router = jsonServer.router('dev-server/db.json');
+var router = jsonServer.router('dev-server/bio-db.json');
 server.use(router);
 
 console.log('Listening at 4000');

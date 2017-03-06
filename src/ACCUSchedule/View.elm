@@ -52,14 +52,14 @@ findProposal model id =
 
 {-| Create a display-ready string of the names of all presenters for a proposal.
 -}
-presenters : Types.Proposal -> String
-presenters proposal =
+presenters : Model.Model -> Types.Proposal -> String
+presenters model proposal =
     let
         fullName =
             \p -> p.firstName ++ " " ++ p.lastName
 
         presenterNames =
-            List.map fullName proposal.presenters
+            List.map fullName (Model.presenters model proposal)
     in
         String.join ", " presenterNames
 
@@ -108,7 +108,7 @@ proposalCard model proposal =
                 , Color.background Color.white
                 ]
                 [ Card.head [] [ text proposal.title ]
-                , Card.subhead [] [ text (presenters proposal) ]
+                , Card.subhead [] [ text (presenters model proposal) ]
                 ]
             , Card.text
                 [ Card.expand ]

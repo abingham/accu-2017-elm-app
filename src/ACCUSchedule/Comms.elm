@@ -18,3 +18,11 @@ fetchProposals url =
             Http.get url Json.proposalsDecoder
     in
         Http.send Msg.ProposalsResult request
+
+fetchPresenters : String -> Cmd Msg.Msg
+fetchPresenters url =
+    let
+        request =
+            Http.get url Json.presentersDecoder
+    in
+        Http.send Msg.PresentersResult request

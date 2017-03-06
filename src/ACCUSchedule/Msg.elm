@@ -8,6 +8,7 @@ import Navigation
 
 type Msg
     = ProposalsResult (Result Http.Error (List Types.Proposal))
+    | PresentersResult (Result Http.Error (List Types.Presenter))
     | VisitProposal Types.Proposal
     | VisitSearch String
     | ToggleBookmark Types.ProposalId

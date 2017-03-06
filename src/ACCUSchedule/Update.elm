@@ -15,13 +15,16 @@ update msg model =
             { model | proposals = proposals } ! []
 
         Msg.ProposalsResult (Err msg) ->
-            let
-                x =
-                    Debug.log "err" msg
-            in
-                -- TODO: display error message or something...maybe a button for
-                -- re-fetching the proposals.
-                model ! []
+            -- TODO: display error message or something...maybe a button for
+            -- re-fetching the proposals.
+            model ! []
+
+        Msg.PresentersResult (Ok presenters) ->
+            { model | presenters = presenters } ! []
+
+        Msg.PresentersResult (Err msg) ->
+            -- TODO: display error message or something...
+            model ! []
 
         Msg.VisitProposal proposal ->
             ( model, Navigation.newUrl (Routing.proposalUrl proposal) )
