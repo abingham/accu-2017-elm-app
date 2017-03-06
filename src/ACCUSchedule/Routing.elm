@@ -12,6 +12,7 @@ import UrlParser exposing (..)
 type RoutePath
     = Day Days.Day
     | Proposal Types.ProposalId
+    | Presenter Types.PresenterId
     | Agenda
     | Search String
     | NotFound
@@ -34,6 +35,11 @@ agendaUrl =
 proposalUrl : Types.Proposal -> String
 proposalUrl proposal =
     "#/session/" ++ (toString proposal.id)
+
+presenterUrl : Types.PresenterId -> String
+presenterUrl presenterId =
+    "#/presenter/" ++ (toString presenterId)
+
 
 
 searchUrl : String -> String
@@ -87,6 +93,7 @@ matchers =
         [ map (Day Days.Day1) top
         , map Day (s "day" </> day)
         , map Proposal (s "session" </> int)
+        , map Presenter (s "presenter" </> int)
         , map Agenda (s "agenda")
         , map Search (s "search" </> uriEncoded)
         ]
