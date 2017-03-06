@@ -40,6 +40,20 @@ update msg model =
                 -- TODO: Store the new bookmarks array via the port
                 { model | bookmarks = bookmarks } ! [ Storage.store bookmarks ]
 
+        Msg.RaiseProposal raised id ->
+            let
+                props =
+                    List.map
+                        (\p ->
+                            if p.id == id then
+                                { p | raised = raised }
+                            else
+                                p
+                        )
+                        model.proposals
+            in
+                { model | proposals = props } ! []
+
         Msg.UrlChange location ->
             { model | location = Routing.parseLocation location } ! []
 

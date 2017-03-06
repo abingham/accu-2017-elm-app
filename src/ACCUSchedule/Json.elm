@@ -6,7 +6,7 @@ import ACCUSchedule.Types.QuickieSlots as QuickieSlots
 import ACCUSchedule.Types.Rooms as Rooms
 import ACCUSchedule.Types.Sessions as Sessions
 import Json.Decode exposing (andThen, Decoder, fail, int, list, maybe, string, succeed)
-import Json.Decode.Pipeline exposing (decode, optional, required)
+import Json.Decode.Pipeline exposing (decode, hardcoded, optional, required)
 import List
 
 
@@ -144,6 +144,7 @@ proposalDecoder =
         |> required "session" session
         |> optional "quickie_slot" (maybe quickieSlot) Nothing
         |> required "room" room
+        |> hardcoded False
 
 
 {-| Decode a list of Proposals, taking care to dispose of invalid proposals that

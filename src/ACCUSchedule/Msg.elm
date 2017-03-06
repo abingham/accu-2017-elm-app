@@ -11,5 +11,6 @@ type Msg
     | VisitProposal Types.Proposal
     | VisitSearch String
     | ToggleBookmark Types.ProposalId
+    | RaiseProposal Bool Types.ProposalId
     | Mdl (Material.Msg Msg)
     | UrlChange Navigation.Location

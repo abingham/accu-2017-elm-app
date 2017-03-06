@@ -94,9 +94,14 @@ proposalCard model proposal =
     in
         Card.view
             [ Options.onClick (Msg.VisitProposal proposal)
-            , Elevation.e2
+            , if proposal.raised then
+                Elevation.e8
+              else
+                Elevation.e2
             , Options.css "margin-right" "5px"
             , Options.css "margin-bottom" "5px"
+            , Options.onMouseEnter (Msg.RaiseProposal True proposal.id)
+            , Options.onMouseLeave (Msg.RaiseProposal False proposal.id)
             ]
             [ Card.title
                 [ Color.text Color.black
@@ -407,7 +412,7 @@ view model =
                 { header =
                     [ Layout.row
                         [ Color.background (Color.color Color.Grey Color.S100) ]
-                        [ img [ src "./static/img/accu-logo.png", height 50] []
+                        [ img [ src "./static/img/accu-logo.png", height 50 ] []
                         , Layout.spacer
                         , Layout.title
                             [ Typo.title ]
