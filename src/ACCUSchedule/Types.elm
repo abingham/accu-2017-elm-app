@@ -23,7 +23,9 @@ type alias Presenter =
     { id : PresenterId
     , firstName : String
     , lastName : String
-    , bio: String
+    , bio : String
+    , country : String
+    , state : String
     }
 
 

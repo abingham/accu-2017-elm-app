@@ -27,7 +27,7 @@ update msg model =
             model ! []
 
         Msg.VisitProposal proposal ->
-            ( model, Navigation.newUrl (Routing.proposalUrl proposal) )
+            ( model, Navigation.newUrl (Routing.proposalUrl proposal.id) )
 
         Msg.VisitPresenter presenter ->
             ( model, Navigation.newUrl (Routing.presenterUrl presenter.id) )

@@ -1,4 +1,4 @@
-module ACCUSchedule.Model exposing (initialModel, Model, presenters)
+module ACCUSchedule.Model exposing (initialModel, Model, presenters, proposals)
 
 {-| The overal application model.
 -}
@@ -22,7 +22,12 @@ type alias Model =
 -}
 presenters : Model -> Types.Proposal -> List Types.Presenter
 presenters model proposal =
-    List.filter (\p -> List.member p.id proposal.presenters) model.presenters
+    List.filter (\pres -> List.member pres.id proposal.presenters) model.presenters
+
+
+proposals : Model -> Types.Presenter -> List Types.Proposal
+proposals model presenter =
+    List.filter (\prop -> List.member presenter.id prop.presenters) model.proposals
 
 
 initialModel : List Types.ProposalId -> Navigation.Location -> Model

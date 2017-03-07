@@ -21,6 +21,7 @@ import Material.Elevation as Elevation
 import Material.Footer as Footer
 import Material.Icon as Icon
 import Material.Layout as Layout
+import Material.List as Lists
 import Material.Options as Options
 import Material.Textfield as Textfield
 import Material.Typography as Typo
@@ -59,13 +60,17 @@ findPresenter model id =
     (List.filter (\p -> p.id == id) model.presenters) |> List.head
 
 
-presenterCard : Types.Presenter -> Html Msg.Msg
-presenterCard presenter =
+presenterCard : Model.Model -> Types.Presenter -> Html Msg.Msg
+presenterCard model presenter =
     let
         proposalLink proposal =
-            Layout.link
-                [ Layout.href (Routing.proposalUrl proposal.id) ]
-                [ text <| proposal.title ]
+            Lists.li []
+                [ Lists.content []
+                    [ Layout.link
+                        [ Layout.href (Routing.proposalUrl proposal.id) ]
+                        [ text <| proposal.title ]
+                    ]
+                ]
     in
         Card.view
             [ Options.onClick (Msg.VisitPresenter presenter)
@@ -76,26 +81,27 @@ presenterCard presenter =
             [ Card.title
                 [ Color.text Color.black
                 , Color.background Color.white
+                , Card.border
                 ]
                 -- TODO: We really need a function that gives a presenter's full name...
                 [ Card.head [] [ text <| presenter.firstName ++ " " ++ presenter.lastName ]
-                  , Card.subhead [][text "country"]
+                , Card.subhead [] [ text <| presenter.country ]
                 ]
-            , Card.text
-                [ Card.expand ]
-                []
             , Card.text
                 [ Color.text Color.black
                 , Color.background Color.white
                 ]
-                [ text "LIST OF PROPOSALS GOES HERE!" ]
-              , Card.actions
-                  [ Card.border
-                  , Color.background (Color.color Color.DeepOrange Color.S500)
-                  , Color.text Color.white
-                  , Typo.right
-                  ]
-                  [ text "SOMETHING USEFUL GOES HERE!" ]
+                [ Lists.ul [] (List.map proposalLink (Model.proposals model presenter)) ]
+            , Card.text
+                [ Card.expand ]
+                []
+            -- , Card.actions
+            --     [ Card.border
+            --     , Color.background (Color.color Color.DeepOrange Color.S500)
+            --     , Color.text Color.white
+            --     , Typo.right
+            --     ]
+            --     [ text "" ]
             ]
 
 
@@ -343,7 +349,7 @@ presenterView model presenter =
         ]
         [ Options.styled p
             []
-            [ presenterCard presenter ]
+            [ presenterCard model presenter ]
         , Options.styled p
             [ Typo.body1
             , Options.css "width" "30em"

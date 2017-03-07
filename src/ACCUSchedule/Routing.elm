@@ -32,9 +32,9 @@ agendaUrl =
     "#/agenda"
 
 
-proposalUrl : Types.Proposal -> String
-proposalUrl proposal =
-    "#/session/" ++ (toString proposal.id)
+proposalUrl : Types.ProposalId -> String
+proposalUrl proposalId =
+    "#/session/" ++ (toString proposalId)
 
 presenterUrl : Types.PresenterId -> String
 presenterUrl presenterId =
