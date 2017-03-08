@@ -21,6 +21,7 @@ import Material.Elevation as Elevation
 import Material.Footer as Footer
 import Material.Icon as Icon
 import Material.Layout as Layout
+import Material.List as Lists
 import Material.Options as Options
 import Material.Textfield as Textfield
 import Material.Typography as Typo
@@ -50,18 +51,58 @@ findProposal model id =
     (List.filter (\p -> p.id == id) model.proposals) |> List.head
 
 
-{-| Create a display-ready string of the names of all presenters for a proposal.
--}
-presenters : Types.Proposal -> String
-presenters proposal =
-    let
-        fullName =
-            \p -> p.firstName ++ " " ++ p.lastName
+{-| Find a presenter based on a string representation of its id.
 
-        presenterNames =
-            List.map fullName proposal.presenters
+   This is just convenience for parsing the route.
+-}
+findPresenter : Model.Model -> Types.PresenterId -> Maybe Types.Presenter
+findPresenter model id =
+    (List.filter (\p -> p.id == id) model.presenters) |> List.head
+
+
+presenterCard : Model.Model -> Types.Presenter -> Html Msg.Msg
+presenterCard model presenter =
+    let
+        proposalLink proposal =
+            Lists.li []
+                [ Lists.content []
+                    [ Layout.link
+                        [ Layout.href (Routing.proposalUrl proposal.id) ]
+                        [ text <| proposal.title ]
+                    ]
+                ]
     in
-        String.join ", " presenterNames
+        Card.view
+            [ Options.onClick (Msg.VisitPresenter presenter)
+            , Options.css "margin-right" "5px"
+            , Options.css "margin-bottom" "5px"
+            , Elevation.e2
+            ]
+            [ Card.title
+                [ Color.text Color.black
+                , Color.background Color.white
+                , Card.border
+                ]
+                -- TODO: We really need a function that gives a presenter's full name...
+                [ Card.head [] [ text <| presenter.firstName ++ " " ++ presenter.lastName ]
+                , Card.subhead [] [ text <| presenter.country ]
+                ]
+            , Card.text
+                [ Color.text Color.black
+                , Color.background Color.white
+                ]
+                [ Lists.ul [] (List.map proposalLink (Model.proposals model presenter)) ]
+            , Card.text
+                [ Card.expand ]
+                []
+            -- , Card.actions
+            --     [ Card.border
+            --     , Color.background (Color.color Color.DeepOrange Color.S500)
+            --     , Color.text Color.white
+            --     , Typo.right
+            --     ]
+            --     [ text "" ]
+            ]
 
 
 {-| A card-view of a single proposal. This displays the title, presenters,
@@ -87,6 +128,11 @@ proposalCard model proposal =
                     _ ->
                         [ time, room ]
 
+        presenterLink presenter =
+            Layout.link
+                [ Layout.href (Routing.presenterUrl presenter.id) ]
+                [ text <| presenter.firstName ++ " " ++ presenter.lastName ]
+
         dayLink =
             Layout.link
                 [ Layout.href (Routing.dayUrl proposal.day) ]
@@ -108,7 +154,7 @@ proposalCard model proposal =
                 , Color.background Color.white
                 ]
                 [ Card.head [] [ text proposal.title ]
-                , Card.subhead [] [ text (presenters proposal) ]
+                , Card.subhead [] (List.map presenterLink (Model.presenters model proposal))
                 ]
             , Card.text
                 [ Card.expand ]
@@ -290,6 +336,29 @@ proposalView model proposal =
             ]
 
 
+{-| Display a single presenter
+-}
+presenterView : Model.Model -> Types.Presenter -> Html Msg.Msg
+presenterView model presenter =
+    Options.div
+        [ Options.css "display" "flex"
+        , Options.css "flex-flow" "row wrap"
+          -- , Options.css "justify" "center"
+        , Options.css "justify-content" "flex-start"
+        , Options.css "align-items" "flex-start"
+        ]
+        [ Options.styled p
+            []
+            [ presenterCard model presenter ]
+        , Options.styled p
+            [ Typo.body1
+            , Options.css "width" "30em"
+            , Options.css "margin-left" "10px"
+            ]
+            [ Markdown.toHtml [] presenter.bio ]
+        ]
+
+
 searchView : String -> Model.Model -> Html Msg.Msg
 searchView term model =
     Search.search term model
@@ -369,6 +438,14 @@ view model =
                         Nothing ->
                             [ notFoundView ]
 
+                Routing.Presenter id ->
+                    case findPresenter model id of
+                        Just presenter ->
+                            [ presenterView model presenter ]
+
+                        Nothing ->
+                            [ notFoundView ]
+
                 Routing.Agenda ->
                     agendaView model
 
@@ -384,6 +461,9 @@ view model =
                     Days.toString day
 
                 Routing.Proposal id ->
+                    ""
+
+                Routing.Presenter id ->
                     ""
 
                 Routing.Agenda ->

@@ -125,33 +125,8 @@ track =
         string |> andThen decode
 
 
-presenterDecoder : Decoder Types.Presenter
-presenterDecoder =
-    decode Types.Presenter
-        |> required "id" int
-        |> required "first_name" string
-        |> required "last_name" string
-
-
-proposalDecoder : Decoder Types.Proposal
-proposalDecoder =
-    decode Types.Proposal
-        |> required "id" int
-        |> required "title" string
-        |> required "text" string
-        |> required "presenters" (list presenterDecoder)
-        |> required "day" day
-        |> required "session" session
-        |> optional "quickie_slot" (maybe quickieSlot) Nothing
-        |> required "room" room
-        |> hardcoded False
-
-
-{-| Decode a list of Proposals, taking care to dispose of invalid proposals that
-may have some from the server.
--}
-proposalsDecoder : Decoder (List Types.Proposal)
-proposalsDecoder =
+listDecoder : Decoder a -> Decoder (List a)
+listDecoder dec =
     let
         removeFailures =
             List.foldl
@@ -166,7 +141,48 @@ proposalsDecoder =
                 []
                 >> succeed
     in
-        list (maybe proposalDecoder) |> andThen removeFailures
+        list (maybe dec) |> andThen removeFailures
+
+
+presenterDecoder : Decoder Types.Presenter
+presenterDecoder =
+    decode Types.Presenter
+        |> required "id" int
+        |> required "first_name" string
+        |> required "last_name" string
+        |> required "bio" string
+        |> required "country" string
+        |> required "state" string
+
+
+{-| Decode a list of Presenters, taking care to dispose of invalid presenters that
+may have come from the server.
+-}
+presentersDecoder : Decoder (List Types.Presenter)
+presentersDecoder =
+    listDecoder presenterDecoder
+
+
+proposalDecoder : Decoder Types.Proposal
+proposalDecoder =
+    decode Types.Proposal
+        |> required "id" int
+        |> required "title" string
+        |> required "text" string
+        |> required "presenters" (list int)
+        |> required "day" day
+        |> required "session" session
+        |> optional "quickie_slot" (maybe quickieSlot) Nothing
+        |> required "room" room
+        |> hardcoded False
+
+
+{-| Decode a list of Proposals, taking care to dispose of invalid proposals that
+may have come from the server.
+-}
+proposalsDecoder : Decoder (List Types.Proposal)
+proposalsDecoder =
+    listDecoder proposalDecoder
 
 
 

@@ -23,7 +23,7 @@ else {
 
 var flags = {
     bookmarks: bookmarks,
-    apiUrl: process.env.PROPOSAL_API_URL
+    apiBaseUrl: process.env.API_BASE_URL
 };
 
 setTimeout(function() {

@@ -1,35 +1,32 @@
 module ACCUSchedule.Search exposing (search)
 
-import ACCUSchedule.Model exposing (Model)
-import ACCUSchedule.Types exposing (Proposal)
+import ACCUSchedule.Model exposing (Model, presenters)
+import ACCUSchedule.Types exposing (Presenter, Proposal)
 
 
-fields : Proposal -> List String
-fields proposal =
+lcontains : String -> String -> Bool
+lcontains term text =
+    String.contains (String.toLower term) (String.toLower text)
+
+
+presentersMatch : String -> Model -> Proposal -> Bool
+presentersMatch term model proposal =
     let
-        fullName p =
-            p.firstName ++ " " ++ p.lastName
+        pmatch p =
+            lcontains term p.firstName
+                || lcontains term p.lastName
     in
-        [ proposal.text
-        , proposal.title
-        ]
-            ++ (List.map fullName proposal.presenters)
+        List.any pmatch (presenters model proposal)
 
 
 search : String -> Model -> List Proposal
-search term =
+search term model =
     let
-        lterm =
-            String.toLower term
-
-        matching =
-            String.toLower
-                >> String.contains lterm
-
-        fieldMatch =
-            fields
-                >> List.any matching
+        matches p =
+            lcontains term p.text
+                || lcontains term p.title
+                || presentersMatch term model p
     in
-        .proposals
-            >> List.filter
-                fieldMatch
+        model.proposals
+            |> List.filter
+                matches

@@ -12,7 +12,7 @@ import Navigation
 
 type alias Flags =
     { bookmarks : List ProposalId
-    , apiUrl : String
+    , apiBaseUrl : String
     }
 
 
@@ -24,7 +24,8 @@ main =
                 ( initialModel flags.bookmarks loc
                 , Cmd.batch
                     [ Material.init Mdl
-                    , Comms.fetchProposals flags.apiUrl
+                    , Comms.fetchProposals (flags.apiBaseUrl ++ "/proposals/api/scheduled_proposals")
+                    , Comms.fetchPresenters (flags.apiBaseUrl ++ "/proposals/api/presenters")
                     ]
                 )
         , view = view
