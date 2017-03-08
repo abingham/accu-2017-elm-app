@@ -13,6 +13,7 @@ type RoutePath
     = Day Days.Day
     | Proposal Types.ProposalId
     | Presenter Types.PresenterId
+    | Presenters
     | Agenda
     | Search String
     | NotFound
@@ -41,6 +42,8 @@ presenterUrl presenterId =
     "#/presenter/" ++ (toString presenterId)
 
 
+presentersUrl : String
+presentersUrl = "#/presenters"
 
 searchUrl : String -> String
 searchUrl term =
@@ -94,6 +97,7 @@ matchers =
         , map Day (s "day" </> day)
         , map Proposal (s "session" </> int)
         , map Presenter (s "presenter" </> int)
+        , map Presenters (s "presenters")
         , map Agenda (s "agenda")
         , map Search (s "search" </> uriEncoded)
         ]

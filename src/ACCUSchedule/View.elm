@@ -95,13 +95,13 @@ presenterCard model presenter =
             , Card.text
                 [ Card.expand ]
                 []
-            -- , Card.actions
-            --     [ Card.border
-            --     , Color.background (Color.color Color.DeepOrange Color.S500)
-            --     , Color.text Color.white
-            --     , Typo.right
-            --     ]
-            --     [ text "" ]
+              -- , Card.actions
+              --     [ Card.border
+              --     , Color.background (Color.color Color.DeepOrange Color.S500)
+              --     , Color.text Color.white
+              --     , Typo.right
+              --     ]
+              --     [ text "" ]
             ]
 
 
@@ -359,6 +359,16 @@ presenterView model presenter =
         ]
 
 
+presentersView : Model.Model -> Html Msg.Msg
+presentersView model =
+    Options.div
+        [ Options.css "display" "flex"
+        , Options.css "flex-flow" "row wrap"
+        ]
+    <|
+        List.map (presenterCard model) model.presenters
+
+
 searchView : String -> Model.Model -> Html Msg.Msg
 searchView term model =
     Search.search term model
@@ -446,6 +456,9 @@ view model =
                         Nothing ->
                             [ notFoundView ]
 
+                Routing.Presenters ->
+                    [ presentersView model ]
+
                 Routing.Agenda ->
                     agendaView model
 
@@ -465,6 +478,9 @@ view model =
 
                 Routing.Presenter id ->
                     ""
+
+                Routing.Presenters ->
+                    "Presenters"
 
                 Routing.Agenda ->
                     "Your agenda"
@@ -518,13 +534,16 @@ view model =
                 , drawer =
                     [ Layout.title [] [ text "ACCU 2017" ]
                     , Layout.navigation [] <|
-                        (List.map
-                            dayLink
-                            Days.conferenceDays
-                        )
-                            ++ [ Html.hr [] []
-                               , agendaLink
-                               ]
+                        List.concat
+                            [ List.map
+                                dayLink
+                                Days.conferenceDays
+                            , [ Html.hr [] []
+                              , drawerLink Routing.presentersUrl "Presenters"
+                              , Html.hr [] []
+                              , agendaLink
+                              ]
+                            ]
                     ]
                 , tabs = ( [], [] )
                 , main =
