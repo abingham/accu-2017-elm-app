@@ -110,13 +110,6 @@ presenterCard model presenter =
             , Card.text
                 [ Card.expand ]
                 []
-              -- , Card.actions
-              --     [ Card.border
-              --     , Color.background (Color.color Color.DeepOrange Color.S500)
-              --     , Color.text Color.white
-              --     , Typo.right
-              --     ]
-              --     [ text "" ]
             ]
 
 
@@ -184,21 +177,10 @@ proposalCard model proposal =
                 [ Color.background Color.white
                 , Typo.left
                 ]
-              <|
-                List.map
-                    (\p ->
-                        Button.render Msg.Mdl
-                            [ proposalCardGroup
-                            , presenterDetailsControlGroup
-                            , p.id
-                            ]
-                            model.mdl
-                            [ Button.ripple
-                            , Button.link <| Routing.presenterUrl p.id
-                            ]
-                            [ text <| Types.fullName p ]
-                    )
+                (List.map
+                    (presenterInfoButton model)
                     (Model.presenters model proposal)
+                )
             , Card.actions
                 [ Color.background Color.accent
                 , Typo.left
@@ -349,6 +331,24 @@ proposalInfoButton model proposal =
         , Button.link <| Routing.proposalUrl proposal.id
         ]
         [ text "details" ]
+
+
+presenterInfoButton : Model.Model -> Types.Presenter -> Html Msg.Msg
+presenterInfoButton model presenter =
+    Button.render Msg.Mdl
+        -- TODO: We've hard-coded the index to specify proposal cards. This is
+        -- probably not great since we could conceivably want to use the button
+        -- (and others) in any number of places. We should probably let the user
+        -- pass in an index prefix to which we append.
+        [ proposalCardGroup
+        , presenterDetailsControlGroup
+        , presenter.id
+        ]
+        model.mdl
+        [ Button.ripple
+        , Button.link <| Routing.presenterUrl presenter.id
+        ]
+        [ text <| Types.fullName presenter ]
 
 
 {-| Display a single proposal. This includes all of the details of the proposal,
