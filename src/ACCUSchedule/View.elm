@@ -1,5 +1,6 @@
 module ACCUSchedule.View exposing (view)
 
+import ACCUSchedule.ISO3166 as ISO3166
 import ACCUSchedule.Model as Model
 import ACCUSchedule.Msg as Msg
 import ACCUSchedule.Routing as Routing
@@ -71,6 +72,11 @@ presenterCard model presenter =
                         [ text <| proposal.title ]
                     ]
                 ]
+
+        country =
+            case ISO3166.countryName presenter.country of
+                Just name -> name
+                Nothing -> presenter.country
     in
         Card.view
             [ Options.onClick (Msg.VisitPresenter presenter)
@@ -85,7 +91,7 @@ presenterCard model presenter =
                 ]
                 -- TODO: We really need a function that gives a presenter's full name...
                 [ Card.head [] [ text <| presenter.firstName ++ " " ++ presenter.lastName ]
-                , Card.subhead [] [ text <| presenter.country ]
+                , Card.subhead [] [ text country ]
                 ]
             , Card.text
                 [ Color.text Color.black
