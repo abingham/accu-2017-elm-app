@@ -33,6 +33,11 @@ proposalCardGroup =
     0
 
 
+presenterCardGroup : Int
+presenterCardGroup =
+    1
+
+
 bookmarksControlGroup : Int
 bookmarksControlGroup =
     1
@@ -87,10 +92,21 @@ presenterCard model presenter =
             case ISO3166.countryName presenter.country of
                 Just name -> name
                 Nothing -> presenter.country
+
+        detailsButton =
+            Button.render Msg.Mdl
+                [ presenterCardGroup
+                , presenterDetailsControlGroup
+                , presenter.id
+                ]
+                model.mdl
+                [ Button.ripple
+                , Button.link <| Routing.presenterUrl presenter.id
+                ]
+                [ text "details" ]
     in
         Card.view
-            [ Options.onClick (Msg.VisitPresenter presenter)
-            , Options.css "margin-right" "5px"
+            [ Options.css "margin-right" "5px"
             , Options.css "margin-bottom" "5px"
             , Elevation.e2
             ]
@@ -110,6 +126,14 @@ presenterCard model presenter =
             , Card.text
                 [ Card.expand ]
                 []
+            , Card.actions
+                [ Color.background Color.accent
+                , Typo.left
+                , Options.css "justify-content" "space-between"
+                , Options.css "display" "flex"
+                ]
+                [ detailsButton
+                ]
             ]
 
 
@@ -149,6 +173,18 @@ proposalCard model proposal =
             Layout.link
                 [ Layout.href (Routing.dayUrl proposal.day) ]
                 [ text <| Days.toString proposal.day ]
+
+        presenterInfoButton presenter =
+            Button.render Msg.Mdl
+                [ proposalCardGroup
+                , presenterDetailsControlGroup
+                , presenter.id
+                ]
+                model.mdl
+                [ Button.ripple
+                , Button.link <| Routing.presenterUrl presenter.id
+                ]
+                [ text <| Types.fullName presenter ]
     in
         Card.view
             [ if proposal.raised then
@@ -178,7 +214,7 @@ proposalCard model proposal =
                 , Typo.left
                 ]
                 (List.map
-                    (presenterInfoButton model)
+                    presenterInfoButton
                     (Model.presenters model proposal)
                 )
             , Card.actions
@@ -331,24 +367,6 @@ proposalInfoButton model proposal =
         , Button.link <| Routing.proposalUrl proposal.id
         ]
         [ text "details" ]
-
-
-presenterInfoButton : Model.Model -> Types.Presenter -> Html Msg.Msg
-presenterInfoButton model presenter =
-    Button.render Msg.Mdl
-        -- TODO: We've hard-coded the index to specify proposal cards. This is
-        -- probably not great since we could conceivably want to use the button
-        -- (and others) in any number of places. We should probably let the user
-        -- pass in an index prefix to which we append.
-        [ proposalCardGroup
-        , presenterDetailsControlGroup
-        , presenter.id
-        ]
-        model.mdl
-        [ Button.ripple
-        , Button.link <| Routing.presenterUrl presenter.id
-        ]
-        [ text <| Types.fullName presenter ]
 
 
 {-| Display a single proposal. This includes all of the details of the proposal,
