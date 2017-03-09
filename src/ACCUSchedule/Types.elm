@@ -28,6 +28,9 @@ type alias Presenter =
     , state : String
     }
 
+fullName : Presenter -> String
+fullName p =
+    p.firstName ++ " " ++ p.lastName
 
 type alias Proposal =
     { id : ProposalId

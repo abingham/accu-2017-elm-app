@@ -99,8 +99,7 @@ presenterCard model presenter =
                 , Color.background Color.white
                 , Card.border
                 ]
-                -- TODO: We really need a function that gives a presenter's full name...
-                [ Card.head [] [ text <| presenter.firstName ++ " " ++ presenter.lastName ]
+                [ Card.head [] [ text <| Types.fullName presenter ]
                 , Card.subhead [] [ text country ]
                 ]
             , Card.text
@@ -172,7 +171,7 @@ proposalCard model proposal =
                 [ Color.text Color.black
                 , Color.background Color.white
                 ]
-                [ Card.head [ Options.onClick (Msg.VisitProposal proposal) ] [ text proposal.title ]
+                [ Card.head [] [ text proposal.title ]
                 , Card.subhead []
                     [ dayLink
                     , text <| ", " ++ location
@@ -197,7 +196,7 @@ proposalCard model proposal =
                             [ Button.ripple
                             , Button.link <| Routing.presenterUrl p.id
                             ]
-                            [ text (p.firstName ++ " " ++ p.lastName) ]
+                            [ text <| Types.fullName p ]
                     )
                     (Model.presenters model proposal)
             , Card.actions
