@@ -133,14 +133,17 @@ proposalCard model proposal =
                 [ Layout.href (Routing.presenterUrl presenter.id) ]
                 [ text <| presenter.firstName ++ " " ++ presenter.lastName ]
 
+        presenterLinks =
+            List.map presenterLink (Model.presenters model proposal)
+                |> List.intersperse (text ", ")
+
         dayLink =
             Layout.link
                 [ Layout.href (Routing.dayUrl proposal.day) ]
                 [ text <| Days.toString proposal.day ]
     in
         Card.view
-            [ Options.onClick (Msg.VisitProposal proposal)
-            , if proposal.raised then
+            [ if proposal.raised then
                 Elevation.e8
               else
                 Elevation.e2
@@ -153,8 +156,8 @@ proposalCard model proposal =
                 [ Color.text Color.black
                 , Color.background Color.white
                 ]
-                [ Card.head [] [ text proposal.title ]
-                , Card.subhead [] (List.map presenterLink (Model.presenters model proposal))
+                [ Card.head [Options.onClick (Msg.VisitProposal proposal)] [ text proposal.title ]
+                , Card.subhead [] presenterLinks
                 ]
             , Card.text
                 [ Card.expand ]
