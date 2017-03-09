@@ -11,7 +11,7 @@ import ACCUSchedule.Types.QuickieSlots as QuickieSlots
 import ACCUSchedule.Types.Rooms as Rooms
 import ACCUSchedule.Types.Sessions as Sessions
 import Html exposing (a, br, div, h1, Html, img, p, text)
-import Html.Attributes exposing (height, src)
+import Html.Attributes exposing (height, href, src)
 import List.Extra exposing (stableSortWith)
 import Markdown
 import Material.Button as Button
@@ -41,6 +41,16 @@ bookmarksControlGroup =
 searchFieldControlGroup : Int
 searchFieldControlGroup =
     2
+
+
+proposalDetailsControlGroup : Int
+proposalDetailsControlGroup =
+    3
+
+
+presenterDetailsControlGroup : Int
+presenterDetailsControlGroup =
+    4
 
 
 {-| Find a proposal based on a string representation of its id.
@@ -162,26 +172,43 @@ proposalCard model proposal =
                 [ Color.text Color.black
                 , Color.background Color.white
                 ]
-                [ Card.head [Options.onClick (Msg.VisitProposal proposal)] [ text proposal.title ]
-                , Card.subhead [] presenterLinks
+                [ Card.head [ Options.onClick (Msg.VisitProposal proposal) ] [ text proposal.title ]
+                , Card.subhead []
+                    [ dayLink
+                    , text <| ", " ++ location
+                    ]
                 ]
             , Card.text
                 [ Card.expand ]
                 []
-            , Card.text
-                [ Color.text Color.black
-                , Color.background Color.white
-                ]
-                [ dayLink
-                , text <| ", " ++ location
-                ]
             , Card.actions
-                [ Card.border
-                , Color.background (Color.color Color.DeepOrange Color.S500)
-                , Color.text Color.white
-                , Typo.right
+                [ Color.background Color.white
+                , Typo.left
                 ]
-                [ bookmarkButton model proposal ]
+              <|
+                List.map
+                    (\p ->
+                        Button.render Msg.Mdl
+                            [ proposalCardGroup
+                            , presenterDetailsControlGroup
+                            , p.id
+                            ]
+                            model.mdl
+                            [ Button.ripple
+                            , Button.link <| Routing.presenterUrl p.id
+                            ]
+                            [ text (p.firstName ++ " " ++ p.lastName) ]
+                    )
+                    (Model.presenters model proposal)
+            , Card.actions
+                [ Color.background Color.accent
+                , Typo.left
+                , Options.css "justify-content" "space-between"
+                , Options.css "display" "flex"
+                ]
+                [ proposalInfoButton model proposal
+                , bookmarkButton model proposal
+                ]
             ]
 
 
@@ -309,6 +336,20 @@ bookmarkButton model proposal =
             , Options.onClick <| Msg.ToggleBookmark proposal.id
             ]
             [ Icon.i icon ]
+
+
+proposalInfoButton : Model.Model -> Types.Proposal -> Html Msg.Msg
+proposalInfoButton model proposal =
+    Button.render Msg.Mdl
+        [ proposalCardGroup
+        , proposalDetailsControlGroup
+        , proposal.id
+        ]
+        model.mdl
+        [ Button.ripple
+        , Button.link <| Routing.proposalUrl proposal.id
+        ]
+        [ text "details" ]
 
 
 {-| Display a single proposal. This includes all of the details of the proposal,
