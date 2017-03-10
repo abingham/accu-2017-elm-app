@@ -63,13 +63,13 @@ findPresenter model id =
     (List.filter (\p -> p.id == id) model.presenters) |> List.head
 
 
-flowCardView : Model.Model -> List Types.Proposal -> Html Msg.Msg
-flowCardView model proposals =
+flowView : List (Html Msg.Msg) -> Html Msg.Msg
+flowView elems =
     Options.div
         [ Options.css "display" "flex"
         , Options.css "flex-flow" "row wrap"
         ]
-        (List.map (proposalCard proposalCardGroup model) proposals)
+        elems
 
 
 sessionView : Model.Model -> List Types.Proposal -> Sessions.Session -> List (Html Msg.Msg)
@@ -114,12 +114,15 @@ sessionView model props session =
 
                     label =
                         d ++ ", " ++ s
+
+                    cards =
+                        List.map (proposalCard proposalCardGroup model) proposals
                 in
                     [ Chip.span [ Options.css "margin-bottom" "5px" ]
                         [ Chip.content []
                             [ text label ]
                         ]
-                    , flowCardView model proposals
+                    , flowView cards
                     ]
 
 
@@ -161,7 +164,9 @@ agendaView model =
                         [ text <| Days.toString day ]
                     ]
                 ]
-            , flowCardView model <| List.filter (.day >> (==) day) props
+            , List.filter (.day >> (==) day) props
+                |> List.map (proposalCard proposalCardGroup model)
+                |> flowView
             ]
     in
         List.concatMap dview Days.conferenceDays
@@ -226,18 +231,15 @@ presenterView model presenter =
 
 presentersView : Model.Model -> Html Msg.Msg
 presentersView model =
-    Options.div
-        [ Options.css "display" "flex"
-        , Options.css "flex-flow" "row wrap"
-        ]
-    <|
-        List.map (presenterCard presenterCardGroup model) model.presenters
+    List.map (presenterCard presenterCardGroup model) model.presenters
+        |> flowView
 
 
 searchView : String -> Model.Model -> Html Msg.Msg
 searchView term model =
     Search.search term model
-        |> flowCardView model
+        |> List.map (proposalCard proposalCardGroup model)
+        |> flowView
 
 
 notFoundView : Html Msg.Msg
