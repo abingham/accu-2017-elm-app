@@ -140,7 +140,7 @@ proposalCard controlGroup model proposal =
                     , text <| ", " ++ location
                     ]
                 ]
-            , Card.text [Card.expand] []
+            , Card.text [ Card.expand ] []
             , Card.actions
                 [ Typo.left
                 ]

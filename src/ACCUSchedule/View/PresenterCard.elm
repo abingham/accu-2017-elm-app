@@ -67,7 +67,7 @@ presenterCard controlGroup model presenter =
     in
         Card.view
             [ Options.css "margin-right" "5px"
-            , Options.css "margin-bottom" "5px"
+            , Options.css "margin-bottom" "10px"
             , Elevation.e2
             , Color.background Theme.background
             ]
