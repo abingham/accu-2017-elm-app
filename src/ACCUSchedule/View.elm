@@ -10,6 +10,7 @@ import ACCUSchedule.Types.Days as Days
 import ACCUSchedule.Types.QuickieSlots as QuickieSlots
 import ACCUSchedule.Types.Rooms as Rooms
 import ACCUSchedule.Types.Sessions as Sessions
+import ACCUSchedule.View.PresenterCard exposing (presenterCard)
 import ACCUSchedule.View.ProposalCard exposing (proposalCard)
 import ACCUSchedule.View.Theme as Theme
 import Html exposing (a, br, div, h1, Html, img, p, text)
@@ -44,16 +45,6 @@ searchFieldControlGroup =
     2
 
 
-proposalDetailsControlGroup : Int
-proposalDetailsControlGroup =
-    3
-
-
-presenterDetailsControlGroup : Int
-presenterDetailsControlGroup =
-    4
-
-
 {-| Find a proposal based on a string representation of its id.
 
    This is just convenience for parsing the route.
@@ -70,69 +61,6 @@ findProposal model id =
 findPresenter : Model.Model -> Types.PresenterId -> Maybe Types.Presenter
 findPresenter model id =
     (List.filter (\p -> p.id == id) model.presenters) |> List.head
-
-
-presenterCard : Model.Model -> Types.Presenter -> Html Msg.Msg
-presenterCard model presenter =
-    let
-        proposalLink proposal =
-            Lists.li []
-                [ Lists.content []
-                    [ Layout.link
-                        [ Layout.href (Routing.proposalUrl proposal.id) ]
-                        [ text <| proposal.title ]
-                    ]
-                ]
-
-        country =
-            case ISO3166.countryName presenter.country of
-                Just name ->
-                    name
-
-                Nothing ->
-                    presenter.country
-
-        detailsButton =
-            Button.render Msg.Mdl
-                [ presenterCardGroup
-                , presenterDetailsControlGroup
-                , presenter.id
-                ]
-                model.mdl
-                [ Button.ripple
-                , Button.link <| Routing.presenterUrl presenter.id
-                ]
-                [ text "details" ]
-    in
-        Card.view
-            [ Options.css "margin-right" "5px"
-            , Options.css "margin-bottom" "5px"
-            , Elevation.e2
-            , Color.background Theme.background
-            ]
-            [ Card.title
-                [ Color.text Color.black
-                , Card.border
-                ]
-                [ Card.head [] [ text <| Types.fullName presenter ]
-                , Card.subhead [] [ text country ]
-                ]
-            , Card.text
-                [ Color.text Color.black
-                ]
-                [ Lists.ul [] (List.map proposalLink (Model.proposals model presenter)) ]
-            , Card.text
-                [ Card.expand ]
-                []
-            , Card.actions
-                [ Color.background Theme.accent
-                , Typo.left
-                , Options.css "justify-content" "space-between"
-                , Options.css "display" "flex"
-                ]
-                [ detailsButton
-                ]
-            ]
 
 
 flowCardView : Model.Model -> List Types.Proposal -> Html Msg.Msg
@@ -286,7 +214,7 @@ presenterView model presenter =
         ]
         [ Options.styled p
             []
-            [ presenterCard model presenter ]
+            [ presenterCard presenterCardGroup model presenter ]
         , Options.styled p
             [ Typo.body1
             , Options.css "width" "30em"
@@ -303,7 +231,7 @@ presentersView model =
         , Options.css "flex-flow" "row wrap"
         ]
     <|
-        List.map (presenterCard model) model.presenters
+        List.map (presenterCard presenterCardGroup model) model.presenters
 
 
 searchView : String -> Model.Model -> Html Msg.Msg
