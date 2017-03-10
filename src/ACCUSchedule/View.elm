@@ -90,8 +90,11 @@ presenterCard model presenter =
 
         country =
             case ISO3166.countryName presenter.country of
-                Just name -> name
-                Nothing -> presenter.country
+                Just name ->
+                    name
+
+                Nothing ->
+                    presenter.country
 
         detailsButton =
             Button.render Msg.Mdl
@@ -109,10 +112,10 @@ presenterCard model presenter =
             [ Options.css "margin-right" "5px"
             , Options.css "margin-bottom" "5px"
             , Elevation.e2
+            , Color.background (Color.color Color.Grey Color.S100)
             ]
             [ Card.title
                 [ Color.text Color.black
-                , Color.background Color.white
                 , Card.border
                 ]
                 [ Card.head [] [ text <| Types.fullName presenter ]
@@ -120,7 +123,6 @@ presenterCard model presenter =
                 ]
             , Card.text
                 [ Color.text Color.black
-                , Color.background Color.white
                 ]
                 [ Lists.ul [] (List.map proposalLink (Model.proposals model presenter)) ]
             , Card.text
@@ -192,13 +194,21 @@ proposalCard model proposal =
               else
                 Elevation.e2
             , Options.css "margin-right" "5px"
-            , Options.css "margin-bottom" "5px"
+            , Options.css "margin-bottom" "10px"
             , Options.onMouseEnter (Msg.RaiseProposal True proposal.id)
             , Options.onMouseLeave (Msg.RaiseProposal False proposal.id)
+            , Color.background (Color.color Color.Grey Color.S100)
             ]
-            [ Card.title
+            [ Card.actions
+                [ Typo.left
+                ]
+                (List.map
+                    presenterInfoButton
+                    (Model.presenters model proposal)
+                )
+            , Card.title
                 [ Color.text Color.black
-                , Color.background Color.white
+                  -- , Color.background Color.white
                 ]
                 [ Card.head [] [ text proposal.title ]
                 , Card.subhead []
@@ -209,14 +219,6 @@ proposalCard model proposal =
             , Card.text
                 [ Card.expand ]
                 []
-            , Card.actions
-                [ Color.background Color.white
-                , Typo.left
-                ]
-                (List.map
-                    presenterInfoButton
-                    (Model.presenters model proposal)
-                )
             , Card.actions
                 [ Color.background Color.accent
                 , Typo.left
