@@ -10,6 +10,7 @@ import ACCUSchedule.Types.Days as Days
 import ACCUSchedule.Types.QuickieSlots as QuickieSlots
 import ACCUSchedule.Types.Rooms as Rooms
 import ACCUSchedule.Types.Sessions as Sessions
+import ACCUSchedule.View.Theme as Theme
 import Html exposing (a, br, div, h1, Html, img, p, text)
 import Html.Attributes exposing (height, href, src)
 import List.Extra exposing (stableSortWith)
@@ -112,7 +113,7 @@ presenterCard model presenter =
             [ Options.css "margin-right" "5px"
             , Options.css "margin-bottom" "5px"
             , Elevation.e2
-            , Color.background (Color.color Color.Grey Color.S100)
+            , Color.background Theme.background
             ]
             [ Card.title
                 [ Color.text Color.black
@@ -129,7 +130,7 @@ presenterCard model presenter =
                 [ Card.expand ]
                 []
             , Card.actions
-                [ Color.background Color.accent
+                [ Color.background Theme.accent
                 , Typo.left
                 , Options.css "justify-content" "space-between"
                 , Options.css "display" "flex"
@@ -197,7 +198,7 @@ proposalCard model proposal =
             , Options.css "margin-bottom" "10px"
             , Options.onMouseEnter (Msg.RaiseProposal True proposal.id)
             , Options.onMouseLeave (Msg.RaiseProposal False proposal.id)
-            , Color.background (Color.color Color.Grey Color.S100)
+            , Color.background Theme.background
             ]
             [ Card.actions
                 [ Typo.left
@@ -208,7 +209,6 @@ proposalCard model proposal =
                 )
             , Card.title
                 [ Color.text Color.black
-                  -- , Color.background Color.white
                 ]
                 [ Card.head [] [ text proposal.title ]
                 , Card.subhead []
@@ -220,7 +220,7 @@ proposalCard model proposal =
                 [ Card.expand ]
                 []
             , Card.actions
-                [ Color.background Color.accent
+                [ Color.background Theme.accent
                 , Typo.left
                 , Options.css "justify-content" "space-between"
                 , Options.css "display" "flex"
@@ -576,7 +576,7 @@ view model =
                 ]
                 { header =
                     [ Layout.row
-                        [ Color.background (Color.color Color.Grey Color.S100) ]
+                        [ Color.background Theme.background ]
                         [ img [ src "./static/img/accu-logo.png", height 50 ] []
                         , Layout.spacer
                         , Layout.title
