@@ -131,14 +131,7 @@ proposalCard controlGroup model proposal =
             , Options.onMouseLeave (Msg.RaiseProposal False proposal.id)
             , Color.background Theme.background
             ]
-            [ Card.actions
-                [ Typo.left
-                ]
-                (List.map
-                    presenterInfoButton
-                    (Model.presenters model proposal)
-                )
-            , Card.title
+            [ Card.title
                 [ Color.text Color.black
                 ]
                 [ Card.head [] [ text proposal.title ]
@@ -147,9 +140,14 @@ proposalCard controlGroup model proposal =
                     , text <| ", " ++ location
                     ]
                 ]
-            , Card.text
-                [ Card.expand ]
-                []
+            , Card.text [Card.expand] []
+            , Card.actions
+                [ Typo.left
+                ]
+                (List.map
+                    presenterInfoButton
+                    (Model.presenters model proposal)
+                )
             , Card.actions
                 [ Color.background Theme.accent
                 , Typo.left
