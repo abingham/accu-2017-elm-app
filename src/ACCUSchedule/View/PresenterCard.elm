@@ -70,6 +70,10 @@ presenterCard controlGroup model presenter =
             , Options.css "margin-bottom" "10px"
             , Elevation.e2
             , Color.background Theme.background
+            , Options.css "border-width" "1px"
+            , Options.css "border-color" "black"
+            , Options.css "border-style" "solid"
+
             ]
             [ Card.title
                 [ Color.text Color.black
