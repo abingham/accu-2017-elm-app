@@ -12,6 +12,7 @@ import Navigation
 type alias Model =
     { proposals : List Types.Proposal
     , presenters : List Types.Presenter
+    , apiBaseUrl : String
     , bookmarks : List Types.ProposalId
     , mdl : Material.Model
     , location : Routing.RoutePath
@@ -30,10 +31,11 @@ proposals model presenter =
     List.filter (\prop -> List.member presenter.id prop.presenters) model.proposals
 
 
-initialModel : List Types.ProposalId -> Navigation.Location -> Model
-initialModel bookmarks location =
+initialModel : String -> List Types.ProposalId -> Navigation.Location -> Model
+initialModel apiBaseUrl bookmarks location =
     { proposals = []
     , presenters = []
+    , apiBaseUrl = apiBaseUrl
     , bookmarks = bookmarks
     , mdl = Material.model
     , location = Routing.parseLocation location

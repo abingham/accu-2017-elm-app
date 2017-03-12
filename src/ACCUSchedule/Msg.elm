@@ -7,7 +7,8 @@ import Navigation
 
 
 type Msg
-    = ProposalsResult (Result Http.Error (List Types.Proposal))
+    = FetchData
+    | ProposalsResult (Result Http.Error (List Types.Proposal))
     | PresentersResult (Result Http.Error (List Types.Presenter))
     | VisitProposal Types.Proposal
     | VisitPresenter Types.Presenter

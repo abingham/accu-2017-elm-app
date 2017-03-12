@@ -21,13 +21,17 @@ main =
     Navigation.programWithFlags UrlChange
         { init =
             \flags loc ->
-                ( initialModel flags.bookmarks loc
-                , Cmd.batch
-                    [ Material.init Mdl
-                    , Comms.fetchProposals (flags.apiBaseUrl ++ "/proposals/api/scheduled_proposals")
-                    , Comms.fetchPresenters (flags.apiBaseUrl ++ "/proposals/api/presenters")
-                    ]
-                )
+                let
+                    model =
+                        initialModel flags.apiBaseUrl flags.bookmarks loc
+                in
+                    ( model
+                    , Cmd.batch
+                        [ Material.init Mdl
+                        , Comms.fetchProposals model
+                        , Comms.fetchPresenters model
+                        ]
+                    )
         , view = view
         , update = update
         , subscriptions = Material.subscriptions Mdl

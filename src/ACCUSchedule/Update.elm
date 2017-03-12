@@ -1,16 +1,23 @@
 module ACCUSchedule.Update exposing (update)
 
+import ACCUSchedule.Comms as Comms
 import ACCUSchedule.Msg as Msg
 import ACCUSchedule.Model exposing (Model)
 import ACCUSchedule.Routing as Routing
 import ACCUSchedule.Storage as Storage
 import Material
 import Navigation
+import Return exposing (command, singleton)
 
 
 update : Msg.Msg -> Model -> ( Model, Cmd Msg.Msg )
 update msg model =
     case msg of
+        Msg.FetchData ->
+             singleton model
+                 |> command (Comms.fetchProposals model)
+                 |> command (Comms.fetchPresenters model)
+
         Msg.ProposalsResult (Ok proposals) ->
             { model | proposals = proposals } ! []
 

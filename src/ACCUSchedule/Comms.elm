@@ -7,21 +7,27 @@ module ACCUSchedule.Comms exposing (..)
 -}
 
 import ACCUSchedule.Json as Json
+import ACCUSchedule.Model  exposing (Model)
 import ACCUSchedule.Msg as Msg
 import Http
 
 
-fetchProposals : String -> Cmd Msg.Msg
-fetchProposals url =
+fetchProposals : Model -> Cmd Msg.Msg
+fetchProposals model =
     let
+        url =
+            model.apiBaseUrl ++ "/proposals/api/scheduled_proposals"
         request =
             Http.get url Json.proposalsDecoder
     in
         Http.send Msg.ProposalsResult request
 
-fetchPresenters : String -> Cmd Msg.Msg
-fetchPresenters url =
+fetchPresenters : Model -> Cmd Msg.Msg
+fetchPresenters model =
     let
+        url =
+            model.apiBaseUrl ++ "/proposals/api/presenters"
+
         request =
             Http.get url Json.presentersDecoder
     in
