@@ -137,7 +137,10 @@ proposalCard controlGroup model proposal =
             [ Card.title
                 [ Color.text Color.black
                 ]
-                [ Card.head [] [ text proposal.title ]
+                [ Card.head
+                    [ Options.onClick <| Msg.VisitProposal proposal
+                    ]
+                    [ text proposal.title ]
                 , Card.subhead []
                     [ dayLink
                     , text <| ", " ++ location
