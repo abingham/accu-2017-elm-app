@@ -405,6 +405,16 @@ view model =
                               , drawerLink Routing.presentersUrl "Presenters"
                               , Html.hr [] []
                               , agendaLink
+                              , Layout.spacer
+                              , Layout.link
+                                    [ Options.onClick <|
+                                        Msg.Batch
+                                            [ Msg.FetchData
+                                            , Layout.toggleDrawer Msg.Mdl
+                                            ]
+                                    ]
+                                    [ text "Refresh"
+                                    ]
                               ]
                             ]
                     ]
