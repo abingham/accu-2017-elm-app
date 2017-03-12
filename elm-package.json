@@ -20,7 +20,8 @@
         "evancz/elm-markdown": "3.0.1 <= v < 4.0.0",
         "evancz/url-parser": "2.0.1 <= v < 3.0.0",
         "justinmimbs/elm-date-extra": "2.0.2 <= v < 3.0.0",
-        "mgold/elm-date-format": "1.1.7 <= v < 2.0.0"
+        "mgold/elm-date-format": "1.1.7 <= v < 2.0.0",
+        "vipentti/elm-dispatch": "1.0.1 <= v < 2.0.0"
     },
     "elm-version": "0.18.0 <= v < 0.19.0"
 }
