@@ -73,13 +73,15 @@ presenterCard controlGroup model presenter =
             , Options.css "border-width" "1px"
             , Options.css "border-color" "black"
             , Options.css "border-style" "solid"
-
             ]
             [ Card.title
                 [ Color.text Color.black
                 , Card.border
                 ]
-                [ Card.head [] [ text <| Types.fullName presenter ]
+                [ Card.head
+                    [ Options.onClick <| Msg.VisitPresenter presenter
+                    ]
+                    [ text <| Types.fullName presenter ]
                 , Card.subhead [] [ text country ]
                 ]
             , Card.text
