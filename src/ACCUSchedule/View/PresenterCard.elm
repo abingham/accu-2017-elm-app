@@ -68,8 +68,17 @@ presenterCard controlGroup model presenter =
         Card.view
             [ Options.css "margin-right" "5px"
             , Options.css "margin-bottom" "10px"
-            , Elevation.e2
+            , case model.view.raisedPresenter of
+                  Just id ->
+                      if id == presenter.id then
+                          Elevation.e8
+                      else
+                          Elevation.e2
+                  _ ->
+                      Elevation.e2
             , Color.background Theme.background
+            , Options.onMouseEnter (Msg.RaisePresenter True presenter.id)
+            , Options.onMouseLeave (Msg.RaisePresenter False presenter.id)
             , Options.css "border-width" "1px"
             , Options.css "border-color" "black"
             , Options.css "border-style" "solid"

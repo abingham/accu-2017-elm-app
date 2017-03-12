@@ -1,8 +1,12 @@
-module ACCUSchedule.Model exposing (initialModel,
-                                    Model,
-                                    presenters,
-                                    proposals,
-                                    raiseProposal)
+module ACCUSchedule.Model
+    exposing
+        ( initialModel
+        , Model
+        , presenters
+        , proposals
+        , raiseProposal
+        , raisePresenter
+        )
 
 {-| The overal application model.
 -}
@@ -15,6 +19,7 @@ import Navigation
 
 type alias ViewModel =
     { raisedProposal : Maybe Types.ProposalId
+    , raisedPresenter : Maybe Types.PresenterId
     }
 
 
@@ -40,6 +45,7 @@ proposals : Model -> Types.Presenter -> List Types.Proposal
 proposals model presenter =
     List.filter (\prop -> List.member presenter.id prop.presenters) model.proposals
 
+
 raiseProposal : Bool -> Types.ProposalId -> Model -> Model
 raiseProposal raised id model =
     let
@@ -49,10 +55,25 @@ raiseProposal raised id model =
             else
                 Nothing
 
-        view = model.view
+        view =
+            model.view
     in
-        {model | view = { view | raisedProposal = val }}
+        { model | view = { view | raisedProposal = val } }
 
+
+raisePresenter : Bool -> Types.PresenterId -> Model -> Model
+raisePresenter raised id model =
+    let
+        val =
+            if raised then
+                Just id
+            else
+                Nothing
+
+        view =
+            model.view
+    in
+        { model | view = { view | raisedPresenter = val } }
 
 
 initialModel : String -> List Types.ProposalId -> Navigation.Location -> Model
@@ -63,5 +84,5 @@ initialModel apiBaseUrl bookmarks location =
     , bookmarks = bookmarks
     , mdl = Material.model
     , location = Routing.parseLocation location
-    , view = { raisedProposal = Nothing }
+    , view = { raisedProposal = Nothing, raisedPresenter = Nothing }
     }

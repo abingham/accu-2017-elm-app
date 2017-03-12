@@ -2,7 +2,7 @@ module ACCUSchedule.Update exposing (update)
 
 import ACCUSchedule.Comms as Comms
 import ACCUSchedule.Msg as Msg
-import ACCUSchedule.Model exposing (Model, raiseProposal)
+import ACCUSchedule.Model exposing (Model, raisePresenter, raiseProposal)
 import ACCUSchedule.Routing as Routing
 import ACCUSchedule.Storage as Storage
 import Dispatch
@@ -15,9 +15,9 @@ update : Msg.Msg -> Model -> ( Model, Cmd Msg.Msg )
 update msg model =
     case msg of
         Msg.FetchData ->
-             singleton model
-                 |> command (Comms.fetchProposals model)
-                 |> command (Comms.fetchPresenters model)
+            singleton model
+                |> command (Comms.fetchProposals model)
+                |> command (Comms.fetchPresenters model)
 
         Msg.ProposalsResult (Ok proposals) ->
             { model | proposals = proposals } ! []
@@ -58,8 +58,12 @@ update msg model =
             singleton model
                 |> map (raiseProposal raised id)
 
+        Msg.RaisePresenter raised id ->
+            singleton model
+                |> map (raisePresenter raised id)
+
         Msg.Batch msgs ->
-            model ! [Dispatch.forward msgs]
+            model ! [ Dispatch.forward msgs ]
 
         Msg.UrlChange location ->
             { model | location = Routing.parseLocation location } ! []
