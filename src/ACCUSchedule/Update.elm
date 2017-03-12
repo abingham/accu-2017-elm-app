@@ -5,6 +5,7 @@ import ACCUSchedule.Msg as Msg
 import ACCUSchedule.Model exposing (Model)
 import ACCUSchedule.Routing as Routing
 import ACCUSchedule.Storage as Storage
+import Dispatch
 import Material
 import Navigation
 import Return exposing (command, singleton)
@@ -66,6 +67,9 @@ update msg model =
                         model.proposals
             in
                 { model | proposals = props } ! []
+
+        Msg.Batch msgs ->
+            model ! [Dispatch.forward msgs]
 
         Msg.UrlChange location ->
             { model | location = Routing.parseLocation location } ! []

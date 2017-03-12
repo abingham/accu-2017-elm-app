@@ -15,5 +15,6 @@ type Msg
     | VisitSearch String
     | ToggleBookmark Types.ProposalId
     | RaiseProposal Bool Types.ProposalId
+    | Batch (List Msg)
     | Mdl (Material.Msg Msg)
     | UrlChange Navigation.Location
