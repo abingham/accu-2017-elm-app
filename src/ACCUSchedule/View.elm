@@ -1,6 +1,5 @@
 module ACCUSchedule.View exposing (view)
 
-import ACCUSchedule.ISO3166 as ISO3166
 import ACCUSchedule.Model as Model
 import ACCUSchedule.Msg as Msg
 import ACCUSchedule.Routing as Routing
@@ -17,14 +16,11 @@ import Html exposing (a, br, div, h1, Html, img, p, text)
 import Html.Attributes exposing (height, href, src)
 import List.Extra exposing (stableSortWith)
 import Markdown
-import Material.Button as Button
-import Material.Card as Card
 import Material.Chip as Chip
 import Material.Color as Color
 import Material.Elevation as Elevation
 import Material.Footer as Footer
 import Material.Layout as Layout
-import Material.List as Lists
 import Material.Options as Options
 import Material.Textfield as Textfield
 import Material.Typography as Typo
