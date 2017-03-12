@@ -2,13 +2,13 @@ module ACCUSchedule.Update exposing (update)
 
 import ACCUSchedule.Comms as Comms
 import ACCUSchedule.Msg as Msg
-import ACCUSchedule.Model exposing (Model)
+import ACCUSchedule.Model exposing (Model, raiseProposal)
 import ACCUSchedule.Routing as Routing
 import ACCUSchedule.Storage as Storage
 import Dispatch
 import Material
 import Navigation
-import Return exposing (command, singleton)
+import Return exposing (command, map, singleton)
 
 
 update : Msg.Msg -> Model -> ( Model, Cmd Msg.Msg )
@@ -55,18 +55,8 @@ update msg model =
                 { model | bookmarks = bookmarks } ! [ Storage.store bookmarks ]
 
         Msg.RaiseProposal raised id ->
-            let
-                props =
-                    List.map
-                        (\p ->
-                            if p.id == id then
-                                { p | raised = raised }
-                            else
-                                p
-                        )
-                        model.proposals
-            in
-                { model | proposals = props } ! []
+            singleton model
+                |> map (raiseProposal raised id)
 
         Msg.Batch msgs ->
             model ! [Dispatch.forward msgs]

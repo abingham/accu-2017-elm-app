@@ -174,7 +174,6 @@ proposalDecoder =
         |> required "session" session
         |> optional "quickie_slot" (maybe quickieSlot) Nothing
         |> required "room" room
-        |> hardcoded False
 
 
 {-| Decode a list of Proposals, taking care to dispose of invalid proposals that

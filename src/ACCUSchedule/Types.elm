@@ -41,5 +41,4 @@ type alias Proposal =
     , session : Session
     , quickieSlot : Maybe QuickieSlot
     , room : Room
-    , raised : Bool
     }

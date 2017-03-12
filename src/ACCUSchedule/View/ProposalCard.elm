@@ -121,10 +121,14 @@ proposalCard controlGroup model proposal =
                 [ text <| Types.fullName presenter ]
     in
         Card.view
-            [ if proposal.raised then
-                Elevation.e8
-              else
-                Elevation.e2
+            [ case model.view.raisedProposal of
+                Just id ->
+                    if id == proposal.id then
+                        Elevation.e8
+                    else
+                        Elevation.e2
+                _ ->
+                    Elevation.e2
             , Options.css "margin-right" "5px"
             , Options.css "margin-bottom" "10px"
             , Options.onMouseEnter (Msg.RaiseProposal True proposal.id)
