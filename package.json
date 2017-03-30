@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "ace-css": "^1.1.0",
+    "asciidoctor.js": "^1.5.5-4",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.1",
     "dotenv": "^4.0.0",

@@ -59,6 +59,19 @@ module.exports = {
   devServer: {
     inline: true,
     stats: { colors: true }
-  }
+  },
 
+  node: {
+    // console: 'empty',
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
+    // console: false,
+    // global: true,
+    // process: true,
+    // Buffer: true,
+    // __filename: "mock",
+    // __dirname: "mock",
+    // setImmediate: true
+  }
 };

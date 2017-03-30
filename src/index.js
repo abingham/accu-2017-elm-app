@@ -4,10 +4,10 @@ require("./static/material.min.css");
 require("./static/material.min.js");
 require("./static/material_icons.css");
 
-require("./static/asciidoctor.min.js");
-
 // Require index.html so it gets copied to dist
 require('./index.html');
+
+require('asciidoctor.js');
 
 var Elm = require('./Main.elm');
 var mountNode = document.getElementById('main');

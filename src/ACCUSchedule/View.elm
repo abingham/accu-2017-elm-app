@@ -1,5 +1,6 @@
 module ACCUSchedule.View exposing (view)
 
+import ACCUSchedule.Asciidoc as Asciidoc
 import ACCUSchedule.Model as Model
 import ACCUSchedule.Msg as Msg
 import ACCUSchedule.Routing as Routing
@@ -198,7 +199,7 @@ proposalView model proposal =
                 , Options.css "width" "30em"
                 , Options.css "margin-left" "10px"
                 ]
-                [ Markdown.toHtml [] proposal.text ]
+                [ Asciidoc.toHtml [] proposal.text ]
             ]
 
 
