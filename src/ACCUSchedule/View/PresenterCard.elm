@@ -80,7 +80,7 @@ presenterCard controlGroup model presenter =
             , Options.onMouseEnter (Msg.RaisePresenter True presenter.id)
             , Options.onMouseLeave (Msg.RaisePresenter False presenter.id)
             , Options.css "border-width" "1px"
-            , Options.css "border-color" "black"
+            , Options.css "border-color" "#aaaaaa"
             , Options.css "border-style" "solid"
             ]
             [ Card.title

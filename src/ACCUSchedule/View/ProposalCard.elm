@@ -135,7 +135,7 @@ proposalCard controlGroup model proposal =
             , Options.onMouseLeave (Msg.RaiseProposal False proposal.id)
             , Color.background Theme.background
             , Options.css "border-width" "1px"
-            , Options.css "border-color" "black"
+            , Options.css "border-color" "#aaaaaa"
             , Options.css "border-style" "solid"
             ]
             [ Card.title
