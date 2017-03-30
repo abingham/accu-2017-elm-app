@@ -1,3 +1,5 @@
+var Asciidoctor = require('asciidoctor.js');
+
 var _user$project$Native_Asciidoc = function() {
 
     var asciidoctor = Asciidoctor();
