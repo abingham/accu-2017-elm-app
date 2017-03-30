@@ -228,7 +228,9 @@ presenterView model presenter =
 
 presentersView : Model.Model -> Html Msg.Msg
 presentersView model =
-    List.map (presenterCard presenterCardGroup model) model.presenters
+    model.presenters
+        |> List.sortBy .lastName
+        |> List.map (presenterCard presenterCardGroup model)
         |> flowView
 
 
