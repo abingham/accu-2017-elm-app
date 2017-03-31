@@ -1,0 +1,26 @@
+language: python
+python:
+  - "3.6"
+
+# command to install dependencies
+install:
+  - "nvm install node"
+  - "nvm use node"
+  - "npm install"
+  - "cp dot.env .env"
+  - "pip install -r tests/requirements.txt"
+  - "npm install -g webdriver"
+  - "npm install -g phantomjs-prebuilt"
+  - "npm install -g foreman"
+  - "npm run build"
+
+before_script:
+  - "nf start &"
+  - "sleep 10"
+
+# command to run tests
+script: behave tests/features
+
+cache:
+  directories:
+    - elm-stuff/build-artifacts

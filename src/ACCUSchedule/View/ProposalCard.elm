@@ -105,7 +105,9 @@ proposalCard controlGroup model proposal =
 
         dayLink =
             Layout.link
-                [ Layout.href (Routing.dayUrl proposal.day) ]
+                [ Layout.href (Routing.dayUrl proposal.day)
+                , Options.cs "day-link"
+                ]
                 [ text <| Days.toString proposal.day ]
 
         presenterInfoButton presenter =
@@ -127,8 +129,10 @@ proposalCard controlGroup model proposal =
                         Elevation.e8
                     else
                         Elevation.e2
+
                 _ ->
                     Elevation.e2
+            , Options.cs "proposal-card"
             , Options.css "margin-right" "5px"
             , Options.css "margin-bottom" "10px"
             , Options.onMouseEnter (Msg.RaiseProposal True proposal.id)

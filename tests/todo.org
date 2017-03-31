@@ -1,0 +1,15 @@
+* Make "turnkey" test approach
+Right now the test requires starting a dev API server externally. It would be
+best if it was started as part of the test.
+
+* Create test server and db
+This should have canned data specific to the test, nothing as big or messy as
+the actual database.
+
+* Make this robust against changing days
+Currently we have a hardcoded notion in the tests of which day numbers
+correspond to which days. This will change with each year of the conference.
+Ideally we'd "single source" this, but that may be overengineering. Give it some
+thought.
+
+* Use page objects

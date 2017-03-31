@@ -1,4 +1,5 @@
- [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/abingham/accu-2017-elm-app.svg?branch=master)](https://travis-ci.org/abingham/accu-2017-elm-app)
 
 # ACCU 2017 Elm-based schedule app
 
