@@ -1,19 +1,22 @@
 from behave import given, then
+from pages.day_view import DayViewPage
+from pages.enums import day_string
 
 
-@given('we visit the Wednesday day view')
-def step_impl(context):
-    context.driver.get(context.base_url + "#/day/1")
+@given('we visit the view for day {day:Int}')
+def step_impl(context, day):
+    page = DayViewPage(context)
+    page.visit(day)
 
 
 @then('{count:Int} proposal cards are displayed')
 def step_impl(context, count):
-    elems = context.driver.find_elements_by_class_name('proposal-card')
-    assert len(elems) == count
+    page = DayViewPage(context)
+    assert len(page.proposals()) == count
 
 
-@then('all proposals are for {day}')
+@then('all proposals are for day {day:Int}')
 def step_impl(context, day):
-    elems = context.driver.find_elements_by_css_selector(
-        '.proposal-card a.day-link')
-    assert all(e.text == day for e in elems)
+    page = DayViewPage(context)
+    assert all(p.day_text == day_string(day)
+               for p in page.proposals())
