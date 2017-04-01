@@ -1,0 +1,2 @@
+api: npm run test-api
+client: npm run dev

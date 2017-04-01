@@ -1,0 +1,45 @@
+{
+    "presenters": [
+        {
+            "bio": "BIO1",
+            "country": "IRL",
+            "first_name": "FNAME1",
+            "id": 1,
+            "last_name": "LNAME1",
+            "state": "IE-M"
+        },
+        {
+            "bio": "BIO2",
+            "country": "USA",
+            "first_name": "FNAME2",
+            "id": 2,
+            "last_name": "LNAME2",
+            "state": "US-CA"
+        }
+    ],
+
+    "scheduled_proposals": [
+        {
+            "day": "day_1",
+            "id": 1,
+            "presenters": [
+                1
+            ],
+            "room": "empire",
+            "session": "session_1",
+            "text": "proposal 1 abstract",
+            "title": "proposal 1"
+        },
+        {
+            "day": "day_1",
+            "id": 2,
+            "presenters": [
+                2
+            ],
+            "room": "bristol_2",
+            "session": "session_1",
+            "text": "proposal 2 abstract",
+            "title": "proposal 2"
+        }
+    ]
+}
