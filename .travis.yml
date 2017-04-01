@@ -15,7 +15,7 @@ install:
   - "npm run build"
 
 before_script:
-  - "nf start &"
+  - "nf -j tests/Procfile start &"
   - "sleep 10"
 
 # command to run tests

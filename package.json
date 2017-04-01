@@ -4,6 +4,7 @@
   "description": "An Elm-based web app for the ACCU 2017 schedule",
   "main": "index.js",
   "scripts": {
+    "test-api": "node tests/api-server/api.js",
     "api": "node dev-server/api.js",
     "build": "webpack",
     "watch": "webpack --watch",
