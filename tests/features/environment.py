@@ -1,8 +1,6 @@
 import behave
 from selenium import webdriver
 
-from pages.agenda import AgendaPage
-
 
 DRIVER_MAP = {
     'firefox': webdriver.Firefox,
