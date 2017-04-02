@@ -1,6 +1,8 @@
 import behave
 from selenium import webdriver
 
+from pages.agenda import AgendaPage
+
 
 DRIVER_MAP = {
     'firefox': webdriver.Firefox,
@@ -25,7 +27,6 @@ def create_driver(context):
     driver_name = context.config.userdata.get('browser', 'phantomjs')
     cls = DRIVER_MAP[driver_name]
     _driver = cls()
-    _driver.implicitly_wait(10)  # seconds
     return _driver
 
 

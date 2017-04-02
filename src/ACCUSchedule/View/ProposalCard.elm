@@ -66,6 +66,7 @@ bookmarkButton controlGroup model proposal =
             model.mdl
             [ Button.icon
             , Button.ripple
+            , Options.cs "bookmark-button"
             , Options.onClick <| Msg.ToggleBookmark proposal.id
             ]
             [ Icon.i icon ]
