@@ -30,9 +30,13 @@ npm install -g safaridriver
 
 ## Running the tests
 
-First you need to make sure the app is running on localhost:3000. You can just
-use the normal `nf start` command to start a local server. (Hopefully in the
-future we'll make this step unnecessary.)
+First you need to make sure the app is running on localhost:3000 and that it's
+using our canned test database. You can do this by running the following command
+from the project root:
+
+```
+nf -j tests/Profile start
+```
 
 By default the tests will use phantomjs. Run them with the `behave` command:
 
