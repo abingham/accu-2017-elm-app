@@ -15,3 +15,10 @@ def step_impl(context, count):
     page = AgendaPage(context)
     page.visit()
     assert len(page.proposals()) == count
+
+
+@step('all agenda proposals are bookmarked')
+def step_impl(context):
+    page = AgendaPage(context)
+    page.visit()
+    assert all(p.bookmarked for p in page.proposals())

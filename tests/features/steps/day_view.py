@@ -20,3 +20,10 @@ def step_impl(context, day):
     page = DayViewPage(context)
     assert all(p.day_text == day_string(day)
                for p in page.proposals())
+
+
+@step('we bookmark {count:Int} proposal(s)')
+def step_impl(context, count):
+    page = DayViewPage(context)
+    for prop in page.proposals()[:count]:
+        prop.bookmarked = True

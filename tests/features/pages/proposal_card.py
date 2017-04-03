@@ -14,10 +14,10 @@ class ProposalCard:
 
     @property
     def bookmarked(self):
-        icon = self._bookmark_button.find_element_by_name('i')
-        return icon.text != 'bookmark'
+        icon = self._bookmark_button.find_element_by_tag_name('i')
+        return icon.text == 'bookmark'
 
     @bookmarked.setter
     def bookmarked(self, value):
         if value != self.bookmarked:
-            return self._bookmark_button.click()
+            self._bookmark_button.click()
