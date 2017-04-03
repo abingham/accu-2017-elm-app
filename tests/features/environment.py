@@ -1,5 +1,6 @@
 import behave
 from selenium import webdriver
+from pages.agenda import AgendaPage
 
 
 DRIVER_MAP = {
@@ -38,6 +39,13 @@ def before_all(context):
 def after_all(context):
     _driver.quit()
 
+
+def before_tag(context, tag):
+    if tag == 'clear-agenda':
+        page = AgendaPage(context)
+        page.visit()
+        for p in page.proposals():
+            p.bookmarked = False
 
 # Register the Int type converter
 behave.register_type(Int=int)
