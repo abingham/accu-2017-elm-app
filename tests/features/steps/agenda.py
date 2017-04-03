@@ -1,24 +1,10 @@
+# Step specific to the agenda view.
+
 from behave import step
 from pages.agenda import AgendaPage
 
 
-@step('we clear all bookmarks')
+@step('we visit the agenda')
 def step_impl(context):
     page = AgendaPage(context)
     page.visit()
-    for proposal in page.proposals():
-        proposal.bookmarked = False
-
-
-@step('the agenda has {count:Int} proposals')
-def step_impl(context, count):
-    page = AgendaPage(context)
-    page.visit()
-    assert len(page.proposals()) == count
-
-
-@step('all agenda proposals are bookmarked')
-def step_impl(context):
-    page = AgendaPage(context)
-    page.visit()
-    assert all(p.bookmarked for p in page.proposals())

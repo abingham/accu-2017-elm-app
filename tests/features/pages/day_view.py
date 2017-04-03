@@ -1,8 +1,7 @@
-from .base_page import BasePage
 from .proposal_list_view import ProposalListView
 
 
-class DayViewPage(BasePage, ProposalListView):
+class DayViewPage(ProposalListView):
     """Page showing all proposals for a day."""
 
     def visit(self, day):
