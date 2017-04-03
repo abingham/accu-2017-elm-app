@@ -1,8 +1,8 @@
-from behave import given
+from behave import step
 from pages.agenda import AgendaPage
 
 
-@given('we clear all bookmarks')
+@step('we clear all bookmarks')
 def step_impl(context):
     page = AgendaPage(context)
     page.visit()
@@ -10,7 +10,7 @@ def step_impl(context):
         proposal.bookmarked = False
 
 
-@then('the agenda has {count:Int} proposals')
+@step('the agenda has {count:Int} proposals')
 def step_impl(context, count):
     page = AgendaPage(context)
     page.visit()
