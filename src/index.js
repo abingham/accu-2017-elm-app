@@ -14,7 +14,6 @@ var mountNode = document.getElementById('main');
 
 var bookmarksItem = 'accu2017_bookmarks';
 
-// TODO: Load bookmarks proposals from localstorage and pass to embed().
 var bookmarks = localStorage.getItem(bookmarksItem);
 if (bookmarks) {
     bookmarks = JSON.parse(bookmarks);

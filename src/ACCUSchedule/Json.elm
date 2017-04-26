@@ -182,7 +182,3 @@ may have come from the server.
 proposalsDecoder : Decoder (List Types.Proposal)
 proposalsDecoder =
     listDecoder proposalDecoder
-
-
-
--- |> required "track" track

@@ -51,7 +51,6 @@ update msg model =
                     else
                         id :: model.bookmarks
             in
-                -- TODO: Store the new bookmarks array via the port
                 { model | bookmarks = bookmarks } ! [ Storage.store bookmarks ]
 
         Msg.RaiseProposal raised id ->

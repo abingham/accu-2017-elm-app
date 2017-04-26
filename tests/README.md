@@ -35,7 +35,7 @@ using our canned test database. You can do this by running the following command
 from the project root:
 
 ```
-nf -j tests/Profile start
+nf -j tests/Procfile start
 ```
 
 By default the tests will use phantomjs. Run them with the `behave` command:
