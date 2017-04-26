@@ -10,13 +10,13 @@ toString : Session -> String
 toString session =
     case session of
         Session1 ->
-            "Session 1"
+            "11:00"
 
         Session2 ->
-            "Session 2"
+            "14:00"
 
         Session3 ->
-            "Session 3"
+            "16:00"
 
 
 ordinal : Session -> Int
