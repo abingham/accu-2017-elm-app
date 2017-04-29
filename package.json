@@ -10,6 +10,10 @@
     "watch": "webpack --watch",
     "dev": "webpack-dev-server --port 3000"
   },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/abingham/accu-2017-elm-app"
+  },
   "author": "Sixty North AS",
   "license": "MIT",
   "dependencies": {
