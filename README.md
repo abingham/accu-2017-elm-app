@@ -17,7 +17,12 @@ you've
 
 The app reads certain configuration information from the file `.env`. You can
 find an example of this file in `dot.env`. Before you can run the system, you
-need to copy `dot.env` to `.env` and edit it as approporiate.
+need to copy `dot.env` to `.env` and edit it as approporiate, for example:
+
+```
+cp dot.env .env
+vi .env
+```
 
 The default configuration should be good for local development purposes, but
 you'll want to use different environments for various deployment scenarios.
